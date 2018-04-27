@@ -753,7 +753,7 @@ void Instance::Private::configLoadDone(const MTPConfig &result) {
 	Global::SetRevokePrivateInbox(data.is_revoke_pm_inbox());
 	Global::SetStickersRecentLimit(data.vstickers_recent_limit.v);
 	Global::SetStickersFavedLimit(data.vstickers_faved_limit.v);
-	Global::SetPinnedDialogsCountMax(data.vpinned_dialogs_count_max.v);
+	//Global::SetPinnedDialogsCountMax(data.vpinned_dialogs_count_max.v);
 	Messenger::Instance().setInternalLinkDomain(qs(data.vme_url_prefix));
 	Global::SetChannelsReadMediaPeriod(data.vchannels_read_media_period.v);
 	Global::SetWebFileDcId(data.vwebfile_dc_id.v);
