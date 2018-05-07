@@ -126,6 +126,8 @@
 <(src_loc)/chat_helpers/gifs_list_widget.h
 <(src_loc)/chat_helpers/message_field.cpp
 <(src_loc)/chat_helpers/message_field.h
+<(src_loc)/chat_helpers/prices_list_widget.cpp
+<(src_loc)/chat_helpers/prices_list_widget.h
 <(src_loc)/chat_helpers/stickers.cpp
 <(src_loc)/chat_helpers/stickers.h
 <(src_loc)/chat_helpers/stickers_list_widget.cpp

@@ -30,6 +30,7 @@ class Controller;
 namespace ChatHelpers {
 
 enum class SelectorTab {
+   Prices,
 	Emoji,
 	Stickers,
 	Gifs,
@@ -103,7 +104,7 @@ signals:
 private:
 	class Tab {
 	public:
-		static constexpr auto kCount = 3;
+		static constexpr auto kCount = 4;
 
 		Tab(SelectorTab type, object_ptr<Inner> widget);
 

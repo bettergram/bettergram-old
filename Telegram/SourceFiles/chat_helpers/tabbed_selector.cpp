@@ -7,6 +7,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 */
 #include "chat_helpers/tabbed_selector.h"
 
+#include "chat_helpers/prices_list_widget.h"
 #include "chat_helpers/emoji_list_widget.h"
 #include "chat_helpers/stickers_list_widget.h"
 #include "chat_helpers/gifs_list_widget.h"
@@ -273,6 +274,7 @@ TabbedSelector::TabbedSelector(QWidget *parent, not_null<Window::Controller*> co
 , _bottomShadow(this)
 , _scroll(this, st::emojiScroll)
 , _tabs { {
+   Tab { SelectorTab::Prices, object_ptr<PricesListWidget>(this, controller) },
 	Tab { SelectorTab::Emoji, object_ptr<EmojiListWidget>(this, controller) },
 	Tab { SelectorTab::Stickers, object_ptr<StickersListWidget>(this, controller) },
 	Tab { SelectorTab::Gifs, object_ptr<GifsListWidget>(this, controller) },
@@ -619,6 +621,7 @@ void TabbedSelector::setRoundRadius(int radius) {
 
 void TabbedSelector::createTabsSlider() {
 	auto sections = QStringList();
+   sections.push_back(lang(lng_switch_prices).toUpper());
 	sections.push_back(lang(lng_switch_emoji).toUpper());
 	sections.push_back(lang(lng_switch_stickers).toUpper());
 	sections.push_back(lang(lng_switch_gifs).toUpper());
