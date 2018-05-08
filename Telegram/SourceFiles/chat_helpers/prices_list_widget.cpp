@@ -1,5 +1,8 @@
 #include "chat_helpers/prices_list_widget.h"
 
+#include "ui/widgets/buttons.h"
+#include "lang/lang_keys.h"
+#include "styles\style_chat_helpers.h"
 
 namespace ChatHelpers {
 
@@ -11,11 +14,20 @@ public:
 protected:
    void processPanelHideFinished() override;
    void resizeEvent(QResizeEvent* e) override;
+
+private:
+   not_null<PricesListWidget*>   _parent;
+   object_ptr<Ui::LinkButton>    _link;
 };
 
 PricesListWidget::Footer::Footer(not_null<PricesListWidget*> parent)
    :  InnerFooter(parent)
+   ,  _parent(parent)
+   ,  _link(object_ptr<Ui::LinkButton>(this, lang(lng_prices_customize_list)))
 {
+   auto  fnt = st::emojiTabs.labelFont;
+
+   _link->setFont(fnt);
 }
 
 void PricesListWidget::Footer::resizeEvent(QResizeEvent* e)

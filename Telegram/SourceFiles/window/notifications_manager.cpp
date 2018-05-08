@@ -457,7 +457,7 @@ void Manager::notificationReplied(
 void NativeManager::doShowNotification(HistoryItem *item, int forwardedCount) {
 	const auto options = getNotificationOptions(item);
 
-	const auto title = options.hideNameAndPhoto ? qsl("Telegram Desktop") : item->history()->peer->name;
+	const auto title = options.hideNameAndPhoto ? qsl("Bettergram") : item->history()->peer->name;
 	const auto subtitle = options.hideNameAndPhoto ? QString() : item->notificationHeader();
 	const auto text = options.hideMessageText
 		? lang(lng_notification_preview)
