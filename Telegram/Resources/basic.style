@@ -29,6 +29,7 @@ semibold: "Open Sans Semibold";
 fsize: 13px;
 normalFont: font(fsize);
 semiboldFont: font(fsize semibold);
+semiboldOverFont: font(fsize semibold underline);
 boxFontSize: 14px;
 boxTextFont: font(boxFontSize);
 

@@ -3,6 +3,7 @@
 #include "ui/widgets/buttons.h"
 #include "lang/lang_keys.h"
 #include "styles\style_chat_helpers.h"
+#include "styles\style_widgets.h"
 
 namespace ChatHelpers {
 
@@ -23,15 +24,12 @@ private:
 PricesListWidget::Footer::Footer(not_null<PricesListWidget*> parent)
    :  InnerFooter(parent)
    ,  _parent(parent)
-   ,  _link(object_ptr<Ui::LinkButton>(this, lang(lng_prices_customize_list)))
-{
-   auto  fnt = st::emojiTabs.labelFont;
-
-   _link->setFont(fnt);
-}
+   ,  _link(object_ptr<Ui::LinkButton>(this, lang(lng_prices_customize_list), st::largeLinkButton))
+{ }
 
 void PricesListWidget::Footer::resizeEvent(QResizeEvent* e)
 {
+   _link->move(rect().center() - _link->rect().center());
 }
 
 void PricesListWidget::Footer::processPanelHideFinished()

@@ -560,6 +560,14 @@ defaultLinkButton: LinkButton {
 	overFont: linkOverFont;
 }
 
+largeLinkButton: LinkButton
+{
+	color: lightButtonFg;
+	overColor: lightButtonFg;
+	font: semiboldFont;
+	overFont: semiboldOverFont;
+}
+
 defaultRippleAnimation: RippleAnimation {
 	color: windowBgRipple;
 	showDuration: 650;
