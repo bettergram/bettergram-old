@@ -22,6 +22,7 @@
       'linux_path_breakpad%': '/usr/local',
       'linux_path_opus_include%': '<(libs_loc)/opus/include',
       'linux_path_range%': '/usr/local',
+      'linux_path_bsd%': '/lib/x86_64-linux-gnu',
     },
     'include_dirs': [
       '/usr/local/include',
@@ -38,6 +39,7 @@
       '<(linux_path_va)/lib',
       '<(linux_path_vdpau)/lib',
       '<(linux_path_breakpad)/lib',
+      '<(linux_path_bsd)',
     ],
     'libraries': [
       'breakpad_client',
@@ -59,6 +61,7 @@
       'libvdpau.a',
       'libdrm.a',
       'libz.a',
+      'libbsd.so',
 #      '<!(pkg-config 2> /dev/null --libs <@(pkgconfig_libs))',
     ],
     'cflags_cc': [
