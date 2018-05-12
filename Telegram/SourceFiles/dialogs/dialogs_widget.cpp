@@ -1033,6 +1033,7 @@ void DialogsWidget::onFilterUpdate(bool force) {
 		}
 	}
 	_lastFilterText = filterText;
+	_chatTabs->setVisible(filterText.isEmpty() && !_searchInChat);
 }
 
 void DialogsWidget::searchInChat(Dialogs::Key chat) {
