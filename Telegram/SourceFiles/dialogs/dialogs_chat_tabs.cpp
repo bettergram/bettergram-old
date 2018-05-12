@@ -24,6 +24,16 @@ ChatTabs::ChatTabs(QWidget *parent) : TWidget(parent)
 	_listButtons.push_back(_announcementButton);
 
 	setGeometryToLeft(0, 0, width(), _listButtons.first()->height());
+
+	_favoriteButton->setClickedCallback([this] { onTabSelected(EntryType::Favorite); });
+	_groupButton->setClickedCallback([this] { onTabSelected(EntryType::Group); });
+	_oneOnOneButton->setClickedCallback([this] { onTabSelected(EntryType::OneOnOne); });
+	_announcementButton->setClickedCallback([this] { onTabSelected(EntryType::Channel); });
+}
+
+void ChatTabs::onTabSelected(EntryType type)
+{
+	emit tabSelected(type);
 }
 
 void ChatTabs::resizeEvent(QResizeEvent *e) {

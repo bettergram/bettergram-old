@@ -123,6 +123,8 @@ DialogsWidget::DialogsWidget(QWidget *parent, not_null<Window::Controller*> cont
 	connect(_filter, SIGNAL(changed()), this, SLOT(onFilterUpdate()));
 	connect(_filter, SIGNAL(cursorPositionChanged(int,int)), this, SLOT(onFilterCursorMoved(int,int)));
 
+	connect(_chatTabs, SIGNAL(tabSelected(Dialogs::EntryType)), this, SLOT(onChatTabSelected(Dialogs::EntryType)));
+
 #ifndef TDESKTOP_DISABLE_AUTOUPDATE
 	Core::UpdateChecker checker;
 	rpl::merge(
@@ -485,6 +487,11 @@ void DialogsWidget::onDraggingScrollDelta(int delta) {
 void DialogsWidget::onDraggingScrollTimer() {
 	auto delta = (_draggingScrollDelta > 0) ? qMin(_draggingScrollDelta * 3 / 20 + 1, int32(MaxScrollSpeed)) : qMax(_draggingScrollDelta * 3 / 20 - 1, -int32(MaxScrollSpeed));
 	_scroll->scrollToY(_scroll->scrollTop() + delta);
+}
+
+void DialogsWidget::onChatTabSelected(Dialogs::EntryType type)
+{
+	//TODO: handle chagning of chat tab
 }
 
 bool DialogsWidget::onSearchMessages(bool searchCache) {

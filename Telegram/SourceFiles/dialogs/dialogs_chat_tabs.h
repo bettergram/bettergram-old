@@ -8,7 +8,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 #pragma once
 
-#include "window/section_widget.h"
+#include "dialogs_entry.h"
 
 namespace Ui {
 class IconButton;
@@ -23,10 +23,12 @@ public:
 	explicit ChatTabs(QWidget *parent);
 
 signals:
+	void tabSelected(EntryType type);
 
 public slots:
 
 private slots:
+	void onTabSelected(EntryType type);
 
 protected:
 	void resizeEvent(QResizeEvent *e) override;
