@@ -25,7 +25,7 @@ public:
 	void selectTab(EntryType type);
 
 signals:
-	void tabSelected(EntryType type);
+	void tabSelected(Dialogs::EntryType type);
 
 public slots:
 
