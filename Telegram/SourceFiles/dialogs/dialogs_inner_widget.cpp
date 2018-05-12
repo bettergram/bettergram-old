@@ -211,7 +211,7 @@ void DialogsInner::paintRegion(Painter &p, const QRegion &region, bool paintingO
 
 	if (!App::main()) return;
 
-   auto listType = Dialogs::EntryType::All;  // TODO: this variable should be replaced with the actual filtered type
+	auto listType = Dialogs::EntryType::All;  // TODO: this variable should be replaced with the actual filtered type
 
 	auto r = region.boundingRect();
 	if (!paintingOther) {

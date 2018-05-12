@@ -84,7 +84,7 @@ public:
 	virtual void updateChatListExistence();
 	bool needUpdateInChatList() const;
 
-   virtual EntryTypes getEntryType() const { return _isFavorite ? EntryType::Favorite : EntryType::None; }
+	virtual EntryTypes getEntryType() const { return _isFavorite ? EntryType::Favorite : EntryType::None; }
 	virtual bool toImportant() const = 0;
 	virtual bool shouldBeInChatList() const = 0;
 	virtual int chatListUnreadCount() const = 0;
