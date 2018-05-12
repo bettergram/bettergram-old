@@ -30,7 +30,7 @@ class Controller;
 namespace ChatHelpers {
 
 enum class SelectorTab {
-   Prices,
+	Prices,
 	Emoji,
 	Stickers,
 	Gifs,
