@@ -48,7 +48,6 @@ struct PositionChange {
 };
 
 class Entry {
-   bool _isFavorite = false;
 public:
 	Entry(const Key &key);
 
@@ -135,7 +134,7 @@ private:
 	int _pinnedIndex = 0;
 	bool _isProxyPromoted = false;
 	QDateTime _lastMessageDate;
-
+	bool _isFavorite = false;
 };
 
 } // namespace Dialogs
