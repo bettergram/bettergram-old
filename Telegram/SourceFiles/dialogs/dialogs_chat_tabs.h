@@ -29,9 +29,17 @@ public slots:
 private slots:
 
 protected:
+	void resizeEvent(QResizeEvent *e) override;
 
 private:
+	object_ptr<Ui::IconButton> _favoritesButton;
+	object_ptr<Ui::IconButton> _groupButton;
+	object_ptr<Ui::IconButton> _oneOnOneButton;
+	object_ptr<Ui::IconButton> _announcementsButton;
 
+	QList<Ui::IconButton*> _listButtons;
+
+	void updateControlsGeometry();
 };
 
 } // namespace Dialogs
