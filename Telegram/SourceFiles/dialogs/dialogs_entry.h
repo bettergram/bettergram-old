@@ -28,12 +28,27 @@ enum class Mode {
 	Important = 0x01,
 };
 
+enum class EntryType : unsigned
+{
+   None = 0x00,
+   OneOnOne = 0x01,
+   Group = 0x02,
+   Channel = 0x04,
+   Feed = 0x08,
+   Favorite = 0x10,  // this will be in addition to type
+   TypeMask = 0x0F,  // only the types, disregards favorite status
+   All = 0x1F
+};
+using EntryTypes = base::flags<EntryType>;
+inline constexpr bool is_flag_type(EntryType) { return true; }
+
 struct PositionChange {
 	int movedFrom;
 	int movedTo;
 };
 
 class Entry {
+   bool _isFavorite = false;
 public:
 	Entry(const Key &key);
 
@@ -69,6 +84,7 @@ public:
 	virtual void updateChatListExistence();
 	bool needUpdateInChatList() const;
 
+   virtual EntryTypes getEntryType() const { return _isFavorite ? EntryType::Favorite : EntryType::None; }
 	virtual bool toImportant() const = 0;
 	virtual bool shouldBeInChatList() const = 0;
 	virtual int chatListUnreadCount() const = 0;

@@ -34,6 +34,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "data/data_feed.h"
 #include "ui/text_options.h"
 #include "core/crash_reports.h"
+#include "base/flags.h"
 
 namespace {
 
@@ -2396,6 +2397,16 @@ bool History::isChannel() const {
 
 bool History::isMegagroup() const {
 	return peer->isMegagroup();
+}
+
+Dialogs::EntryTypes History::getEntryType() const
+{
+   auto  ret = isChannel()
+      ?  Dialogs::EntryType::Channel
+      :  isMegagroup()
+         ?  Dialogs::EntryType::Group
+         :  Dialogs::EntryType::OneOnOne;
+   return ret | Entry::getEntryType();
 }
 
 not_null<History*> History::migrateToOrMe() const {

@@ -70,6 +70,7 @@ public:
 	const base::flat_set<QString> &chatsListNameWords() const override;
 	const base::flat_set<QChar> &chatsListFirstLetters() const override;
 	void changedInChatListHook(Dialogs::Mode list, bool added) override;
+   Dialogs::EntryTypes getEntryType() const override { return Entry::getEntryType() | Dialogs::EntryType::Feed; }
 
 	void loadUserpic() override;
 	void paintUserpic(

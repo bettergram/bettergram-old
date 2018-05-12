@@ -11,6 +11,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "dialogs/dialogs_search_from_controllers.h"
 #include "dialogs/dialogs_key.h"
 #include "dialogs/dialogs_entry.h"
+#include "dialogs/dialogs_chat_tabs.h"
 #include "history/history.h"
 #include "history/feed/history_feed_section.h"
 #include "ui/widgets/buttons.h"
@@ -100,7 +101,9 @@ DialogsWidget::DialogsWidget(QWidget *parent, not_null<Window::Controller*> cont
 	object_ptr<Ui::IconButton>(this, st::dialogsCalendar))
 , _cancelSearch(this, st::dialogsCancelSearch)
 , _lockUnlock(this, st::dialogsLock)
-, _scroll(this, st::dialogsScroll) {
+, _scroll(this, st::dialogsScroll)
+, _chatTabs(this) {
+
 	_inner = _scroll->setOwnedWidget(object_ptr<DialogsInner>(this, controller, parent));
 	connect(_inner, SIGNAL(draggingScrollDelta(int)), this, SLOT(onDraggingScrollDelta(int)));
 	connect(_inner, SIGNAL(mustScrollTo(int,int)), _scroll, SLOT(scrollToY(int,int)));
@@ -1198,7 +1201,10 @@ void DialogsWidget::updateControlsGeometry() {
 	right -= _jumpToDate->width(); _jumpToDate->moveToLeft(right, _filter->y());
 	right -= _chooseFromUser->width(); _chooseFromUser->moveToLeft(right, _filter->y());
 
-	auto scrollTop = filterAreaTop + filterAreaHeight;
+	auto chatTabsTop = filterAreaTop + filterAreaHeight;
+	_chatTabs->setGeometry(0, chatTabsTop, width(), _chatTabs->height());
+
+	auto scrollTop = chatTabsTop + _chatTabs->height();
 	auto addToScroll = App::main() ? App::main()->contentScrollAddToY() : 0;
 	auto newScrollTop = _scroll->scrollTop() + addToScroll;
 	auto scrollHeight = height() - scrollTop;

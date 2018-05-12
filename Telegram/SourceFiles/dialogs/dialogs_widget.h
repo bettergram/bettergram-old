@@ -19,6 +19,7 @@ class Row;
 class FakeRow;
 class IndexedList;
 class Key;
+class ChatTabs;
 } // namespace Dialogs
 
 namespace Ui {
@@ -193,6 +194,7 @@ private:
 	object_ptr<Ui::CrossButton> _cancelSearch;
 	object_ptr<Ui::IconButton> _lockUnlock;
 	object_ptr<Ui::ScrollArea> _scroll;
+	object_ptr<Dialogs::ChatTabs> _chatTabs;
 	QPointer<DialogsInner> _inner;
 	class UpdateButton;
 	object_ptr<UpdateButton> _updateTelegram = { nullptr };

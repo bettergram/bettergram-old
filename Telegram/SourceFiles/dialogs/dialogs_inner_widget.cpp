@@ -211,6 +211,8 @@ void DialogsInner::paintRegion(Painter &p, const QRegion &region, bool paintingO
 
 	if (!App::main()) return;
 
+   auto listType = Dialogs::EntryType::All;  // TODO: this variable should be replaced with the actual filtered type
+
 	auto r = region.boundingRect();
 	if (!paintingOther) {
 		p.setClipRect(r);
@@ -242,7 +244,7 @@ void DialogsInner::paintRegion(Painter &p, const QRegion &region, bool paintingO
 					: Dialogs::Key()));
 		if (otherStart) {
 			auto reorderingPinned = (_aboveIndex >= 0 && !_pinnedRows.empty());
-			auto &list = rows->all();
+			auto &list = rows->getFilteredList(listType);
 			if (reorderingPinned) {
 				dialogsClip = dialogsClip.marginsAdded(QMargins(0, st::dialogsRowHeight, 0, st::dialogsRowHeight));
 			}

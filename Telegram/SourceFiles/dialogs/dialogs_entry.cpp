@@ -13,6 +13,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "styles/style_dialogs.h"
 #include "history/history_item.h"
 #include "history/history.h"
+#include "base/flags.h"
 
 namespace Dialogs {
 namespace {
