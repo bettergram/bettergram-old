@@ -31,8 +31,43 @@ ChatTabs::ChatTabs(QWidget *parent) : TWidget(parent)
 	_announcementButton->setClickedCallback([this] { onTabSelected(EntryType::Channel); });
 }
 
+void ChatTabs::selectTab(EntryType type)
+{
+	// Set default icons to tab buttons
+	_favoriteButton->setIconOverride(nullptr);
+	_groupButton->setIconOverride(nullptr);
+	_oneOnOneButton->setIconOverride(nullptr);
+	_announcementButton->setIconOverride(nullptr);
+
+	// Set highlighted icon to the current tab button
+
+	switch (type) {
+	case EntryType::Favorite:
+		_favoriteButton->setIconOverride(&st::dialogsChatTabsFavoriteButton.iconOver);
+		break;
+	case EntryType::Group:
+		_groupButton->setIconOverride(&st::dialogsChatTabsGroupButton.iconOver);
+		break;
+	case EntryType::OneOnOne:
+		_oneOnOneButton->setIconOverride(&st::dialogsChatTabsOneOnOneButton.iconOver);
+		break;
+	case EntryType::Channel:
+		_announcementButton->setIconOverride(&st::dialogsChatTabsAnnouncementButton.iconOver);
+		break;
+	case EntryType::Feed:
+		_announcementButton->setIconOverride(&st::dialogsChatTabsAnnouncementButton.iconOver);
+		break;
+	case EntryType::None:
+		break;
+	default:
+		DEBUG_LOG(("Can not recognize EntryType value '%1'").arg(static_cast<int>(type)));
+		break;
+	}
+}
+
 void ChatTabs::onTabSelected(EntryType type)
 {
+	selectTab(type);
 	emit tabSelected(type);
 }
 

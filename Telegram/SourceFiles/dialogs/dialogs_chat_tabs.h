@@ -22,6 +22,8 @@ class ChatTabs : public TWidget {
 public:
 	explicit ChatTabs(QWidget *parent);
 
+	void selectTab(EntryType type);
+
 signals:
 	void tabSelected(EntryType type);
 
