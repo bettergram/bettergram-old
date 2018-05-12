@@ -13,15 +13,15 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 namespace Dialogs {
 
 ChatTabs::ChatTabs(QWidget *parent) : TWidget(parent)
-  ,_favoritesButton(this, st::dialogsMenuToggle)
-  ,_groupButton(this, st::dialogsMenuToggle)
-  ,_oneOnOneButton(this, st::dialogsMenuToggle)
-  ,_announcementsButton(this, st::dialogsMenuToggle) {
+  ,_favoriteButton(this, st::dialogsChatTabsFavoriteButton)
+  ,_groupButton(this, st::dialogsChatTabsGroupButton)
+  ,_oneOnOneButton(this, st::dialogsChatTabsOneOnOneButton)
+  ,_announcementButton(this, st::dialogsChatTabsAnnouncementButton) {
 
-	_listButtons.push_back(_favoritesButton);
+	_listButtons.push_back(_favoriteButton);
 	_listButtons.push_back(_groupButton);
 	_listButtons.push_back(_oneOnOneButton);
-	_listButtons.push_back(_announcementsButton);
+	_listButtons.push_back(_announcementButton);
 
 	setGeometryToLeft(0, 0, width(), _listButtons.first()->height());
 }

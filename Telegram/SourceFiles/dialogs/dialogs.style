@@ -223,3 +223,63 @@ dialogsSearchFromStyle: TextStyle(defaultTextStyle) {
 dialogsSearchFromPalette: TextPalette(defaultTextPalette) {
 	linkFg: dialogsNameFg;
 }
+
+dialogsChatTabsFavoriteButton: IconButton {
+        width: 40px;
+        height: 40px;
+
+        icon: icon {{ "favorites_icon", dialogsMenuIconFg }};
+        iconOver: icon {{ "favorites_icon", dialogsMenuIconFgOver }};
+        iconPosition: point(10px, 10px);
+
+        rippleAreaPosition: point(0px, 0px);
+        rippleAreaSize: 40px;
+        ripple: RippleAnimation(defaultRippleAnimation) {
+                color: windowBgOver;
+        }
+}
+
+dialogsChatTabsGroupButton: IconButton {
+        width: 40px;
+        height: 40px;
+
+        icon: icon {{ "group_icon", dialogsMenuIconFg }};
+        iconOver: icon {{ "group_icon", dialogsMenuIconFgOver }};
+        iconPosition: point(10px, 10px);
+
+        rippleAreaPosition: point(0px, 0px);
+        rippleAreaSize: 40px;
+        ripple: RippleAnimation(defaultRippleAnimation) {
+                color: windowBgOver;
+        }
+}
+
+dialogsChatTabsOneOnOneButton: IconButton {
+        width: 40px;
+        height: 40px;
+
+        icon: icon {{ "private_icon", dialogsMenuIconFg }};
+        iconOver: icon {{ "private_icon", dialogsMenuIconFgOver }};
+        iconPosition: point(10px, 10px);
+
+        rippleAreaPosition: point(0px, 0px);
+        rippleAreaSize: 40px;
+        ripple: RippleAnimation(defaultRippleAnimation) {
+                color: windowBgOver;
+        }
+}
+
+dialogsChatTabsAnnouncementButton: IconButton {
+        width: 40px;
+        height: 40px;
+
+        icon: icon {{ "announcements_icon", dialogsMenuIconFg }};
+        iconOver: icon {{ "announcements_icon", dialogsMenuIconFgOver }};
+        iconPosition: point(10px, 10px);
+
+        rippleAreaPosition: point(0px, 0px);
+        rippleAreaSize: 40px;
+        ripple: RippleAnimation(defaultRippleAnimation) {
+                color: windowBgOver;
+        }
+}

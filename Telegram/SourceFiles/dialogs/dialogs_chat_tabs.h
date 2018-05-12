@@ -32,10 +32,10 @@ protected:
 	void resizeEvent(QResizeEvent *e) override;
 
 private:
-	object_ptr<Ui::IconButton> _favoritesButton;
+	object_ptr<Ui::IconButton> _favoriteButton;
 	object_ptr<Ui::IconButton> _groupButton;
 	object_ptr<Ui::IconButton> _oneOnOneButton;
-	object_ptr<Ui::IconButton> _announcementsButton;
+	object_ptr<Ui::IconButton> _announcementButton;
 
 	QList<Ui::IconButton*> _listButtons;
 
