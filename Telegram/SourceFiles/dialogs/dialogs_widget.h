@@ -176,6 +176,8 @@ private:
 	bool searchFailed(DialogsSearchRequestType type, const RPCError &error, mtpRequestId req);
 	bool peopleFailed(const RPCError &error, mtpRequestId req);
 
+	void setChatTabsVisible(bool isVisible);
+
 	bool _dragInScroll = false;
 	bool _dragForward = false;
 	QTimer _chooseByDragTimer;
@@ -197,6 +199,7 @@ private:
 	object_ptr<Ui::IconButton> _lockUnlock;
 	object_ptr<Ui::ScrollArea> _scroll;
 	object_ptr<Dialogs::ChatTabs> _chatTabs;
+	bool _chatTabsVisible = true;
 	QPointer<DialogsInner> _inner;
 	class UpdateButton;
 	object_ptr<UpdateButton> _updateTelegram = { nullptr };

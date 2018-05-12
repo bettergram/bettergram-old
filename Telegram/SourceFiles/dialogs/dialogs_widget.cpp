@@ -929,6 +929,15 @@ bool DialogsWidget::peopleFailed(const RPCError &error, mtpRequestId req) {
 	return true;
 }
 
+void DialogsWidget::setChatTabsVisible(bool isVisible)
+{
+	if (_chatTabsVisible != isVisible) {
+		_chatTabsVisible = isVisible;
+		_chatTabs->setVisible(isVisible);
+		updateControlsGeometry();
+	}
+}
+
 void DialogsWidget::dragEnterEvent(QDragEnterEvent *e) {
 	using namespace Storage;
 
@@ -1033,7 +1042,7 @@ void DialogsWidget::onFilterUpdate(bool force) {
 		}
 	}
 	_lastFilterText = filterText;
-	_chatTabs->setVisible(filterText.isEmpty() && !_searchInChat);
+	setChatTabsVisible(filterText.isEmpty() && !_searchInChat);
 }
 
 void DialogsWidget::searchInChat(Dialogs::Key chat) {
@@ -1212,7 +1221,7 @@ void DialogsWidget::updateControlsGeometry() {
 	auto chatTabsTop = filterAreaTop + filterAreaHeight;
 	_chatTabs->setGeometry(0, chatTabsTop, width(), _chatTabs->height());
 
-	auto scrollTop = chatTabsTop + _chatTabs->height();
+	auto scrollTop = chatTabsTop + (_chatTabsVisible ? _chatTabs->height() : 0);
 	auto addToScroll = App::main() ? App::main()->contentScrollAddToY() : 0;
 	auto newScrollTop = _scroll->scrollTop() + addToScroll;
 	auto scrollHeight = height() - scrollTop;
