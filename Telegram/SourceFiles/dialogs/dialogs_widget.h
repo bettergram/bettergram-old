@@ -122,7 +122,7 @@ public slots:
 
 private slots:
 	void onDraggingScrollTimer();
-	void onChatTabSelected(Dialogs::EntryType type);
+	void onChatTabSelected(Dialogs::EntryTypes type);
 
 protected:
 	void dragEnterEvent(QDragEnterEvent *e) override;

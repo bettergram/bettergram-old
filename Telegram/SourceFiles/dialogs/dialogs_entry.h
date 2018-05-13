@@ -37,7 +37,7 @@ enum class EntryType : unsigned
    Feed = 0x08,
    Favorite = 0x10,  // this will be in addition to type
    TypeMask = 0x0F,  // only the types, disregards favorite status
-   All = 0x1F
+   All = 0x0F
 };
 using EntryTypes = base::flags<EntryType>;
 inline constexpr bool is_flag_type(EntryType) { return true; }

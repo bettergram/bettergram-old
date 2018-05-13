@@ -28,10 +28,10 @@ ChatTabs::ChatTabs(QWidget *parent) : TWidget(parent)
 	_favoriteButton->setClickedCallback([this] { onTabSelected(EntryType::Favorite); });
 	_groupButton->setClickedCallback([this] { onTabSelected(EntryType::Group); });
 	_oneOnOneButton->setClickedCallback([this] { onTabSelected(EntryType::OneOnOne); });
-	_announcementButton->setClickedCallback([this] { onTabSelected(EntryType::Channel); });
+	_announcementButton->setClickedCallback([this] { onTabSelected(EntryType::Channel | EntryType::Feed); });
 }
 
-void ChatTabs::selectTab(EntryType type)
+void ChatTabs::selectTab(EntryTypes type)
 {
 	// Set default icons to tab buttons
 	_favoriteButton->setIconOverride(nullptr);
@@ -41,7 +41,7 @@ void ChatTabs::selectTab(EntryType type)
 
 	// Set highlighted icon to the current tab button
 
-	switch (type) {
+	switch ((EntryType)type.value()) {
 	case EntryType::Favorite:
 		_favoriteButton->setIconOverride(&st::dialogsChatTabsFavoriteButton.iconOver);
 		break;
@@ -52,9 +52,8 @@ void ChatTabs::selectTab(EntryType type)
 		_oneOnOneButton->setIconOverride(&st::dialogsChatTabsOneOnOneButton.iconOver);
 		break;
 	case EntryType::Channel:
-		_announcementButton->setIconOverride(&st::dialogsChatTabsAnnouncementButton.iconOver);
-		break;
 	case EntryType::Feed:
+   case (EntryType)(EntryType::Channel | EntryType::Feed).value():
 		_announcementButton->setIconOverride(&st::dialogsChatTabsAnnouncementButton.iconOver);
 		break;
 	case EntryType::None:
@@ -65,7 +64,7 @@ void ChatTabs::selectTab(EntryType type)
 	}
 }
 
-void ChatTabs::onTabSelected(EntryType type)
+void ChatTabs::onTabSelected(EntryTypes type)
 {
 	selectTab(type);
 	emit tabSelected(type);

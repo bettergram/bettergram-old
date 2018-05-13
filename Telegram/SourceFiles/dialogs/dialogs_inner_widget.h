@@ -83,6 +83,8 @@ public:
 
 	void setMouseSelection(bool mouseSelection, bool toTop = false);
 
+	void setFilterTypes(Dialogs::EntryTypes types);
+
 	enum class State {
 		Default,
 		Filtered,

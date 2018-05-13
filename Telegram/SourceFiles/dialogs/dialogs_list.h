@@ -98,6 +98,8 @@ public:
 		return iterator(_current);
 	}
 
+	inline const SortMode& getSortMode() const { return _sortMode; }
+
 	~List();
 
 private:

@@ -32,6 +32,7 @@ RowsByLetter IndexedList::addToEnd(Key key) {
 			}
 			result.emplace(ch, j->second->addToEnd(key));
 		}
+		performFilter();
 	}
 	return result;
 }
@@ -51,6 +52,7 @@ Row *IndexedList::addByName(Key key) {
 		}
 		j->second->addByName(key);
 	}
+	performFilter();
 	return result;
 }
 
@@ -58,9 +60,11 @@ void IndexedList::adjustByPos(const RowsByLetter &links) {
 	for (auto [ch, row] : links) {
 		if (ch == QChar(0)) {
 			_list.adjustByPos(row);
+			performFilter();
 		} else {
 			if (auto it = _index.find(ch); it != _index.cend()) {
 				it->second->adjustByPos(row);
+				performFilter();
 			}
 		}
 	}
@@ -73,6 +77,7 @@ void IndexedList::moveToTop(Key key) {
 				it->second->moveToTop(key);
 			}
 		}
+		performFilter();
 	}
 }
 
@@ -88,6 +93,7 @@ void IndexedList::movePinned(Row *row, int deltaSign) {
 	Auth().data().reorderTwoPinnedDialogs(
 		row->key(),
 		(*swapPinnedIndexWith)->key());
+	performFilter();
 }
 
 void IndexedList::peerNameChanged(
@@ -101,6 +107,7 @@ void IndexedList::peerNameChanged(
 		} else {
 			adjustNames(Dialogs::Mode::All, history, oldLetters);
 		}
+		performFilter();
 	}
 }
 
@@ -112,6 +119,7 @@ void IndexedList::peerNameChanged(
 
 	if (const auto history = App::historyLoaded(peer)) {
 		adjustNames(list, history, oldLetters);
+		performFilter();
 	}
 }
 
@@ -199,7 +207,60 @@ void IndexedList::del(Key key, Row *replacedBy) {
 				it->second->del(key, replacedBy);
 			}
 		}
+		performFilter();
 	}
+}
+
+//const List& IndexedList::getFilteredList(Dialogs::EntryTypes types)
+//{
+//	using EntryTypes = Dialogs::EntryTypes;
+//
+//	if(types != _filterType || types == EntryType::None)
+//	{
+//		if((_filterType = types) == EntryType::None)
+//			return _empty;
+//
+//		performFilter();
+//	}
+//
+//	return *_pFiltered;
+//}
+
+void IndexedList::setFilterTypes(EntryTypes types)
+{
+	if(types == EntryType::None)
+		types = EntryType::All;
+
+	if(types != _filterTypes)
+	{
+		_filterTypes = types;
+		performFilter();
+	}
+}
+
+void IndexedList::performFilter()
+{
+	if(_filterTypes == EntryType::All)
+	{
+		_pFiltered.release();
+		return;
+	}
+
+	_pFiltered.reset(new List(_list.getSortMode()));
+
+	for(auto it = _list.cbegin(); it != _list.cend(); ++it)
+	{
+		if(((*it)->entry()->getEntryType() & _filterTypes) != EntryType::None)
+			_pFiltered->addToEnd((*it)->key());
+	}
+}
+
+List& IndexedList::current()
+{
+	if(_filterTypes != EntryType::All && _pFiltered)
+		return *_pFiltered;
+	else
+		return _list;
 }
 
 void IndexedList::clear() {

@@ -22,15 +22,15 @@ class ChatTabs : public TWidget {
 public:
 	explicit ChatTabs(QWidget *parent);
 
-	void selectTab(EntryType type);
+	void selectTab(EntryTypes type);
 
 signals:
-	void tabSelected(Dialogs::EntryType type);
+	void tabSelected(Dialogs::EntryTypes type);
 
 public slots:
 
 private slots:
-	void onTabSelected(EntryType type);
+	void onTabSelected(EntryTypes type);
 
 protected:
 	void resizeEvent(QResizeEvent *e) override;

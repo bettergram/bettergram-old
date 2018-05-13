@@ -41,9 +41,9 @@ public:
 	void clear();
 
 	const List &all() const {
-		return _list;
+		return const_cast<IndexedList*>(this)->current();
 	}
-	const List& getFilteredList(Dialogs::EntryTypes type) { return _list; }  // TODO: this should perform the filtering and then return the filtered list
+	//const List& getFilteredList(Dialogs::EntryTypes types);// { return _list; }  // TODO: this should perform the filtering and then return the filtered list
 
 	const List *filtered(QChar ch) const {
 		if (auto it = _index.find(ch); it != _index.cend()) {
@@ -75,6 +75,8 @@ public:
 	const_iterator cfind(int y, int h) const { return all().cfind(y, h); }
 	const_iterator find(int y, int h) const { return all().cfind(y, h); }
 	iterator find(int y, int h) { return all().find(y, h); }
+	void setFilterTypes(EntryTypes types);
+	const EntryTypes& getFilterTypes() const { return _filterTypes; }
 
 private:
 	void adjustByName(
@@ -84,12 +86,15 @@ private:
 		Mode list,
 		not_null<History*> history,
 		const base::flat_set<QChar> &oldChars);
+	void performFilter();
+
+	List& current();
 
 	SortMode _sortMode;
 	List _list, _empty;
-	List * _pFiltered = nullptr;
-	Dialogs::EntryTypes _filterType = Dialogs::EntryType::None;
+	std::unique_ptr<List>	_pFiltered;
 	base::flat_map<QChar, std::unique_ptr<List>> _index;
+	Dialogs::EntryTypes	_filterTypes = Dialogs::EntryType::All;
 
 };
 
