@@ -41,22 +41,22 @@ void ChatTabs::selectTab(const EntryTypes &type)
 
 	// Set highlighted icon to the current tab button
 
-	switch ((EntryType)type.value()) {
-	case EntryType::Favorite:
+	switch (type.value()) {
+	case static_cast<unsigned>(EntryType::Favorite):
 		_favoriteButton->setIconOverride(&st::dialogsChatTabsFavoriteButton.iconOver);
 		break;
-	case EntryType::Group:
+	case static_cast<unsigned>(EntryType::Group):
 		_groupButton->setIconOverride(&st::dialogsChatTabsGroupButton.iconOver);
 		break;
-	case EntryType::OneOnOne:
+	case static_cast<unsigned>(EntryType::OneOnOne):
 		_oneOnOneButton->setIconOverride(&st::dialogsChatTabsOneOnOneButton.iconOver);
 		break;
-	case EntryType::Channel:
-	case EntryType::Feed:
-   case (EntryType)(EntryType::Channel | EntryType::Feed).value():
+	case static_cast<unsigned>(EntryType::Channel):
+	case static_cast<unsigned>(EntryType::Feed):
+	case (EntryType::Channel | EntryType::Feed).value():
 		_announcementButton->setIconOverride(&st::dialogsChatTabsAnnouncementButton.iconOver);
 		break;
-	case EntryType::None:
+	case static_cast<unsigned>(EntryType::None):
 		break;
 	default:
 		DEBUG_LOG(("Can not recognize EntryType value '%1'").arg(static_cast<int>(type)));
