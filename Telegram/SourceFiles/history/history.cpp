@@ -2224,6 +2224,8 @@ bool History::shouldBeInChatList() const {
 		return false;
 	} else if (isPinnedDialog()) {
 		return true;
+	} else if (isFavoriteDialog()) {
+		return true;
 	} else if (const auto channel = peer->asChannel()) {
 		if (!channel->amIn()) {
 			return isProxyPromoted();

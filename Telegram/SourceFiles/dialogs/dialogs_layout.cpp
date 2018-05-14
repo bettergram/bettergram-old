@@ -160,9 +160,17 @@ void paintRow(
 		}
 
 		auto availableWidth = namewidth;
+		auto right = fullWidth;
 		if (entry->isPinnedDialog()) {
 			auto &icon = (active ? st::dialogsPinnedIconActive : (selected ? st::dialogsPinnedIconOver : st::dialogsPinnedIcon));
 			icon.paint(p, fullWidth - st::dialogsPadding.x() - icon.width(), texttop, fullWidth);
+			availableWidth -= icon.width() + st::dialogsUnreadPadding;
+			right -= icon.width() + st::dialogsUnreadPadding;
+		}
+
+		if (entry->isFavoriteDialog()) {
+			auto &icon = (active ? st::dialogsFavoriteIconActive : (selected ? st::dialogsFavoriteIconOver : st::dialogsFavoriteIcon));
+			icon.paint(p, right - st::dialogsPadding.x() - icon.width(), texttop, right);
 			availableWidth -= icon.width() + st::dialogsUnreadPadding;
 		}
 
@@ -181,9 +189,17 @@ void paintRow(
 		}
 	} else if (!item) {
 		auto availableWidth = namewidth;
+		auto right = fullWidth;
 		if (entry->isPinnedDialog()) {
 			auto &icon = (active ? st::dialogsPinnedIconActive : (selected ? st::dialogsPinnedIconOver : st::dialogsPinnedIcon));
 			icon.paint(p, fullWidth - st::dialogsPadding.x() - icon.width(), texttop, fullWidth);
+			availableWidth -= icon.width() + st::dialogsUnreadPadding;
+			right -= icon.width() + st::dialogsUnreadPadding;
+		}
+
+		if (entry->isFavoriteDialog()) {
+			auto &icon = (active ? st::dialogsFavoriteIconActive : (selected ? st::dialogsFavoriteIconOver : st::dialogsFavoriteIcon));
+			icon.paint(p, right - st::dialogsPadding.x() - icon.width(), texttop, right);
 			availableWidth -= icon.width() + st::dialogsUnreadPadding;
 		}
 
@@ -198,11 +214,22 @@ void paintRow(
 		}
 
 		paintItemCallback(nameleft, namewidth);
-	} else if (entry->isPinnedDialog()) {
-		auto availableWidth = namewidth;
-		auto &icon = (active ? st::dialogsPinnedIconActive : (selected ? st::dialogsPinnedIconOver : st::dialogsPinnedIcon));
-		icon.paint(p, fullWidth - st::dialogsPadding.x() - icon.width(), texttop, fullWidth);
-		availableWidth -= icon.width() + st::dialogsUnreadPadding;
+	} else {
+		auto right = fullWidth;
+		if (entry->isPinnedDialog()) {
+			auto availableWidth = namewidth;
+			auto &icon = (active ? st::dialogsPinnedIconActive : (selected ? st::dialogsPinnedIconOver : st::dialogsPinnedIcon));
+			icon.paint(p, fullWidth - st::dialogsPadding.x() - icon.width(), texttop, fullWidth);
+			availableWidth -= icon.width() + st::dialogsUnreadPadding;
+			right -= icon.width() + st::dialogsUnreadPadding;
+		}
+
+		if (entry->isFavoriteDialog()) {
+			auto availableWidth = namewidth;
+			auto &icon = (active ? st::dialogsFavoriteIconActive : (selected ? st::dialogsFavoriteIconOver : st::dialogsFavoriteIcon));
+			icon.paint(p, right - st::dialogsPadding.x() - icon.width(), texttop, right);
+			availableWidth -= icon.width() + st::dialogsUnreadPadding;
+		}
 	}
 	auto sendStateIcon = [&]() -> const style::icon* {
 		if (draft) {
@@ -467,10 +494,16 @@ void RowPainter::paint(
 			&& !displayMentionBadge
 			&& !displayUnreadMark
 			&& entry->isPinnedDialog();
+
+		const auto displayFavoriteIcon = !displayUnreadCounter
+			&& !displayMentionBadge
+			&& entry->isFavoriteDialog();
+
 		if (displayUnreadCounter || displayUnreadMark) {
 			auto counter = (unreadCount > 0)
 				? QString::number(unreadCount)
 				: QString();
+
 			auto unreadRight = fullWidth - st::dialogsPadding.x();
 			auto unreadTop = texttop + st::dialogsTextFont->ascent - st::dialogsUnreadFont->ascent - (st::dialogsUnreadHeight - st::dialogsUnreadFont->height) / 2;
 			auto unreadWidth = 0;
@@ -482,12 +515,24 @@ void RowPainter::paint(
 			availableWidth -= unreadWidth + st.padding;
 
 			hadOneBadge = true;
-		} else if (displayPinnedIcon) {
-			auto &icon = (active ? st::dialogsPinnedIconActive : (selected ? st::dialogsPinnedIconOver : st::dialogsPinnedIcon));
-			icon.paint(p, fullWidth - st::dialogsPadding.x() - icon.width(), texttop, fullWidth);
-			availableWidth -= icon.width() + st::dialogsUnreadPadding;
+		} else {
+			auto right = fullWidth;
+			if (displayPinnedIcon) {
+				auto &icon = (active ? st::dialogsPinnedIconActive : (selected ? st::dialogsPinnedIconOver : st::dialogsPinnedIcon));
+				icon.paint(p, fullWidth - st::dialogsPadding.x() - icon.width(), texttop, fullWidth);
+				availableWidth -= icon.width() + st::dialogsUnreadPadding;
+				right -= icon.width() + st::dialogsUnreadPadding;
 
-			hadOneBadge = true;
+				hadOneBadge = true;
+			}
+
+			if (displayFavoriteIcon) {
+				auto &icon = (active ? st::dialogsFavoriteIconActive : (selected ? st::dialogsFavoriteIconOver : st::dialogsFavoriteIcon));
+				icon.paint(p, right - st::dialogsPadding.x() - icon.width(), texttop, right);
+				availableWidth -= icon.width() + st::dialogsUnreadPadding;
+
+				hadOneBadge = true;
+			}
 		}
 		if (displayMentionBadge) {
 			auto counter = qsl("@");

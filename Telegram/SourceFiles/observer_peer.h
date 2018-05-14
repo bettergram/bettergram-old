@@ -66,6 +66,9 @@ struct PeerUpdate {
 		ChannelStickersChanged    = (1 << 18),
 		ChannelPinnedChanged      = (1 << 19),
 		ChannelPromotedChanged    = (1 << 20),
+
+		// For Bettegram
+		FavoriteChanged           = (1 << 21),
 	};
 	using Flags = base::flags<Flag>;
 	friend inline constexpr auto is_flag_type(Flag) { return true; }
