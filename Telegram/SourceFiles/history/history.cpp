@@ -2405,7 +2405,7 @@ Dialogs::EntryTypes History::getEntryType() const
 {
    auto  ret = isChannel()
       ?  Dialogs::EntryType::Channel
-      :  isMegagroup()
+      :  peer->isChat()
          ?  Dialogs::EntryType::Group
          :  Dialogs::EntryType::OneOnOne;
    return ret | Entry::getEntryType();
