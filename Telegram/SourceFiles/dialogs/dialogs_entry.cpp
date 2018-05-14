@@ -15,6 +15,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "history/history.h"
 #include "base/flags.h"
 
+#include <QSettings>
+
 namespace Dialogs {
 namespace {
 
@@ -197,4 +199,13 @@ void Entry::updateChatListEntry() const {
 	}
 }
 
+void Entry::setIsFavorite(bool isFavorite) {
+	if (_isFavorite != isFavorite) {
+		QSettings settings;
+		settings.beginGroup("isFavorite");
+		//TODO: use uniqe key for chat here
+		settings.setValue("key", isFavorite);
+		settings.endGroup();
+	}
+}
 } // namespace Dialogs
