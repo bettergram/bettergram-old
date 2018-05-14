@@ -123,7 +123,7 @@ DialogsWidget::DialogsWidget(QWidget *parent, not_null<Window::Controller*> cont
 	connect(_filter, SIGNAL(changed()), this, SLOT(onFilterUpdate()));
 	connect(_filter, SIGNAL(cursorPositionChanged(int,int)), this, SLOT(onFilterCursorMoved(int,int)));
 
-	connect(_chatTabs, SIGNAL(tabSelected(Dialogs::EntryTypes)), this, SLOT(onChatTabSelected(Dialogs::EntryTypes)));
+	connect(_chatTabs, SIGNAL(tabSelected(const Dialogs::EntryTypes &)), this, SLOT(onChatTabSelected(const Dialogs::EntryTypes &)));
 
 #ifndef TDESKTOP_DISABLE_AUTOUPDATE
 	Core::UpdateChecker checker;
@@ -489,7 +489,7 @@ void DialogsWidget::onDraggingScrollTimer() {
 	_scroll->scrollToY(_scroll->scrollTop() + delta);
 }
 
-void DialogsWidget::onChatTabSelected(Dialogs::EntryTypes types)
+void DialogsWidget::onChatTabSelected(const Dialogs::EntryTypes &types)
 {
 	_inner->setFilterTypes(types);
 	_inner->refresh();

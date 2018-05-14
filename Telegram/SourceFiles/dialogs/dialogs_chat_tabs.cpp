@@ -31,7 +31,7 @@ ChatTabs::ChatTabs(QWidget *parent) : TWidget(parent)
 	_announcementButton->setClickedCallback([this] { onTabSelected(EntryType::Channel | EntryType::Feed); });
 }
 
-void ChatTabs::selectTab(EntryTypes type)
+void ChatTabs::selectTab(const EntryTypes &type)
 {
 	// Set default icons to tab buttons
 	_favoriteButton->setIconOverride(nullptr);
@@ -64,7 +64,7 @@ void ChatTabs::selectTab(EntryTypes type)
 	}
 }
 
-void ChatTabs::onTabSelected(EntryTypes type)
+void ChatTabs::onTabSelected(const EntryTypes &type)
 {
 	selectTab(type);
 	emit tabSelected(type);
