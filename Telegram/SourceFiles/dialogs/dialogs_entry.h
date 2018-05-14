@@ -69,6 +69,9 @@ public:
 	bool isPinnedDialog() const {
 		return _pinnedIndex > 0;
 	}
+	bool isFavoriteDialog() const {
+		return _isFavorite;
+	}
 	void cachePinnedIndex(int index);
 	bool isProxyPromoted() const {
 		return _isProxyPromoted;

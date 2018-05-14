@@ -48,6 +48,7 @@ public:
 private:
 	bool showInfo();
 	void addPinToggle();
+	void addFavoriteToggle();
 	void addInfo();
 	void addSearch();
 	void addToggleUnreadMark();
@@ -75,6 +76,7 @@ public:
 private:
 	bool showInfo();
 	void addPinToggle();
+	void addFavoriteToggle();
 	void addInfo();
 	void addSearch();
 	void addNotifications();
@@ -155,7 +157,32 @@ void TogglePinnedDialog(Dialogs::Key key) {
 			main->dialogsToUp();
 		}
 	}
+}
 
+void ToggleFavoriteDialog(Dialogs::Key key) {
+	const auto isFavorite = !key.entry()->isFavoriteDialog();
+	//TODO: favorite: save isFavorite flag to local settings or send it to our servers
+
+//	Auth().data().setFavoriteDialog(key, isFavorite);
+//	auto flags = MTPmessages_ToggleDialogPin::Flags(0);
+//	if (isFavorite) {
+//		flags |= MTPmessages_ToggleDialogPin::Flag::f_pinned;
+//	}
+//	//MTP::send(MTPmessages_ToggleDialogPin( // #feed
+//	//	MTP_flags(flags),
+//	//	key.history()
+//	//		? MTP_inputDialogPeer(key.history()->peer->input)
+//	//		: MTP_inputDialogPeerFeed(MTP_int(key.feed()->id()))));
+//	if (key.history()) {
+//		MTP::send(MTPmessages_ToggleDialogPin(
+//			MTP_flags(flags),
+//			MTP_inputDialogPeer(key.history()->peer->input)));
+//	}
+	if (isFavorite) {
+		if (const auto main = App::main()) {
+			main->dialogsToUp();
+		}
+	}
 }
 
 Filler::Filler(
@@ -209,6 +236,33 @@ void Filler::addPinToggle() {
 	});
 
 	Ui::AttachAsChild(pinAction, std::move(lifetime));
+}
+
+void Filler::addFavoriteToggle() {
+	auto peer = _peer;
+	auto isFavorite = false;
+	if (auto history = App::historyLoaded(peer)) {
+		isFavorite = history->isFavoriteDialog();
+	}
+	auto favoriteText = [](bool isFavorite) {
+		return lang(isFavorite
+			? lng_context_remove_from_favorites
+			: lng_context_add_to_favorites);
+	};
+	auto favoriteToggle = [=] {
+		ToggleFavoriteDialog(App::history(peer));
+	};
+	auto favoriteAction = _addAction(favoriteText(isFavorite), favoriteToggle);
+
+	auto lifetime = Notify::PeerUpdateViewer(
+		peer,
+		Notify::PeerUpdate::Flag::FavoriteChanged
+	) | rpl::start_with_next([peer, favoriteAction, favoriteText] {
+		auto isFavorite = App::history(peer)->isFavoriteDialog();
+		favoriteAction->setText(favoriteText(isFavorite));
+	});
+
+	Ui::AttachAsChild(favoriteAction, std::move(lifetime));
 }
 
 void Filler::addInfo() {
@@ -433,6 +487,7 @@ void Filler::fill() {
 		if (const auto history = App::historyLoaded(_peer)) {
 			if (!history->useProxyPromotion()) {
 				addPinToggle();
+		addFavoriteToggle();
 			}
 		}
 	}
@@ -470,6 +525,7 @@ FeedFiller::FeedFiller(
 void FeedFiller::fill() {
 	if (_source == PeerMenuSource::ChatsList) {
 		addPinToggle();
+		addFavoriteToggle();
 	}
 	if (showInfo()) {
 		addInfo();
@@ -506,6 +562,19 @@ void FeedFiller::addPinToggle() {
 	};
 	_addAction(pinText(isPinned), [=] {
 		TogglePinnedDialog(feed);
+	});
+}
+
+void FeedFiller::addFavoriteToggle() {
+	const auto feed = _feed;
+	const auto isFavorite = feed->isFavoriteDialog();
+	const auto favoriteText = [](bool isFavorite) {
+		return lang(isFavorite
+			? lng_context_remove_from_favorites
+			: lng_context_add_to_favorites);
+	};
+	_addAction(favoriteText(isFavorite), [=] {
+		ToggleFavoriteDialog(feed);
 	});
 }
 
