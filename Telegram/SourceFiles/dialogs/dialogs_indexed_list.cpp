@@ -263,6 +263,14 @@ List& IndexedList::current()
 		return _list;
 }
 
+const List& IndexedList::current() const
+{
+	if(_filterTypes != EntryType::All && _pFiltered)
+		return *_pFiltered;
+	else
+		return _list;
+}
+
 void IndexedList::clear() {
 	_index.clear();
 }

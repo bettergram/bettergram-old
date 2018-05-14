@@ -41,7 +41,7 @@ public:
 	void clear();
 
 	const List &all() const {
-		return const_cast<IndexedList*>(this)->current();
+		return current();
 	}
 	//const List& getFilteredList(Dialogs::EntryTypes types);// { return _list; }  // TODO: this should perform the filtering and then return the filtered list
 
@@ -89,6 +89,7 @@ private:
 	void performFilter();
 
 	List& current();
+	const List& current() const;
 
 	SortMode _sortMode;
 	List _list, _empty;
