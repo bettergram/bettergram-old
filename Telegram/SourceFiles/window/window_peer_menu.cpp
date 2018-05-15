@@ -160,9 +160,10 @@ void TogglePinnedDialog(Dialogs::Key key) {
 }
 
 void ToggleFavoriteDialog(Dialogs::Key key) {
-	const auto isFavorite = !key.entry()->isFavoriteDialog();
-	//TODO: favorite: save isFavorite flag to local settings or send it to our servers
+	key.entry()->toggleIsFavoriteDialog();
+	bool isFavorite = key.entry()->isFavoriteDialog();
 
+//	const auto isFavorite = !key.entry()->isFavoriteDialog();
 //	Auth().data().setFavoriteDialog(key, isFavorite);
 //	auto flags = MTPmessages_ToggleDialogPin::Flags(0);
 //	if (isFavorite) {

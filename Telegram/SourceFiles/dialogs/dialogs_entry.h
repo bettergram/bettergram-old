@@ -73,6 +73,7 @@ public:
 		return _isFavorite;
 	}
 	void setIsFavoriteDialog(bool isFavorite);
+	void toggleIsFavoriteDialog();
 	void cachePinnedIndex(int index);
 	bool isProxyPromoted() const {
 		return _isProxyPromoted;

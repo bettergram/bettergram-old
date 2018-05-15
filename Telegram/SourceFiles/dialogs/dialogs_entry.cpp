@@ -232,4 +232,9 @@ void Entry::setIsFavoriteDialog(bool isFavorite) {
 		settings.endGroup();
 	}
 }
+
+void Entry::toggleIsFavoriteDialog() {
+	setIsFavoriteDialog(!_isFavorite);
+}
+
 } // namespace Dialogs
