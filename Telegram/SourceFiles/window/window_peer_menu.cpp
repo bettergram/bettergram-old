@@ -161,27 +161,12 @@ void TogglePinnedDialog(Dialogs::Key key) {
 
 void ToggleFavoriteDialog(Dialogs::Key key) {
 	key.entry()->toggleIsFavoriteDialog();
-	bool isFavorite = key.entry()->isFavoriteDialog();
 
-//	const auto isFavorite = !key.entry()->isFavoriteDialog();
-//	Auth().data().setFavoriteDialog(key, isFavorite);
-//	auto flags = MTPmessages_ToggleDialogPin::Flags(0);
-//	if (isFavorite) {
-//		flags |= MTPmessages_ToggleDialogPin::Flag::f_pinned;
-//	}
-//	//MTP::send(MTPmessages_ToggleDialogPin( // #feed
-//	//	MTP_flags(flags),
-//	//	key.history()
-//	//		? MTP_inputDialogPeer(key.history()->peer->input)
-//	//		: MTP_inputDialogPeerFeed(MTP_int(key.feed()->id()))));
-//	if (key.history()) {
-//		MTP::send(MTPmessages_ToggleDialogPin(
-//			MTP_flags(flags),
-//			MTP_inputDialogPeer(key.history()->peer->input)));
-//	}
-	if (isFavorite) {
-		if (const auto main = App::main()) {
-			main->dialogsToUp();
+	if (const auto main = App::main()) {
+		if (!key.entry()->isFavoriteDialog()) {
+			main->performFilterDialogsWidget();
+		} else {
+			main->repaintDialogsWidget();
 		}
 	}
 }

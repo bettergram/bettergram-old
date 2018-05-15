@@ -342,6 +342,11 @@ void DialogsWidget::notify_historyMuteUpdated(History *history) {
 	_inner->notify_historyMuteUpdated(history);
 }
 
+void DialogsWidget::performFilter()
+{
+	_inner->performFilter();
+}
+
 void DialogsWidget::dialogsReceived(
 		const MTPmessages_Dialogs &dialogs,
 		mtpRequestId requestId) {

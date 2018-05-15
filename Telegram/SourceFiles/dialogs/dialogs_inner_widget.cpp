@@ -2027,6 +2027,12 @@ void DialogsInner::notify_historyMuteUpdated(History *history) {
 	}
 }
 
+void DialogsInner::performFilter()
+{
+	shownDialogs()->performFilter();
+	refresh();
+}
+
 void DialogsInner::refresh(bool toTop) {
 	int32 h = 0;
 	if (_state == State::Default) {

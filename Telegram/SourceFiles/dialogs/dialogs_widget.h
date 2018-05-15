@@ -98,6 +98,8 @@ public:
 
 	void notify_historyMuteUpdated(History *history);
 
+	void performFilter();
+
 signals:
 	void cancelled();
 

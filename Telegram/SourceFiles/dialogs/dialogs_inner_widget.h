@@ -111,6 +111,8 @@ public:
 
 	void notify_historyMuteUpdated(History *history);
 
+	void performFilter();
+
 	~DialogsInner();
 
 public slots:

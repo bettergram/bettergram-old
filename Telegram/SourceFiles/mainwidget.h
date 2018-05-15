@@ -111,6 +111,8 @@ public:
 	void removeDialog(Dialogs::Key key);
 	void repaintDialogRow(Dialogs::Mode list, not_null<Dialogs::Row*> row);
 	void repaintDialogRow(not_null<History*> history, MsgId messageId);
+	void repaintDialogsWidget();
+	void performFilterDialogsWidget();
 
 	void windowShown();
 

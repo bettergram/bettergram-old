@@ -2599,6 +2599,16 @@ void MainWidget::repaintDialogRow(
 	_dialogs->repaintDialogRow(history, messageId);
 }
 
+void MainWidget::repaintDialogsWidget()
+{
+	_dialogs->update();
+}
+
+void MainWidget::performFilterDialogsWidget()
+{
+	_dialogs->performFilter();
+}
+
 void MainWidget::windowShown() {
 	_history->windowShown();
 }

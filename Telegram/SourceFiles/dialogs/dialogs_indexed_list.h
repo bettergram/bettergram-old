@@ -78,6 +78,8 @@ public:
 	void setFilterTypes(EntryTypes types);
 	const EntryTypes& getFilterTypes() const { return _filterTypes; }
 
+	void performFilter();
+
 private:
 	void adjustByName(
 		Key key,
@@ -86,7 +88,6 @@ private:
 		Mode list,
 		not_null<History*> history,
 		const base::flat_set<QChar> &oldChars);
-	void performFilter();
 
 	List& current();
 	const List& current() const;
