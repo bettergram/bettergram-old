@@ -225,7 +225,7 @@ void Histories::checkSelfDestructItems() {
 }
 
 History::History(const PeerId &peerId)
-: Entry(this)
+: Entry(this, peerId)
 , peer(App::peer(peerId))
 , cloudDraftTextCache(st::dialogsTextWidthMin)
 , _mute(Auth().data().notifyIsMuted(peer))

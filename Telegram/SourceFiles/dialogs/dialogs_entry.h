@@ -49,7 +49,7 @@ struct PositionChange {
 
 class Entry {
 public:
-	Entry(const Key &key);
+	Entry(const Key &key, uint64 id);
 
 	PositionChange adjustByPosInChatList(
 		Mode list,
@@ -72,7 +72,7 @@ public:
 	bool isFavoriteDialog() const {
 		return _isFavorite;
 	}
-	void setIsFavorite(bool isFavorite);
+	void setIsFavoriteDialog(bool isFavorite);
 	void cachePinnedIndex(int index);
 	bool isProxyPromoted() const {
 		return _isProxyPromoted;
@@ -131,7 +131,7 @@ private:
 	RowsByLetter &chatListLinks(Mode list);
 	const RowsByLetter &chatListLinks(Mode list) const;
 	Row *mainChatListLink(Mode list) const;
-	void loadIsFavorite();
+	void loadIsFavorite(uint64 id);
 
 	Dialogs::Key _key;
 	RowsByLetter _chatListLinks[2];

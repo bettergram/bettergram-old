@@ -31,7 +31,7 @@ namespace Data {
 //}
 
 Feed::Feed(FeedId id, not_null<Data::Session*> parent)
-: Entry(this)
+: Entry(this, id)
 , _id(id)
 , _parent(parent)
 , _name(lang(lng_feed_name)) {

@@ -39,10 +39,10 @@ uint64 PinnedDialogPos(int pinnedIndex) {
 
 } // namespace
 
-Entry::Entry(const Key &key)
+Entry::Entry(const Key &key, uint64 id)
 : lastItemTextCache(st::dialogsTextWidthMin)
 , _key(key) {
-	loadIsFavorite();
+	loadIsFavorite(id);
 }
 
 void Entry::cachePinnedIndex(int index) {
@@ -200,8 +200,8 @@ void Entry::updateChatListEntry() const {
 	}
 }
 
-void Entry::loadIsFavorite() {
-	QString keyString = QString::number(_key.id());
+void Entry::loadIsFavorite(uint64 id) {
+	QString keyString = QString::number(id);
 
 	QSettings settings;
 	settings.beginGroup("favorites");
@@ -215,7 +215,7 @@ void Entry::loadIsFavorite() {
 	settings.endGroup();
 }
 
-void Entry::setIsFavorite(bool isFavorite) {
+void Entry::setIsFavoriteDialog(bool isFavorite) {
 	if (_isFavorite != isFavorite) {
 		_isFavorite = isFavorite;
 		QString keyString = QString::number(_key.id());
