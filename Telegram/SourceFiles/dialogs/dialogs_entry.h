@@ -131,6 +131,7 @@ private:
 	RowsByLetter &chatListLinks(Mode list);
 	const RowsByLetter &chatListLinks(Mode list) const;
 	Row *mainChatListLink(Mode list) const;
+	void loadIsFavorite();
 
 	Dialogs::Key _key;
 	RowsByLetter _chatListLinks[2];

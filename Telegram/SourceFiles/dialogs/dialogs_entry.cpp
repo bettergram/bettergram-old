@@ -42,6 +42,7 @@ uint64 PinnedDialogPos(int pinnedIndex) {
 Entry::Entry(const Key &key)
 : lastItemTextCache(st::dialogsTextWidthMin)
 , _key(key) {
+	loadIsFavorite();
 }
 
 void Entry::cachePinnedIndex(int index) {
@@ -199,12 +200,35 @@ void Entry::updateChatListEntry() const {
 	}
 }
 
+void Entry::loadIsFavorite() {
+	QString keyString = QString::number(_key.id());
+
+	QSettings settings;
+	settings.beginGroup("favorites");
+
+	if (settings.contains(keyString)) {
+		_isFavorite = settings.value(keyString).toBool();
+	} else {
+		_isFavorite = false;
+	}
+
+	settings.endGroup();
+}
+
 void Entry::setIsFavorite(bool isFavorite) {
 	if (_isFavorite != isFavorite) {
+		_isFavorite = isFavorite;
+		QString keyString = QString::number(_key.id());
+
 		QSettings settings;
-		settings.beginGroup("isFavorite");
-		//TODO: use uniqe key for chat here
-		settings.setValue("key", isFavorite);
+		settings.beginGroup("favorites");
+
+		if (_isFavorite) {
+			settings.setValue(keyString, _isFavorite);
+		} else {
+			settings.remove(keyString);
+		}
+
 		settings.endGroup();
 	}
 }
