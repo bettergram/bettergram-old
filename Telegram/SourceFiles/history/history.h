@@ -115,6 +115,7 @@ public:
 	History(const History &) = delete;
 	History &operator=(const History &) = delete;
 
+	PeerId peerId() const;
 	ChannelId channelId() const;
 	bool isChannel() const;
 	bool isMegagroup() const;

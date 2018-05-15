@@ -42,4 +42,14 @@ PeerData *Key::peer() const {
 	return nullptr;
 }
 
+uint64 Key::id() const {
+	if (const auto p = base::get_if<not_null<History*>>(&_value)) {
+		return (*p)->peerId();
+	} else if (const auto p = base::get_if<not_null<Data::Feed*>>(&_value)) {
+		return (*p)->id();
+	} else {
+		return 0;
+	}
+}
+
 } // namespace Dialogs

@@ -2389,6 +2389,10 @@ void History::resizeToWidth(int newWidth) {
 	_height = y;
 }
 
+PeerId History::peerId() const {
+	return peer->id;
+}
+
 ChannelId History::channelId() const {
 	return peerToChannel(peer->id);
 }

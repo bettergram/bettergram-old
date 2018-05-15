@@ -39,6 +39,8 @@ public:
 	Data::Feed *feed() const;
 	PeerData *peer() const;
 
+	uint64 id() const;
+
 	inline bool operator<(const Key &other) const {
 		return _value < other._value;
 	}
