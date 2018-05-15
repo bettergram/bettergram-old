@@ -13,6 +13,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 namespace Dialogs {
 
 ChatTabs::ChatTabs(QWidget *parent) : TWidget(parent)
+  , _type(EntryType::None)
   ,_favoriteButton(this, st::dialogsChatTabsFavoriteButton)
   ,_groupButton(this, st::dialogsChatTabsGroupButton)
   ,_oneOnOneButton(this, st::dialogsChatTabsOneOnOneButton)
@@ -25,14 +26,16 @@ ChatTabs::ChatTabs(QWidget *parent) : TWidget(parent)
 
 	setGeometryToLeft(0, 0, width(), _listButtons.first()->height());
 
-	_favoriteButton->setClickedCallback([this] { onTabSelected(EntryType::Favorite); });
-	_groupButton->setClickedCallback([this] { onTabSelected(EntryType::Group); });
-	_oneOnOneButton->setClickedCallback([this] { onTabSelected(EntryType::OneOnOne); });
-	_announcementButton->setClickedCallback([this] { onTabSelected(EntryType::Channel | EntryType::Feed); });
+	_favoriteButton->setClickedCallback([this] { onTabClicked(EntryType::Favorite); });
+	_groupButton->setClickedCallback([this] { onTabClicked(EntryType::Group); });
+	_oneOnOneButton->setClickedCallback([this] { onTabClicked(EntryType::OneOnOne); });
+	_announcementButton->setClickedCallback([this] { onTabClicked(EntryType::Channel | EntryType::Feed); });
 }
 
 void ChatTabs::selectTab(const EntryTypes &type)
 {
+	_type = type;
+
 	// Set default icons to tab buttons
 	_favoriteButton->setIconOverride(nullptr);
 	_groupButton->setIconOverride(nullptr);
@@ -41,7 +44,7 @@ void ChatTabs::selectTab(const EntryTypes &type)
 
 	// Set highlighted icon to the current tab button
 
-	switch (type.value()) {
+	switch (_type.value()) {
 	case static_cast<unsigned>(EntryType::Favorite):
 		_favoriteButton->setIconOverride(&st::dialogsChatTabsFavoriteButton.iconOver);
 		break;
@@ -64,10 +67,19 @@ void ChatTabs::selectTab(const EntryTypes &type)
 	}
 }
 
-void ChatTabs::onTabSelected(const EntryTypes &type)
+void ChatTabs::onTabClicked(const EntryTypes &type)
 {
-	selectTab(type);
-	emit tabSelected(type);
+	// If user clicks to selected Tab twice
+	// this tab becomes unselected and we show all messages without filtering
+
+	if ((_type & type) == type) {
+		_type &= ~type;
+	} else {
+		_type = type;
+	}
+
+	selectTab(_type);
+	emit tabSelected(_type);
 }
 
 void ChatTabs::resizeEvent(QResizeEvent *e) {

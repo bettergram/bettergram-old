@@ -30,12 +30,14 @@ signals:
 public slots:
 
 private slots:
-	void onTabSelected(const EntryTypes &type);
+	void onTabClicked(const EntryTypes &type);
 
 protected:
 	void resizeEvent(QResizeEvent *e) override;
 
 private:
+	EntryTypes _type;
+
 	object_ptr<Ui::IconButton> _favoriteButton;
 	object_ptr<Ui::IconButton> _groupButton;
 	object_ptr<Ui::IconButton> _oneOnOneButton;
