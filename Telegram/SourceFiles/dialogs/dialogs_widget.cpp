@@ -1043,9 +1043,10 @@ void DialogsWidget::onFilterUpdate(bool force) {
 		}
 	}
 
-	bool  tabsVisible;
 	_lastFilterText = filterText;
-	setChatTabsVisible(tabsVisible = filterText.isEmpty() && !_searchInChat);
+
+	bool tabsVisible = filterText.isEmpty() && !_searchInChat;
+	setChatTabsVisible(tabsVisible);
 	_inner->setTabFilteringState(!tabsVisible);
 }
 
