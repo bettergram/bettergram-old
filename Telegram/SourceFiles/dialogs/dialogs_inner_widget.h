@@ -84,7 +84,7 @@ public:
 	void setMouseSelection(bool mouseSelection, bool toTop = false);
 
 	void setFilterTypes(Dialogs::EntryTypes types);
-   void setTabFilteringState(bool paused);
+	void setTabFilteringState(bool paused);
 
 	enum class State {
 		Default,
@@ -362,5 +362,5 @@ private:
 
 	base::unique_qptr<Ui::PopupMenu> _menu;
 
-   Dialogs::EntryTypes  _currentFilterTypes = Dialogs::EntryType::All;
+	Dialogs::EntryTypes  _currentFilterTypes = Dialogs::EntryType::All;
 };

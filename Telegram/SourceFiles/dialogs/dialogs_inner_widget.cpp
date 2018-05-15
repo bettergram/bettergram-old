@@ -1468,10 +1468,10 @@ void DialogsInner::setFilterTypes(Dialogs::EntryTypes types)
 
 void DialogsInner::setTabFilteringState(bool paused)
 {
-   auto types = paused ? Dialogs::EntryTypes(Dialogs::EntryType::All) : _currentFilterTypes;
+	auto types = paused ? Dialogs::EntryTypes(Dialogs::EntryType::All) : _currentFilterTypes;
 
-   shownDialogs()->setFilterTypes(types);
-   refresh();
+	shownDialogs()->setFilterTypes(types);
+	refresh();
 }
 
 void DialogsInner::leaveEventHook(QEvent *e) {
