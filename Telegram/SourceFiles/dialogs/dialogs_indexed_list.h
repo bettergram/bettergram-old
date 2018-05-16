@@ -52,6 +52,8 @@ public:
 		return &_empty;
 	}
 
+	bool isFilteredByType() const;
+
 	~IndexedList();
 
 	// Part of List interface is duplicated here for all() list.
@@ -94,7 +96,7 @@ private:
 
 	SortMode _sortMode;
 	List _list, _empty;
-	std::unique_ptr<List>	_pFiltered;
+	std::unique_ptr<List> _pFiltered;
 	base::flat_map<QChar, std::unique_ptr<List>> _index;
 	Dialogs::EntryTypes	_filterTypes = Dialogs::EntryType::All;
 

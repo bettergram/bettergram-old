@@ -1424,10 +1424,18 @@ void DialogsInner::updateSelectedRow(Dialogs::Key key) {
 			if (!entry->inChatList(Global::DialogsMode())) {
 				return;
 			}
-			auto position = entry->posInChatList(Global::DialogsMode());
-			auto top = dialogsOffset();
-			if (base::in_range(position, 0, _pinnedRows.size())) {
-				top += qRound(_pinnedRows[position].yadd.current());
+
+			int position = 0;
+			int top = dialogsOffset();
+
+			if (_dialogs->isFilteredByType()) {
+				Dialogs::Row *row = _dialogs->getRow(key);
+				position = row ? row->pos() : 0;
+			} else {
+				position = entry->posInChatList(Global::DialogsMode());
+				if (base::in_range(position, 0, _pinnedRows.size())) {
+					top += qRound(_pinnedRows[position].yadd.current());
+				}
 			}
 			update(0, top + position * st::dialogsRowHeight, getFullWidth(), st::dialogsRowHeight);
 		} else if (_selected) {

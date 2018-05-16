@@ -275,6 +275,11 @@ void IndexedList::clear() {
 	_index.clear();
 }
 
+bool IndexedList::isFilteredByType() const
+{
+	return _pFiltered.get();
+}
+
 IndexedList::~IndexedList() {
 	clear();
 }
