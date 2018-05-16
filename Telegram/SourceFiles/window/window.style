@@ -157,7 +157,9 @@ mainMenuVersionBottom: 21px;
 // Ad label
 adLabel : FlatLabel(defaultFlatLabel)
 {
-	textFg: windowSubTextFg;
+	align: align(center);
+	margin: margins(5px, 5px, 5px, 5px);
+	textFg: lightButtonFg;
 	style: TextStyle(defaultTextStyle)
 	{
 		font: semiboldFont;
