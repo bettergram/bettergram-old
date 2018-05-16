@@ -43,6 +43,7 @@ Entry::Entry(const Key &key, uint64 id)
 : lastItemTextCache(st::dialogsTextWidthMin)
 , _key(key) {
 	loadIsFavorite(id);
+	loadPinnedIndex(id);
 }
 
 void Entry::cachePinnedIndex(int index) {
@@ -54,6 +55,11 @@ void Entry::cachePinnedIndex(int index) {
 		if (wasPinned != isPinnedDialog()) {
 			changedChatListPinHook();
 		}
+
+		QSettings settings;
+		settings.beginGroup("pinned");
+		settings.setValue(QString::number(_key.id()), _pinnedIndex);
+		settings.endGroup();
 	}
 }
 
@@ -228,6 +234,14 @@ void Entry::loadIsFavorite(uint64 id) {
 		_isFavorite = false;
 	}
 
+	settings.endGroup();
+}
+
+void Entry::loadPinnedIndex(uint64 id)
+{
+	QSettings settings;
+	settings.beginGroup("pinned");
+	_pinnedIndex = settings.value(QString::number(id)).toInt();
 	settings.endGroup();
 }
 

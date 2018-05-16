@@ -138,6 +138,7 @@ private:
 	const RowsByLetter &chatListLinks(Mode list) const;
 	Row *mainChatListLink(Mode list) const;
 	void loadIsFavorite(uint64 id);
+	void loadPinnedIndex(uint64 id);
 
 	Dialogs::Key _key;
 	RowsByLetter _chatListLinks[2];
