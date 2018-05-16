@@ -14,6 +14,11 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 class BoxContent;
 class MediaView;
 
+namespace Ui
+{
+	class FlatLabel;
+}
+
 namespace Window {
 
 class Controller;
@@ -162,6 +167,7 @@ private:
 	object_ptr<TitleWidget> _title = { nullptr };
 	object_ptr<TWidget> _body;
 	object_ptr<TWidget> _rightColumn = { nullptr };
+	object_ptr<Ui::FlatLabel> _adLabel = nullptr;
 	QPointer<BoxContent> _termsBox;
 
 	QIcon _icon;

@@ -21,6 +21,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "apiwrap.h"
 #include "messenger.h"
 #include "mainwindow.h"
+#include "ui/widgets/labels.h"
 #include "styles/style_window.h"
 #include "styles/style_boxes.h"
 
@@ -56,6 +57,7 @@ QIcon CreateIcon() {
 MainWindow::MainWindow()
 : _positionUpdatedTimer([=] { savePosition(); })
 , _body(this)
+, _adLabel(this, st::adLabel)
 , _icon(CreateIcon())
 , _titleText(qsl("Bettergram")) {
 	subscribe(Theme::Background(), [this](const Theme::BackgroundUpdate &data) {
@@ -67,6 +69,8 @@ MainWindow::MainWindow()
 	subscribe(Global::RefWorkMode(), [this](DBIWorkMode mode) { workmodeUpdated(mode); });
 	subscribe(Messenger::Instance().authSessionChanged(), [this] { checkAuthSession(); });
 	checkAuthSession();
+
+	_adLabel->setText(qsl("Testing the Ad Banner"));
 
 	Messenger::Instance().termsLockValue(
 	) | rpl::start_with_next([=] {
@@ -338,6 +342,11 @@ void MainWindow::updateControlsGeometry() {
 	if (_title && !_title->isHidden()) {
 		_title->setGeometry(0, bodyTop, width(), _title->height());
 		bodyTop += _title->height();
+	}
+	if(_adLabel && !_adLabel->isHidden())
+	{
+		_adLabel->setGeometry(0, bodyTop, width(), _adLabel->height());
+		bodyTop += _adLabel->height();
 	}
 	if (_rightColumn) {
 		bodyWidth -= _rightColumn->width();
