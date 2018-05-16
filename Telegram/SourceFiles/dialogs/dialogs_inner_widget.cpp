@@ -805,7 +805,7 @@ void DialogsInner::mousePressEvent(QMouseEvent *e) {
 		auto row = _pressed;
 		row->addRipple(e->pos() - QPoint(0, dialogsOffset() + _pressed->pos() * st::dialogsRowHeight), QSize(getFullWidth(), st::dialogsRowHeight), [this, row] {
 			if (!_a_pinnedShifting.animating()) {
-				row->entry()->updateChatListEntry();
+				row->entry()->updateChatListEntry(row);
 			}
 		});
 		_dragStart = e->pos();

@@ -200,6 +200,22 @@ void Entry::updateChatListEntry() const {
 	}
 }
 
+void Entry::updateChatListEntry(Row *row) const
+{
+	if (const auto main = App::main()) {
+		if (inChatList(Mode::All)) {
+			main->repaintDialogRow(
+				Mode::All,
+				row);
+			if (inChatList(Mode::Important)) {
+				main->repaintDialogRow(
+					Mode::Important,
+					row);
+			}
+		}
+	}
+}
+
 void Entry::loadIsFavorite(uint64 id) {
 	QString keyString = QString::number(id);
 

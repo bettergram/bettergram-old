@@ -66,6 +66,11 @@ public:
 		QChar letter,
 		not_null<Row*> row);
 	void updateChatListEntry() const;
+	/// It is workaround to paint correctly.
+	/// Because now we use filtered list of dialogs we recreate Row* instances,
+	/// but the Entry contains old ones.
+	/// It would be cool to remove row pointers from Entry class in the future.
+	void updateChatListEntry(Row *row) const;
 	bool isPinnedDialog() const {
 		return _pinnedIndex > 0;
 	}
