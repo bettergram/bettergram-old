@@ -70,12 +70,12 @@ MainWindow::MainWindow()
 	subscribe(Messenger::Instance().authSessionChanged(), [this] { checkAuthSession(); });
 	checkAuthSession();
 
-	//QPalette	pal;
-	//const style::color clr = st::titleBgActive;
-	//pal.setColor(QPalette::Background, clr);
+	QPalette	pal;
+
+	pal.setColor(QPalette::Background, st::titleBgActive->c);
 	_adLabel->setText(qsl("Testing the Ad Banner"));
 	_adLabel->setAutoFillBackground(true);
-	//_adLabel->setPalette(pal);
+	_adLabel->setPalette(pal);
 
 	Messenger::Instance().termsLockValue(
 	) | rpl::start_with_next([=] {
