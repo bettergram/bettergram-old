@@ -348,8 +348,7 @@ void MainWindow::updateControlsGeometry() {
 		_title->setGeometry(0, bodyTop, width(), _title->height());
 		bodyTop += _title->height();
 	}
-	if(_adLabel && !_adLabel->isHidden())
-	{
+	if(_adLabel && !_adLabel->isHidden()) {
 		_adLabel->setGeometry(0, bodyTop, width(), _adLabel->height());
 		bodyTop += _adLabel->height();
 	}
