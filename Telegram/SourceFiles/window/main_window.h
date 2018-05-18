@@ -16,7 +16,7 @@ class MediaView;
 
 namespace Ui
 {
-	class FlatLabel;
+	class LinkButton;
 }
 
 namespace Window {
@@ -154,6 +154,7 @@ private:
 	void updatePalette();
 	void updateUnreadCounter();
 	void initSize();
+	void adBannerClicked();
 
 	bool computeIsActive() const;
 	void checkLockByTerms();
@@ -167,7 +168,7 @@ private:
 	object_ptr<TitleWidget> _title = { nullptr };
 	object_ptr<TWidget> _body;
 	object_ptr<TWidget> _rightColumn = { nullptr };
-	object_ptr<Ui::FlatLabel> _adLabel = { nullptr };
+	object_ptr<Ui::LinkButton> _adLink = { nullptr };
 	QPointer<BoxContent> _termsBox;
 
 	QIcon _icon;

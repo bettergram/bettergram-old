@@ -15,6 +15,7 @@ public:
 protected:
    void processPanelHideFinished() override;
    void resizeEvent(QResizeEvent* e) override;
+   void customizeClick();
 
 private:
    not_null<PricesListWidget*>   _parent;
@@ -25,7 +26,9 @@ PricesListWidget::Footer::Footer(not_null<PricesListWidget*> parent)
    :  InnerFooter(parent)
    ,  _parent(parent)
    ,  _link(object_ptr<Ui::LinkButton>(this, lang(lng_prices_customize_list), st::largeLinkButton))
-{ }
+{
+   _link->setClickedCallback([this] { customizeClick(); });
+}
 
 void PricesListWidget::Footer::resizeEvent(QResizeEvent* e)
 {
@@ -33,6 +36,10 @@ void PricesListWidget::Footer::resizeEvent(QResizeEvent* e)
 }
 
 void PricesListWidget::Footer::processPanelHideFinished()
+{
+}
+
+void PricesListWidget::Footer::customizeClick()
 {
 }
 

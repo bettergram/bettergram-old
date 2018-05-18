@@ -21,7 +21,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "apiwrap.h"
 #include "messenger.h"
 #include "mainwindow.h"
-#include "ui/widgets/labels.h"
+#include "ui/widgets/buttons.h"
 #include "styles/style_window.h"
 #include "styles/style_boxes.h"
 
@@ -57,7 +57,7 @@ QIcon CreateIcon() {
 MainWindow::MainWindow()
 : _positionUpdatedTimer([=] { savePosition(); })
 , _body(this)
-, _adLabel(this, st::adLabel)
+, _adLink(this, qsl(""), st::largeLinkButton)
 , _icon(CreateIcon())
 , _titleText(qsl("Bettergram")) {
 	subscribe(Theme::Background(), [this](const Theme::BackgroundUpdate &data) {
@@ -73,9 +73,11 @@ MainWindow::MainWindow()
 	QPalette	pal;
 
 	pal.setColor(QPalette::Background, st::titleBgActive->c);
-	_adLabel->setText(qsl("Testing the Ad Banner"));
-	_adLabel->setAutoFillBackground(true);
-	_adLabel->setPalette(pal);
+	_adLink->setAutoFillBackground(true);
+	_adLink->setPalette(pal);
+	_adLink->setContentsMargins(5, 5, 5, 5);
+	_adLink->setClickedCallback([this] { adBannerClicked(); });
+	_adLink->setText(qsl("Testing the Ad Banner"));
 
 	Messenger::Instance().termsLockValue(
 	) | rpl::start_with_next([=] {
@@ -348,9 +350,9 @@ void MainWindow::updateControlsGeometry() {
 		_title->setGeometry(0, bodyTop, width(), _title->height());
 		bodyTop += _title->height();
 	}
-	if(_adLabel && !_adLabel->isHidden()) {
-		_adLabel->setGeometry(0, bodyTop, width(), _adLabel->height());
-		bodyTop += _adLabel->height();
+	if(_adLink && !_adLink->isHidden()) {
+		_adLink->setGeometry(0, bodyTop, width(), _adLink->height());
+		bodyTop += _adLink->height();
 	}
 	if (_rightColumn) {
 		bodyWidth -= _rightColumn->width();
@@ -532,6 +534,11 @@ void MainWindow::setInactivePress(bool inactive) {
 	} else {
 		_inactivePressTimer.cancel();
 	}
+}
+
+void MainWindow::adBannerClicked()
+{
+	QDesktopServices::openUrl(QUrl("https://github.com/bettergram/bettergram/blob/master/docs/building-msvc.md"));
 }
 
 MainWindow::~MainWindow() = default;
