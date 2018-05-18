@@ -70,11 +70,10 @@ MainWindow::MainWindow()
 	subscribe(Messenger::Instance().authSessionChanged(), [this] { checkAuthSession(); });
 	checkAuthSession();
 
-	QPalette	pal;
-
-	pal.setColor(QPalette::Background, st::titleBgActive->c);
+	auto palette = _adLink->palette();
+	palette.setColor(QPalette::Background, st::titleBgActive->c);
+	_adLink->setPalette(palette);
 	_adLink->setAutoFillBackground(true);
-	_adLink->setPalette(pal);
 	_adLink->setContentsMargins(5, 5, 5, 5);
 	_adLink->setClickedCallback([this] { adBannerClicked(); });
 	_adLink->setText(qsl("Testing the Ad Banner"));
