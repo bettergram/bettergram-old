@@ -36,7 +36,8 @@ void Launcher::init() {
 	prepareSettings();
 
 	QCoreApplication::setApplicationName(qsl("Bettergram"));
-	QCoreApplication::setOrganizationDomain(qsl("Ventures"));
+	QCoreApplication::setOrganizationName(qsl("Ventures"));
+	QCoreApplication::setOrganizationDomain(qsl("ventures.com"));
 
 #ifndef OS_MAC_OLD
 	QCoreApplication::setAttribute(Qt::AA_DisableHighDpiScaling, true);
