@@ -154,6 +154,36 @@ mainMenuVersionLabel: FlatLabel(mainMenuTelegramLabel) {
 }
 mainMenuVersionBottom: 21px;
 
+mainMenuManageSubscriptionLabel: FlatLabel(defaultFlatLabel) {
+        align: align(left);
+        textFg: windowSubTextFg;
+        style: TextStyle(defaultTextStyle) {
+                font: semiboldFont;
+                linkFont: semiboldFont;
+                linkFontOver: font(fsize semibold underline);
+        }
+        palette: TextPalette(defaultTextPalette) {
+                linkFg: windowSubTextFg;
+        }
+}
+
+mainMenuUpgradeToBettergramProLabel: FlatLabel(defaultFlatLabel) {
+        align: align(left);
+        textFg: windowSubTextFg;
+        style: TextStyle(defaultTextStyle) {
+                font: semiboldFont;
+                linkFont: semiboldFont;
+                linkFontOver: font(fsize semibold underline);
+        }
+        palette: TextPalette(defaultTextPalette) {
+                linkFg: windowSubTextFg;
+        }
+}
+
+mainMenuNoAdsPlusCustomPricesLabel: FlatLabel(mainMenuTelegramLabel) {
+        style: defaultTextStyle;
+}
+
 // Ad label
 adLabel : FlatLabel(defaultFlatLabel)
 {

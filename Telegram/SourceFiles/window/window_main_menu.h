@@ -44,6 +44,9 @@ private:
 	object_ptr<Ui::Menu> _menu;
 	object_ptr<Ui::FlatLabel> _telegram;
 	object_ptr<Ui::FlatLabel> _version;
+	object_ptr<Ui::FlatLabel> _manageSubscription;
+	object_ptr<Ui::FlatLabel> _upgradeToBettergramPro;
+	object_ptr<Ui::FlatLabel> _noAdsPlusCustomPrices;
 	std::shared_ptr<QPointer<QAction>> _nightThemeAction;
 	base::Timer _nightThemeSwitch;
 

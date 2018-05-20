@@ -35,7 +35,10 @@ MainMenu::MainMenu(
 , _controller(controller)
 , _menu(this, st::mainMenu)
 , _telegram(this, st::mainMenuTelegramLabel)
-, _version(this, st::mainMenuVersionLabel) {
+, _version(this, st::mainMenuVersionLabel)
+, _manageSubscription(this, st::mainMenuManageSubscriptionLabel)
+, _upgradeToBettergramPro(this, st::mainMenuUpgradeToBettergramProLabel)
+, _noAdsPlusCustomPrices(this, st::mainMenuNoAdsPlusCustomPricesLabel) {
 	setAttribute(Qt::WA_OpaquePaintEvent);
 
 	subscribe(Global::RefSelfChanged(), [this] {
@@ -62,6 +65,14 @@ MainMenu::MainMenu(
 	_version->setRichText(textcmdLink(1, lng_settings_current_version(lt_version, currentVersionText())) + QChar(' ') + QChar(8211) + QChar(' ') + textcmdLink(2, lang(lng_menu_about)));
 	_version->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://desktop.telegram.org/changelog")));
 	_version->setLink(2, std::make_shared<LambdaClickHandler>([] { Ui::show(Box<AboutBox>()); }));
+
+	_manageSubscription->setRichText(textcmdLink(1, lang(lng_menu_manage_subscription)));
+	_manageSubscription->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://desktop.telegram.org")));
+
+	_upgradeToBettergramPro->setRichText(textcmdLink(1, lang(lng_menu_upgrade_to_bettergram_pro)));
+	_upgradeToBettergramPro->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://desktop.telegram.org")));
+
+	_noAdsPlusCustomPrices->setRichText(lang(lng_menu_no_ads_plus_custom_prices));
 
 	subscribe(Auth().downloaderTaskFinished(), [this] { update(); });
 	subscribe(Auth().downloaderTaskFinished(), [this] { update(); });
@@ -162,6 +173,12 @@ void MainMenu::updateControlsGeometry() {
 	_menu->moveToLeft(0, st::mainMenuCoverHeight + st::mainMenuSkip);
 	_telegram->moveToLeft(st::mainMenuFooterLeft, height() - st::mainMenuTelegramBottom - _telegram->height());
 	_version->moveToLeft(st::mainMenuFooterLeft, height() - st::mainMenuVersionBottom - _version->height());
+
+	// We use st::mainMenuVersionBottom in order to do not introduce new variable and to keep
+	// spaces in coordinated view
+	_noAdsPlusCustomPrices->moveToLeft(st::mainMenuFooterLeft, _telegram->y() - st::mainMenuVersionBottom - _upgradeToBettergramPro->height());
+	_upgradeToBettergramPro->moveToLeft(st::mainMenuFooterLeft, _noAdsPlusCustomPrices->y() - _noAdsPlusCustomPrices->height());
+	_manageSubscription->moveToLeft(st::mainMenuFooterLeft, _menu->y() + _menu->height() + st::mainMenuVersionBottom);
 }
 
 void MainMenu::updatePhone() {
