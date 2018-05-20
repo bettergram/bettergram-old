@@ -64,6 +64,7 @@ menuIconFgOver: #3fc1b0; // default popup menu item icon with mouse over
 menuSubmenuArrowFg: #373737; // default popup menu submenu arrow icon (like in message field context menu in case of RTL system language)
 menuFgDisabled: #cccccc; // default popup menu item disabled text (like unavailable items in message field context menu)
 menuSeparatorFg: #f1f1f1; // default popup menu separator (like in message field context menu)
+menuSubscription: #3fc1b0; // color for subscription menu items
 
 scrollBarBg: #00000053; // default scroll bar current rectangle, the bar itself (like in chats list)
 scrollBarBgOver: #0000007a; // default scroll bar current rectangle with mouse over it

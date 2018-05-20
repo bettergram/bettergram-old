@@ -156,27 +156,27 @@ mainMenuVersionBottom: 21px;
 
 mainMenuManageSubscriptionLabel: FlatLabel(defaultFlatLabel) {
         align: align(left);
-        textFg: windowSubTextFg;
+        textFg: menuSubscription;
         style: TextStyle(defaultTextStyle) {
                 font: semiboldFont;
                 linkFont: semiboldFont;
                 linkFontOver: font(fsize semibold underline);
         }
         palette: TextPalette(defaultTextPalette) {
-                linkFg: windowSubTextFg;
+                linkFg: menuSubscription;
         }
 }
 
 mainMenuUpgradeToBettergramProLabel: FlatLabel(defaultFlatLabel) {
         align: align(left);
-        textFg: windowSubTextFg;
+        textFg: menuSubscription;
         style: TextStyle(defaultTextStyle) {
                 font: semiboldFont;
                 linkFont: semiboldFont;
                 linkFontOver: font(fsize semibold underline);
         }
         palette: TextPalette(defaultTextPalette) {
-                linkFg: windowSubTextFg;
+                linkFg: menuSubscription;
         }
 }
 
