@@ -178,6 +178,12 @@ DialogsWidget::DialogsWidget(QWidget *parent, not_null<Window::Controller*> cont
 	updateJumpToDateVisibility(true);
 	updateSearchFromVisibility(true);
 	setupConnectingWidget();
+
+	auto curTab = _chatTabs->getSelectedTab();
+
+	if(curTab != Dialogs::EntryType::All && curTab != Dialogs::EntryType::None) {
+		onChatTabSelected(curTab);
+	}
 }
 
 void DialogsWidget::setupConnectingWidget() {

@@ -113,6 +113,8 @@ public:
 
 	void performFilter();
 
+   const Dialogs::EntryTypes& getCurrentFilter() const { return _currentFilterTypes; }
+
 	~DialogsInner();
 
 public slots:

@@ -24,6 +24,8 @@ public:
 
 	void selectTab(const EntryTypes &type);
 
+   const EntryTypes& getSelectedTab() const { return _type; }
+
 signals:
 	void tabSelected(const Dialogs::EntryTypes &type);
 

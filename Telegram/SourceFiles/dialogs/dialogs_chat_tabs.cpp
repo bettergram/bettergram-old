@@ -30,6 +30,14 @@ ChatTabs::ChatTabs(QWidget *parent) : TWidget(parent)
 	_groupButton->setClickedCallback([this] { onTabClicked(EntryType::Group); });
 	_oneOnOneButton->setClickedCallback([this] { onTabClicked(EntryType::OneOnOne); });
 	_announcementButton->setClickedCallback([this] { onTabClicked(EntryType::Channel | EntryType::Feed); });
+
+   _type = EntryTypes(static_cast<EntryType>((QSettings()).value(qsl("last_tab"), static_cast<unsigned>(EntryType::None)).toUInt()));
+
+   if(_type != EntryType::None)
+   {
+      selectTab(_type);
+      emit tabSelected(_type);
+   }
 }
 
 void ChatTabs::selectTab(const EntryTypes &type)
@@ -41,6 +49,8 @@ void ChatTabs::selectTab(const EntryTypes &type)
 	_groupButton->setIconOverride(nullptr);
 	_oneOnOneButton->setIconOverride(nullptr);
 	_announcementButton->setIconOverride(nullptr);
+
+   (QSettings()).setValue(qsl("last_tab"), static_cast<unsigned>(type));
 
 	// Set highlighted icon to the current tab button
 
