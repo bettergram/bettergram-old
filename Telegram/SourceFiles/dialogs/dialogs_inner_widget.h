@@ -113,7 +113,7 @@ public:
 
 	void performFilter();
 
-   const Dialogs::EntryTypes& getCurrentFilter() const { return _currentFilterTypes; }
+	const Dialogs::EntryTypes& currentFilter() const { return _currentFilterTypes; }
 
 	~DialogsInner();
 
@@ -366,5 +366,5 @@ private:
 
 	base::unique_qptr<Ui::PopupMenu> _menu;
 
-	Dialogs::EntryTypes  _currentFilterTypes = Dialogs::EntryType::All;
+	Dialogs::EntryTypes _currentFilterTypes = Dialogs::EntryType::All;
 };

@@ -77,6 +77,11 @@ void ChatTabs::selectTab(const EntryTypes &type)
 	}
 }
 
+const EntryTypes &ChatTabs::selectedTab() const
+{
+	return _type;
+}
+
 void ChatTabs::onTabClicked(const EntryTypes &type)
 {
 	// If user clicks to selected Tab twice

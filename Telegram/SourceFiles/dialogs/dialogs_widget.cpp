@@ -179,7 +179,7 @@ DialogsWidget::DialogsWidget(QWidget *parent, not_null<Window::Controller*> cont
 	updateSearchFromVisibility(true);
 	setupConnectingWidget();
 
-	auto curTab = _chatTabs->getSelectedTab();
+	auto curTab = _chatTabs->selectedTab();
 
 	if(curTab != Dialogs::EntryType::All && curTab != Dialogs::EntryType::None) {
 		onChatTabSelected(curTab);
