@@ -18,14 +18,23 @@ class BettergramSettings : public QObject {
 	Q_OBJECT
 
 public:
+	enum class BillingPlan {
+		Unknown,
+		Monthly,
+		Quarterly,
+		Yearly
+	};
+
 	static BettergramSettings *instance();
 
 	bool isPaid() const;
+	BillingPlan billingPlan() const;
 
 public slots:
 
 signals:
 	void isPaidChanged();
+	void billingPlanChanged();
 
 protected:
 
@@ -33,10 +42,12 @@ private:
 	static BettergramSettings *_instance;
 
 	bool _isPaid = false;
+	BillingPlan _billingPlan = BillingPlan::Unknown;
 
 	explicit BettergramSettings(QObject *parent = nullptr);
 
 	void setIsPaid(bool isPaid);
+	void setBillingPlan(BillingPlan billingPlan);
 
 	void getIsPaid();
 };

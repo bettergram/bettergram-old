@@ -39,9 +39,22 @@ void BettergramSettings::setIsPaid(bool isPaid)
 	}
 }
 
+BettergramSettings::BillingPlan BettergramSettings::billingPlan() const
+{
+	return _billingPlan;
+}
+
+void BettergramSettings::setBillingPlan(BillingPlan billingPlan)
+{
+	if (_billingPlan != billingPlan) {
+		_billingPlan = billingPlan;
+		emit billingPlanChanged();
+	}
+}
+
 void BettergramSettings::getIsPaid()
 {
-	//TODO: bettergram: ask server and get know if the instance is paid or not
+	//TODO: bettergram: ask server and get know if the instance is paid or not and the current billing plan
 }
 
 } // namespace Bettergrams
