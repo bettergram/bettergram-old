@@ -58,6 +58,7 @@ private:
 	void setBillingPlan(BillingPlan billingPlan);
 
 	void getIsPaid();
+	void getAd();
 };
 
 } // namespace Bettergram
