@@ -71,9 +71,6 @@ MainWindow::MainWindow()
 	subscribe(Messenger::Instance().authSessionChanged(), [this] { checkAuthSession(); });
 	checkAuthSession();
 
-	auto palette = _adLink->palette();
-	palette.setColor(QPalette::Background, st::titleBgActive->c);
-	_adLink->setPalette(palette);
 	_adLink->setAutoFillBackground(true);
 	_adLink->setContentsMargins(5, 5, 5, 5);
 	_adLink->setClickedCallback([this] { adBannerClicked(); });
@@ -274,6 +271,9 @@ void MainWindow::updatePalette() {
 	auto p = palette();
 	p.setColor(QPalette::Window, st::windowBg->c);
 	setPalette(p);
+	p = _adLink->palette();
+	p.setColor(QPalette::Background, st::windowBg->c);
+	_adLink->setPalette(p);
 }
 
 HitTestResult MainWindow::hitTest(const QPoint &p) const {
