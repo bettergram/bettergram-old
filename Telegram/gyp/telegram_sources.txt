@@ -798,6 +798,8 @@
 <(src_loc)/settings.h
 <(src_loc)/shortcuts.cpp
 <(src_loc)/shortcuts.h
+<(src_loc)/bettergram/bettergramsettings.cpp
+<(src_loc)/bettergram/bettergramsettings.h
 <(emoji_suggestions_loc)/emoji_suggestions.cpp
 <(emoji_suggestions_loc)/emoji_suggestions.h
 
