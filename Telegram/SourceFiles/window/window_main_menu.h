@@ -37,6 +37,7 @@ private:
 	void updateControlsGeometry();
 	void updatePhone();
 	void refreshMenu();
+	void updateBettergramProText();
 
 	not_null<Controller*> _controller;
 	object_ptr<Ui::UserpicButton> _userpicButton = { nullptr };

@@ -17,6 +17,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_menu_night_mode" = "Night Mode";
 "lng_menu_manage_subscription" = "Manage Subscription";
 "lng_menu_upgrade_to_bettergram_pro" = "Upgrade to Bettergram Pro";
+"lng_menu_bettergram_pro" = "Bettergram Pro";
 "lng_menu_no_ads_plus_custom_prices" = "(No Ads + Custom Prices)";
 
 "lng_disable_notifications_from_tray" = "Disable notifications";

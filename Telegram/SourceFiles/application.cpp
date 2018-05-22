@@ -19,6 +19,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "base/qthelp_regex.h"
 #include "core/update_checker.h"
 #include "core/crash_report_window.h"
+#include "bettergram/bettergramsettings.h"
 
 namespace {
 
@@ -122,6 +123,8 @@ Application::Application(
         LOG(("Connecting local socket to %1...").arg(_localServerName));
 		_localSocket.connectToServer(_localServerName);
 	}
+
+	Bettergram::BettergramSettings::init();
 }
 
 Application::~Application() = default;

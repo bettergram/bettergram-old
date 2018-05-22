@@ -7,6 +7,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 */
 #pragma once
 
+#include "base/observer.h"
 #include <QObject>
 
 namespace Bettergram {
@@ -25,10 +26,14 @@ public:
 		Yearly
 	};
 
+	static BettergramSettings *init();
 	static BettergramSettings *instance();
 
 	bool isPaid() const;
 	BillingPlan billingPlan() const;
+
+	base::Observable<void> &isPaidObservable();
+	base::Observable<void> &billingPlanObservable();
 
 public slots:
 
@@ -43,6 +48,9 @@ private:
 
 	bool _isPaid = false;
 	BillingPlan _billingPlan = BillingPlan::Unknown;
+
+	base::Observable<void> _isPaidObservable;
+	base::Observable<void> _billingPlanObservable;
 
 	explicit BettergramSettings(QObject *parent = nullptr);
 

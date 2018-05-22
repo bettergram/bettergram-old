@@ -25,6 +25,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "observer_peer.h"
 #include "auth_session.h"
 #include "mainwidget.h"
+#include "bettergram/bettergramsettings.h"
 
 namespace Window {
 
@@ -69,8 +70,10 @@ MainMenu::MainMenu(
 	_manageSubscription->setRichText(textcmdLink(1, lang(lng_menu_manage_subscription)));
 	_manageSubscription->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://desktop.telegram.org")));
 
-	_upgradeToBettergramPro->setRichText(textcmdLink(1, lang(lng_menu_upgrade_to_bettergram_pro)));
-	_upgradeToBettergramPro->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://desktop.telegram.org")));
+	Bettergram::BettergramSettings *settings = Bettergram::BettergramSettings::instance();
+	subscribe(settings->isPaidObservable(), [this] { updateBettergramProText(); });
+
+	updateBettergramProText();
 
 	_noAdsPlusCustomPrices->setRichText(lang(lng_menu_no_ads_plus_custom_prices));
 
@@ -87,6 +90,7 @@ MainMenu::MainMenu(
 			refreshMenu();
 		}
 	});
+
 	updatePhone();
 }
 
@@ -130,6 +134,21 @@ void MainMenu::refreshMenu() {
 	}
 
 	updatePhone();
+}
+
+void MainMenu::updateBettergramProText()
+{
+	Bettergram::BettergramSettings *settings = Bettergram::BettergramSettings::instance();
+
+	//TODO: bettergram: set correct links to bettergram pro labels
+
+	if (settings->isPaid()) {
+		_upgradeToBettergramPro->setRichText(textcmdLink(1, lang(lng_menu_bettergram_pro)));
+		_upgradeToBettergramPro->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://desktop.telegram.org")));
+	} else {
+		_upgradeToBettergramPro->setRichText(textcmdLink(1, lang(lng_menu_upgrade_to_bettergram_pro)));
+		_upgradeToBettergramPro->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://desktop.telegram.org")));
+	}
 }
 
 void MainMenu::checkSelf() {

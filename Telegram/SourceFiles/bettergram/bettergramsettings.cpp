@@ -8,9 +8,16 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 #include "bettergramsettings.h"
 
+#include <QTimer>
+
 namespace Bettergram {
 
 BettergramSettings *BettergramSettings::_instance = nullptr;
+
+BettergramSettings *BettergramSettings::init()
+{
+	return instance();
+}
 
 BettergramSettings *BettergramSettings::instance()
 {
@@ -35,7 +42,9 @@ void BettergramSettings::setIsPaid(bool isPaid)
 {
 	if (_isPaid != isPaid) {
 		_isPaid = isPaid;
+
 		emit isPaidChanged();
+		_isPaidObservable.notify();
 	}
 }
 
@@ -48,8 +57,20 @@ void BettergramSettings::setBillingPlan(BillingPlan billingPlan)
 {
 	if (_billingPlan != billingPlan) {
 		_billingPlan = billingPlan;
+
 		emit billingPlanChanged();
+		_billingPlanObservable.notify();
 	}
+}
+
+base::Observable<void> &BettergramSettings::isPaidObservable()
+{
+	return _isPaidObservable;
+}
+
+base::Observable<void> &BettergramSettings::billingPlanObservable()
+{
+	return _billingPlanObservable;
 }
 
 void BettergramSettings::getIsPaid()
