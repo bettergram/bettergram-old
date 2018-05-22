@@ -22,6 +22,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "messenger.h"
 #include "mainwindow.h"
 #include "ui/widgets/buttons.h"
+#include "bettergram/bettergramsettings.h"
 #include "styles/style_window.h"
 #include "styles/style_boxes.h"
 
@@ -85,6 +86,12 @@ MainWindow::MainWindow()
 
 	_isActiveTimer.setCallback([this] { updateIsActive(0); });
 	_inactivePressTimer.setCallback([this] { setInactivePress(false); });
+
+	Bettergram::BettergramSettings *settings = Bettergram::BettergramSettings::instance();
+	settings->connect(settings, &Bettergram::BettergramSettings::isPaidChanged,
+					  this, &MainWindow::onIsPaidChanged);
+
+	onIsPaidChanged();
 }
 
 void MainWindow::checkLockByTerms() {
@@ -201,6 +208,19 @@ void MainWindow::updateIsActive(int timeout) {
 
 bool MainWindow::computeIsActive() const {
 	return isActiveWindow() && isVisible() && !(windowState() & Qt::WindowMinimized);
+}
+
+void MainWindow::onIsPaidChanged()
+{
+	Bettergram::BettergramSettings *settings = Bettergram::BettergramSettings::instance();
+
+	if (settings->isPaid()) {
+		_adLink->hide();
+	} else {
+		_adLink->show();
+	}
+
+	updateControlsGeometry();
 }
 
 void MainWindow::updateWindowIcon() {

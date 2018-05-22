@@ -149,6 +149,7 @@ protected:
 
 	void setPositionInited();
 
+	void onIsPaidChanged();
 private:
 	void checkAuthSession();
 	void updatePalette();
