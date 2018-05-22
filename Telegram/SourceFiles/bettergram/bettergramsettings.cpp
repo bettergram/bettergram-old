@@ -23,6 +23,25 @@ BettergramSettings *BettergramSettings::instance()
 
 Bettergram::BettergramSettings::BettergramSettings(QObject *parent) : QObject(parent)
 {
+	getIsPaid();
+}
+
+bool BettergramSettings::isPaid() const
+{
+	return _isPaid;
+}
+
+void BettergramSettings::setIsPaid(bool isPaid)
+{
+	if (_isPaid != isPaid) {
+		_isPaid = isPaid;
+		emit isPaidChanged();
+	}
+}
+
+void BettergramSettings::getIsPaid()
+{
+	//TODO: bettergram: ask server and get know if the instance is paid or not
 }
 
 } // namespace Bettergrams

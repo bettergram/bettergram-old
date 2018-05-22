@@ -20,17 +20,25 @@ class BettergramSettings : public QObject {
 public:
 	static BettergramSettings *instance();
 
+	bool isPaid() const;
+
 public slots:
 
 signals:
+	void isPaidChanged();
 
 protected:
 
 private:
 	static BettergramSettings *_instance;
 
+	bool _isPaid = false;
+
 	explicit BettergramSettings(QObject *parent = nullptr);
 
+	void setIsPaid(bool isPaid);
+
+	void getIsPaid();
 };
 
 } // namespace Bettergram
