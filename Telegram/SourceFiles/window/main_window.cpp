@@ -271,9 +271,6 @@ void MainWindow::updatePalette() {
 	auto p = palette();
 	p.setColor(QPalette::Window, st::windowBg->c);
 	setPalette(p);
-	p = _adLink->palette();
-	p.setColor(QPalette::Background, st::windowBg->c);
-	_adLink->setPalette(p);
 }
 
 HitTestResult MainWindow::hitTest(const QPoint &p) const {
