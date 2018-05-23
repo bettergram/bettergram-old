@@ -7,6 +7,11 @@ class Controller;
 
 namespace ChatHelpers {
 
+/**
+ * @brief The PricesListWidget class shows cryptocurrency price list.
+ * In normal Qt application we should use QTableView, but it would be strange for this application
+ * because it uses low level painting for drawing custom widgets.
+ */
 class PricesListWidget : public TabbedSelector::Inner
 {
 	Q_OBJECT
@@ -25,6 +30,7 @@ public slots:
 protected:
 	TabbedSelector::InnerFooter* getFooter() const override;
 	int countDesiredHeight(int newWidth) override;
+	void paintEvent(QPaintEvent *event) override;
 
 private:
 	class Footer;
