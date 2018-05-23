@@ -621,7 +621,7 @@ void TabbedSelector::setRoundRadius(int radius) {
 
 void TabbedSelector::createTabsSlider() {
 	auto sections = QStringList();
-   sections.push_back(lang(lng_switch_prices).toUpper());
+	sections.push_back(lang(lng_switch_prices).toUpper());
 	sections.push_back(lang(lng_switch_emoji).toUpper());
 	sections.push_back(lang(lng_switch_stickers).toUpper());
 	sections.push_back(lang(lng_switch_gifs).toUpper());

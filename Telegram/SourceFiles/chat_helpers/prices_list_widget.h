@@ -9,30 +9,27 @@ namespace ChatHelpers {
 
 class PricesListWidget : public TabbedSelector::Inner
 {
-   Q_OBJECT
+	Q_OBJECT
 
 public:
-   PricesListWidget(QWidget* parent, not_null<Window::Controller*> controller);
+	PricesListWidget(QWidget* parent, not_null<Window::Controller*> controller);
 
-   using Section = Ui::Emoji::Section;
-
-   void refreshRecent() override;
-   void clearSelection() override;
-   object_ptr<TabbedSelector::InnerFooter> createFooter() override;
+	void refreshRecent() override;
+	void clearSelection() override;
+	object_ptr<TabbedSelector::InnerFooter> createFooter() override;
 
 public slots:
 
 //signals:
 
 protected:
-   TabbedSelector::InnerFooter* getFooter() const override;
-   int countDesiredHeight(int newWidth) override;
+	TabbedSelector::InnerFooter* getFooter() const override;
+	int countDesiredHeight(int newWidth) override;
 
 private:
-   class Footer;
+	class Footer;
 
-   Footer   *  _footer = nullptr;
-
+	Footer *_footer = nullptr;
 };
 
-}
+} // namespace ChatHelpers
