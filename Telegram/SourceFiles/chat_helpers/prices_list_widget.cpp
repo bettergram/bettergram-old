@@ -122,7 +122,13 @@ TabbedSelector::InnerFooter* PricesListWidget::getFooter() const
 
 int PricesListWidget::countDesiredHeight(int newWidth)
 {
-	return 1;
+	Q_UNUSED(newWidth);
+
+	return _marketCap->y()
+			+ _marketCap->height()
+			+ st::pricesPanPadding
+			+ st::pricesPanTableHeaderHeight
+			+ st::pricesPanTableRowHeight * BettergramSettings::instance()->cryptoPriceList()->count();
 }
 
 void PricesListWidget::paintEvent(QPaintEvent *event) {
@@ -140,19 +146,13 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 
 	// Draw table header
 
-	//TODO: bettergram: move column24hWidth and columnPriceWidth to style
-	int column24hWidth = 60;
-	int columnPriceWidth = 110;
-	int columnCoinWidth = width() - columnPriceWidth - column24hWidth - 2 * textLeftPadding;
+	int columnCoinWidth = width() - st::pricesPanColumnPriceWidth - st::pricesPanColumn24hWidth - 2 * textLeftPadding;
 
 	int columnCoinLeft = textLeftPadding;
 	int columnPriceLeft = textLeftPadding + columnCoinWidth;
-	int column24hLeft = width() - column24hWidth - textLeftPadding;
+	int column24hLeft = width() - st::pricesPanColumn24hWidth - textLeftPadding;
 
-	//TODO: bettergram: move headerHeight to style
-	int headerHeight = 50;
-
-	QRect headerRect(0, top, width(), headerHeight);
+	QRect headerRect(0, top, width(), st::pricesPanTableHeaderHeight);
 
 	painter.fillRect(headerRect, st::pricesPanTableHeaderBg);
 
@@ -161,33 +161,29 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 	painter.drawText(columnCoinLeft, headerRect.top(), columnCoinWidth, headerRect.height(),
 					 Qt::AlignLeft | Qt::AlignVCenter, lang(lng_prices_header_coin));
 
-	painter.drawText(columnPriceLeft, headerRect.top(), columnPriceWidth, headerRect.height(),
+	painter.drawText(columnPriceLeft, headerRect.top(), st::pricesPanColumnPriceWidth, headerRect.height(),
 					 Qt::AlignRight | Qt::AlignVCenter, lang(lng_prices_header_price));
 
-	painter.drawText(column24hLeft, headerRect.top(), column24hWidth, headerRect.height(),
+	painter.drawText(column24hLeft, headerRect.top(), st::pricesPanColumn24hWidth, headerRect.height(),
 					 Qt::AlignRight | Qt::AlignVCenter, lang(lng_prices_header_24h));
 
-	top += headerHeight;
+	top += st::pricesPanTableHeaderHeight;
 
 	// Draw rows
 
-	//TODO: bettergram: move rowHeight and imageSize to style
-	int rowHeight = 50;
-	int imageSize = 24;
-
-	int columnCoinTextLeft = columnCoinLeft + imageSize + textLeftPadding;
+	int columnCoinTextLeft = columnCoinLeft + st::pricesPanTableImageSize + textLeftPadding;
 
 	for (const CryptoPrice *price : *BettergramSettings::instance()->cryptoPriceList()) {
 		//TODO: bettergram: draw cryptocurrency icon
 
 		painter.setPen(st::pricesPanTableCryptoNameFg);
 
-		painter.drawText(columnCoinTextLeft, top, columnCoinWidth, rowHeight / 2,
+		painter.drawText(columnCoinTextLeft, top, columnCoinWidth, st::pricesPanTableRowHeight / 2,
 						 Qt::AlignLeft | Qt::AlignBottom, price->name());
 
 		painter.setPen(st::pricesPanTableCryptoShortNameFg);
 
-		painter.drawText(columnCoinTextLeft, top + rowHeight / 2, columnCoinWidth, rowHeight / 2,
+		painter.drawText(columnCoinTextLeft, top + st::pricesPanTableRowHeight / 2, columnCoinWidth, st::pricesPanTableRowHeight / 2,
 						 Qt::AlignLeft | Qt::AlignTop, price->shortName());
 
 		if (price->isCurrentPriceGrown()) {
@@ -196,7 +192,7 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 			painter.setPen(st::pricesPanTableDownFg);
 		}
 
-		painter.drawText(columnPriceLeft, top, columnPriceWidth, rowHeight,
+		painter.drawText(columnPriceLeft, top, st::pricesPanColumnPriceWidth, st::pricesPanTableRowHeight,
 						 Qt::AlignRight | Qt::AlignVCenter, price->currentPriceString());
 
 		if (price->isChangeFor24HoursGrown()) {
@@ -205,10 +201,10 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 			painter.setPen(st::pricesPanTableDownFg);
 		}
 
-		painter.drawText(column24hLeft, top, column24hWidth, rowHeight,
+		painter.drawText(column24hLeft, top, st::pricesPanColumn24hWidth, st::pricesPanTableRowHeight,
 						 Qt::AlignRight | Qt::AlignVCenter, price->changeFor24HoursString());
 
-		top += rowHeight;
+		top += st::pricesPanTableRowHeight;
 	}
 
 //	QFont pricesPanSiteNameFont = QFont();

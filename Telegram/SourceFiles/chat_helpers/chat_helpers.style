@@ -168,6 +168,11 @@ emojiSwitchEmoji: icon {{ "emoji_switch-flip_horizontal", emojiSwitchColor }};
 
 pricesPanPadding: emojiPanPadding;
 pricesPanHeader: emojiPanPadding;
+pricesPanTableHeaderHeight: 50;
+pricesPanTableRowHeight: 50;
+pricesPanTableImageSize: 24;
+pricesPanColumnPriceWidth: 110;
+pricesPanColumn24hWidth: 60;
 
 hashtagClose: IconButton {
 	width: 30px;
