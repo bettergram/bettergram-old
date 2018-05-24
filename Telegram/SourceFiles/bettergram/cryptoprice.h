@@ -36,7 +36,6 @@ public:
 	void setIsCurrentPriceGrown(bool isCurrentPriceGrown);
 
 	bool isChangeFor24HoursGrown() const;
-	void setIsChangeFor24HoursGrown(bool isChangeFor24HoursGrown);
 
 public slots:
 
@@ -67,6 +66,8 @@ private:
 
 	/// True if the price change of the cryptocurrency for the latest 24 hours is grown
 	bool _isChangeFor24HoursGrown;
+
+	void setIsChangeFor24HoursGrown(bool isChangeFor24HoursGrown);
 };
 
 } // namespace Bettergram

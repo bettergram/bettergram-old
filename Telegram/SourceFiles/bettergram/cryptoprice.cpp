@@ -63,6 +63,8 @@ void CryptoPrice::setChangeFor24Hours(double changeFor24Hours)
 {
 	if (_changeFor24Hours != changeFor24Hours) {
 		_changeFor24Hours = changeFor24Hours;
+
+		setIsChangeFor24HoursGrown(_changeFor24Hours >= 0.0);
 		emit changeFor24HoursChanged();
 	}
 }
