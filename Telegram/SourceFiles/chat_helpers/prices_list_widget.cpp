@@ -60,6 +60,11 @@ PricesListWidget::PricesListWidget(QWidget* parent, not_null<Window::Controller*
 	_siteName->setRichText(textcmdLink(1, lang(lng_prices_site_name)));
 	_siteName->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://www.livecoinwatch.com")));
 
+	_marketCap = new Ui::FlatLabel(this, st::pricesMarketCapLabel);
+	_marketCap->setRichText(textcmdLink(1, lang(lng_prices_market_cap)
+										.arg(BettergramSettings::instance()->cryptoPriceList()->marketCapString())));
+	_marketCap->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://www.livecoinwatch.com")));
+
 	BettergramSettings::instance()->getCryptoPriceList();
 
 	updateControlsGeometry();
@@ -183,6 +188,13 @@ void PricesListWidget::resizeEvent(QResizeEvent *e)
 void PricesListWidget::updateControlsGeometry()
 {
 	_siteName->moveToLeft((width() - _siteName->width()) / 2, st::pricesPanHeader);
+
+	_marketCap->setRichText(textcmdLink(1, lang(lng_prices_market_cap)
+										.arg(BettergramSettings::instance()->cryptoPriceList()->marketCapString())));
+	_marketCap->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://www.livecoinwatch.com")));
+
+	_marketCap->moveToLeft((width() - _marketCap->width()) / 2,
+						   _siteName->y() + _siteName->height() + st::pricesPanHeader);
 }
 
 } // namespace ChatHelpers

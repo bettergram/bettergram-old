@@ -24,6 +24,10 @@ public:
 
 	explicit CryptoPriceList(QObject *parent = nullptr);
 
+	double marketCap() const;
+	QString marketCapString() const;
+	void setMarketCap(double marketCap);
+
 	const_iterator begin() const;
 	const_iterator end() const;
 
@@ -35,11 +39,13 @@ public:
 public slots:
 
 signals:
+	void marketCapChanged();
 
 protected:
 
 private:
 	QList<CryptoPrice*> _list;
+	double _marketCap = 0.0;
 
 	void addTestData(const QString &name,
 					 const QString &shortName,

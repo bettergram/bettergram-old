@@ -957,6 +957,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_prices_customize_list" = "Customize List";
 "lng_prices_site_name" = "LIVE COIN WATCH";
+"lng_prices_market_cap" = "Market Cap: $%1";
 
 "lng_switch_stickers" = "Stickers";
 "lng_switch_prices" = "Prices";

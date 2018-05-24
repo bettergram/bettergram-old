@@ -16,6 +16,24 @@ CryptoPriceList::CryptoPriceList(QObject *parent) : QObject(parent)
 {
 }
 
+double CryptoPriceList::marketCap() const
+{
+	return _marketCap;
+}
+
+QString CryptoPriceList::marketCapString() const
+{
+	return QString::number(_marketCap);
+}
+
+void CryptoPriceList::setMarketCap(double marketCap)
+{
+	if (_marketCap != marketCap) {
+		_marketCap = marketCap;
+		emit marketCapChanged();
+	}
+}
+
 CryptoPriceList::const_iterator CryptoPriceList::begin() const
 {
 	return _list.begin();

@@ -48,6 +48,7 @@ private:
 	int _timerId = -1;
 
 	Ui::FlatLabel *_siteName;
+	Ui::FlatLabel *_marketCap;
 	Footer *_footer = nullptr;
 
 	void updateControlsGeometry();
