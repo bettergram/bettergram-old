@@ -800,6 +800,10 @@
 <(src_loc)/shortcuts.h
 <(src_loc)/bettergram/bettergramsettings.cpp
 <(src_loc)/bettergram/bettergramsettings.h
+<(src_loc)/bettergram/cryptoprice.cpp
+<(src_loc)/bettergram/cryptoprice.h
+<(src_loc)/bettergram/cryptopricelist.cpp
+<(src_loc)/bettergram/cryptopricelist.h
 <(emoji_suggestions_loc)/emoji_suggestions.cpp
 <(emoji_suggestions_loc)/emoji_suggestions.h
 
