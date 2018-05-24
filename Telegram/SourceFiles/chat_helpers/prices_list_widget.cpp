@@ -141,8 +141,13 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 	// Draw table header
 
 	//TODO: bettergram: move column24hWidth and columnPriceWidth to style
-	int column24hWidth = 100;
-	int columnPriceWidth = 100;
+	int column24hWidth = 60;
+	int columnPriceWidth = 110;
+	int columnCoinWidth = width() - columnPriceWidth - column24hWidth - 2 * textLeftPadding;
+
+	int columnCoinLeft = textLeftPadding;
+	int columnPriceLeft = textLeftPadding + columnCoinWidth;
+	int column24hLeft = width() - column24hWidth - textLeftPadding;
 
 	//TODO: bettergram: move headerHeight to style
 	int headerHeight = 50;
@@ -153,14 +158,58 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 
 	painter.setFont(st::semiboldFont);
 
-	painter.drawText(textLeftPadding, headerRect.top(), headerRect.width(), headerRect.height(),
+	painter.drawText(columnCoinLeft, headerRect.top(), columnCoinWidth, headerRect.height(),
 					 Qt::AlignLeft | Qt::AlignVCenter, lang(lng_prices_header_coin));
 
-	painter.drawText(0, headerRect.top(), headerRect.width() - column24hWidth - textLeftPadding, headerRect.height(),
+	painter.drawText(columnPriceLeft, headerRect.top(), columnPriceWidth, headerRect.height(),
 					 Qt::AlignRight | Qt::AlignVCenter, lang(lng_prices_header_price));
 
-	painter.drawText(0, headerRect.top(), headerRect.width() - textLeftPadding, headerRect.height(),
+	painter.drawText(column24hLeft, headerRect.top(), column24hWidth, headerRect.height(),
 					 Qt::AlignRight | Qt::AlignVCenter, lang(lng_prices_header_24h));
+
+	top += headerHeight;
+
+	// Draw rows
+
+	//TODO: bettergram: move rowHeight and imageSize to style
+	int rowHeight = 50;
+	int imageSize = 24;
+
+	int columnCoinTextLeft = columnCoinLeft + imageSize + textLeftPadding;
+
+	for (const CryptoPrice *price : *BettergramSettings::instance()->cryptoPriceList()) {
+		//TODO: bettergram: draw cryptocurrency icon
+
+		painter.setPen(st::pricesPanTableCryptoNameFg);
+
+		painter.drawText(columnCoinTextLeft, top, columnCoinWidth, rowHeight / 2,
+						 Qt::AlignLeft | Qt::AlignBottom, price->name());
+
+		painter.setPen(st::pricesPanTableCryptoShortNameFg);
+
+		painter.drawText(columnCoinTextLeft, top + rowHeight / 2, columnCoinWidth, rowHeight / 2,
+						 Qt::AlignLeft | Qt::AlignTop, price->shortName());
+
+		if (price->isCurrentPriceGrown()) {
+			painter.setPen(st::pricesPanTableUpFg);
+		} else {
+			painter.setPen(st::pricesPanTableDownFg);
+		}
+
+		painter.drawText(columnPriceLeft, top, columnPriceWidth, rowHeight,
+						 Qt::AlignRight | Qt::AlignVCenter, price->currentPriceString());
+
+		if (price->isChangeFor24HoursGrown()) {
+			painter.setPen(st::pricesPanTableUpFg);
+		} else {
+			painter.setPen(st::pricesPanTableDownFg);
+		}
+
+		painter.drawText(column24hLeft, top, column24hWidth, rowHeight,
+						 Qt::AlignRight | Qt::AlignVCenter, price->changeFor24HoursString());
+
+		top += rowHeight;
+	}
 
 //	QFont pricesPanSiteNameFont = QFont();
 //	pricesPanSiteNameFont.setPixelSize(16);

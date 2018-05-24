@@ -35,9 +35,9 @@ double CryptoPrice::currentPrice() const
 QString CryptoPrice::currentPriceString() const
 {
 	if (_currentPrice < 1.0) {
-		return QString("$%1").arg(_currentPrice, 0, 'g', 4);
+		return QString("$%1").arg(_currentPrice, 0, 'f', 4);
 	} else {
-		return QString("$%1").arg(_currentPrice, 0, 'g', 2);
+		return QString("$%1").arg(_currentPrice, 0, 'f', 2);
 	}
 }
 
@@ -56,7 +56,7 @@ double CryptoPrice::changeFor24Hours() const
 
 QString CryptoPrice::changeFor24HoursString() const
 {
-	return QString("%1%").arg(_changeFor24Hours, 0, 'g', 2);
+	return QString("%1%").arg(_changeFor24Hours, 0, 'f', 2);
 }
 
 void CryptoPrice::setChangeFor24Hours(double changeFor24Hours)
