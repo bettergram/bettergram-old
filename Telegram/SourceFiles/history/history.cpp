@@ -2407,10 +2407,10 @@ bool History::isMegagroup() const {
 
 Dialogs::EntryTypes History::getEntryType() const
 {
-   auto  ret = isChannel()
-      ?  Dialogs::EntryType::Channel
-      :  peer->isChat()
-         ?  Dialogs::EntryType::Group
+   auto  ret = peer->isChat() && peer->isMegagroup()
+      ?  Dialogs::EntryType::Group
+      :  isChannel()
+         ?  Dialogs::EntryType::Channel
          :  Dialogs::EntryType::OneOnOne;
    return ret | Entry::getEntryType();
 }
