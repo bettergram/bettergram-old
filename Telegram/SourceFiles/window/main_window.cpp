@@ -21,7 +21,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "apiwrap.h"
 #include "messenger.h"
 #include "mainwindow.h"
-#include "ui/widgets/buttons.h"
+#include "ui/widgets/labels.h"
+#include "ui/text/text.h"
+#include "core/click_handler_types.h"
 #include "bettergram/bettergramsettings.h"
 #include "styles/style_window.h"
 #include "styles/style_boxes.h"
@@ -58,7 +60,7 @@ QIcon CreateIcon() {
 MainWindow::MainWindow()
 : _positionUpdatedTimer([=] { savePosition(); })
 , _body(this)
-, _adLink(this, qsl(""), st::largeLinkButton)
+, _adLabel(this, st::adLabel)
 , _icon(CreateIcon())
 , _titleText(qsl("Bettergram")) {
 	subscribe(Theme::Background(), [this](const Theme::BackgroundUpdate &data) {
@@ -71,10 +73,17 @@ MainWindow::MainWindow()
 	subscribe(Messenger::Instance().authSessionChanged(), [this] { checkAuthSession(); });
 	checkAuthSession();
 
-	_adLink->setAutoFillBackground(true);
-	_adLink->setContentsMargins(5, 5, 5, 5);
-	_adLink->setClickedCallback([this] { adBannerClicked(); });
-	_adLink->setText(qsl("Testing the Ad Banner"));
+	_adLabel->setAutoFillBackground(true);
+	_adLabel->setRichText(textcmdLink(1, qsl("Testing the Ad Banner")));
+	//_adLabel->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://desktop.telegram.org")));
+	_adLabel->setLink(1, std::make_shared<LambdaClickHandler>([this] { adBannerClicked(); }));
+	//_adLabel->setClickHandlerHook([this](auto&&...)
+ //  {
+ //     adBannerClicked();
+ //     return false;
+ //  });
+	_adLabel->setMouseTracking(true);
+	//_adLabel->setLink(1, std::make_shared<UrlClickHandler>(qsl("")));
 
 	Messenger::Instance().termsLockValue(
 	) | rpl::start_with_next([=] {
@@ -212,9 +221,9 @@ void MainWindow::onIsPaidChanged()
 	Bettergram::BettergramSettings *settings = Bettergram::BettergramSettings::instance();
 
 	if (settings->isPaid()) {
-		_adLink->hide();
+		_adLabel->hide();
 	} else {
-		_adLink->show();
+		_adLabel->show();
 	}
 
 	updateControlsGeometry();
@@ -366,9 +375,9 @@ void MainWindow::updateControlsGeometry() {
 		_title->setGeometry(0, bodyTop, width(), _title->height());
 		bodyTop += _title->height();
 	}
-	if(_adLink && !_adLink->isHidden()) {
-		_adLink->setGeometry(0, bodyTop, width(), _adLink->height());
-		bodyTop += _adLink->height();
+	if(_adLabel && !_adLabel->isHidden()) {
+		_adLabel->setGeometry(0, bodyTop, width(), _adLabel->height());
+		bodyTop += _adLabel->height();
 	}
 	if (_rightColumn) {
 		bodyWidth -= _rightColumn->width();
