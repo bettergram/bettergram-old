@@ -23,6 +23,9 @@ public:
 	void clearSelection() override;
 	object_ptr<TabbedSelector::InnerFooter> createFooter() override;
 
+	void afterShown() override;
+	void beforeHiding() override;
+
 public slots:
 
 //signals:
@@ -31,10 +34,13 @@ protected:
 	TabbedSelector::InnerFooter* getFooter() const override;
 	int countDesiredHeight(int newWidth) override;
 	void paintEvent(QPaintEvent *event) override;
+	void timerEvent(QTimerEvent *event) override;
 
 private:
 	class Footer;
 
+	int _timerIntervalMs = 5000;
+	int _timerId = -1;
 	Footer *_footer = nullptr;
 };
 

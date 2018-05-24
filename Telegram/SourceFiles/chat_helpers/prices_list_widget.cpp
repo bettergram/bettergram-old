@@ -1,11 +1,17 @@
 #include "prices_list_widget.h"
 
+#include "bettergram/bettergramsettings.h"
+#include "bettergram/cryptopricelist.h"
+#include "bettergram/cryptoprice.h"
+
 #include "ui/widgets/buttons.h"
 #include "lang/lang_keys.h"
 #include "styles/style_chat_helpers.h"
 #include "styles/style_widgets.h"
 
 namespace ChatHelpers {
+
+using namespace Bettergram;
 
 class PricesListWidget::Footer : public TabbedSelector::InnerFooter
 {
@@ -47,6 +53,10 @@ void PricesListWidget::Footer::customizeClick()
 PricesListWidget::PricesListWidget(QWidget* parent, not_null<Window::Controller*> controller)
 	: Inner(parent, controller)
 {
+	BettergramSettings::instance()->getCryptoPriceList();
+
+	//TODO: bettergram: get crypto price list from servers and remove call of _cryptoPriceList->createTestData() method
+	BettergramSettings::instance()->cryptoPriceList()->createTestData();
 }
 
 void PricesListWidget::refreshRecent()
@@ -65,6 +75,30 @@ object_ptr<TabbedSelector::InnerFooter> PricesListWidget::createFooter()
 
 	_footer = res;
 	return std::move(res);
+}
+
+void PricesListWidget::afterShown()
+{
+	if (_timerId == -1) {
+		_timerId = startTimer(_timerIntervalMs);
+	}
+
+	BettergramSettings::instance()->getCryptoPriceList();
+}
+
+void PricesListWidget::beforeHiding()
+{
+	if (_timerId != -1) {
+		killTimer(_timerId);
+		_timerId = -1;
+	}
+}
+
+void PricesListWidget::timerEvent(QTimerEvent *event)
+{
+	if (event->timerId() == _timerId) {
+		BettergramSettings::instance()->getCryptoPriceList();
+	}
 }
 
 TabbedSelector::InnerFooter* PricesListWidget::getFooter() const
