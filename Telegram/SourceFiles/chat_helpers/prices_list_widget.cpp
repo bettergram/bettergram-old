@@ -5,7 +5,10 @@
 #include "bettergram/cryptoprice.h"
 
 #include "ui/widgets/buttons.h"
+#include "ui/widgets/labels.h"
 #include "lang/lang_keys.h"
+#include "styles/style_window.h"
+#include "core/click_handler_types.h"
 #include "styles/style_chat_helpers.h"
 #include "styles/style_widgets.h"
 
@@ -53,7 +56,13 @@ void PricesListWidget::Footer::customizeClick()
 PricesListWidget::PricesListWidget(QWidget* parent, not_null<Window::Controller*> controller)
 	: Inner(parent, controller)
 {
+	_siteName = new Ui::FlatLabel(this, st::pricesSiteNameLabel);
+	_siteName->setRichText(textcmdLink(1, lang(lng_prices_site_name)));
+	_siteName->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://www.livecoinwatch.com")));
+
 	BettergramSettings::instance()->getCryptoPriceList();
+
+	updateControlsGeometry();
 
 	//TODO: bettergram: get crypto price list from servers and remove call of _cryptoPriceList->createTestData() method
 	BettergramSettings::instance()->cryptoPriceList()->createTestData();
@@ -119,7 +128,13 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 		painter.setClipRect(r);
 	}
 
-	painter.fillRect(r, st::emojiPanBg);
+	painter.fillRect(r, st::pricesPanBg);
+
+	//TODO: bettergram: add font style item for site name
+//	QFont pricesPanSiteNameFont = QFont();
+//	pricesPanSiteNameFont.setPixelSize(16);
+
+//	painter.setFont(pricesPanSiteNameFont);
 
 //	enumerateSections([this, &painter, r, fromColumn, toColumn](const SectionInfo &info) {
 //		if (r.top() >= info.rowsBottom) {
@@ -158,6 +173,16 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 //		}
 //		return true;
 //	});
+}
+
+void PricesListWidget::resizeEvent(QResizeEvent *e)
+{
+	updateControlsGeometry();
+}
+
+void PricesListWidget::updateControlsGeometry()
+{
+	_siteName->moveToLeft((width() - _siteName->width()) / 2, st::pricesPanHeader);
 }
 
 } // namespace ChatHelpers

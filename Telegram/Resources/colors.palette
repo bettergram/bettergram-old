@@ -550,7 +550,7 @@ importantTooltipFg: toastFg;
 importantTooltipFgLink: mediaviewTextLinkFg;
 
 pricesPanBg: windowBg; // prices panel background
-pricesPanHeaderFg: windowSubTextFg; // prices panel header text
+pricesPanHeaderFg: windowFg; // prices panel header text
 pricesPanTableHeaderFg: windowSubTextFg; // prices panel table header text
 pricesPanTableHeaderBg: #f7f7f7; // prices panel table header background
 pricesPanTableCryptoNameFg: menuIconFgOver; // prices panel table cryptocurrency name text

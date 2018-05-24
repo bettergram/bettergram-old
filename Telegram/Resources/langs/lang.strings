@@ -956,6 +956,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_group_stickers_add" = "Choose sticker set";
 
 "lng_prices_customize_list" = "Customize List";
+"lng_prices_site_name" = "LIVE COIN WATCH";
 
 "lng_switch_stickers" = "Stickers";
 "lng_switch_prices" = "Prices";

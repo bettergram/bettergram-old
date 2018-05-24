@@ -166,6 +166,9 @@ emojiSwitchColor: windowActiveTextFg;
 emojiSwitchStickers: icon {{ "emoji_switch", emojiSwitchColor }};
 emojiSwitchEmoji: icon {{ "emoji_switch-flip_horizontal", emojiSwitchColor }};
 
+pricesPanPadding: emojiPanPadding;
+pricesPanHeader: emojiPanPadding;
+
 hashtagClose: IconButton {
 	width: 30px;
 	height: 30px;

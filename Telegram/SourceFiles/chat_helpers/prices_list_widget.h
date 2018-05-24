@@ -5,6 +5,10 @@ namespace Window {
 class Controller;
 } // namespace Window
 
+namespace Ui {
+class FlatLabel;
+} // namespace Ui
+
 namespace ChatHelpers {
 
 /**
@@ -34,6 +38,7 @@ protected:
 	TabbedSelector::InnerFooter* getFooter() const override;
 	int countDesiredHeight(int newWidth) override;
 	void paintEvent(QPaintEvent *event) override;
+	void resizeEvent(QResizeEvent *e) override;
 	void timerEvent(QTimerEvent *event) override;
 
 private:
@@ -41,7 +46,11 @@ private:
 
 	int _timerIntervalMs = 5000;
 	int _timerId = -1;
+
+	Ui::FlatLabel *_siteName;
 	Footer *_footer = nullptr;
+
+	void updateControlsGeometry();
 };
 
 } // namespace ChatHelpers
