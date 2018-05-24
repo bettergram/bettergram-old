@@ -135,7 +135,33 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 
 	painter.fillRect(r, st::pricesPanBg);
 
-	//TODO: bettergram: add font style item for site name
+	int top = _marketCap->y() + _marketCap->height() + st::pricesPanPadding;
+	int textLeftPadding = st::pricesPanPadding;
+
+	// Draw table header
+
+	//TODO: bettergram: move column24hWidth and columnPriceWidth to style
+	int column24hWidth = 100;
+	int columnPriceWidth = 100;
+
+	//TODO: bettergram: move headerHeight to style
+	int headerHeight = 50;
+
+	QRect headerRect(0, top, width(), headerHeight);
+
+	painter.fillRect(headerRect, st::pricesPanTableHeaderBg);
+
+	painter.setFont(st::semiboldFont);
+
+	painter.drawText(textLeftPadding, headerRect.top(), headerRect.width(), headerRect.height(),
+					 Qt::AlignLeft | Qt::AlignVCenter, lang(lng_prices_header_coin));
+
+	painter.drawText(0, headerRect.top(), headerRect.width() - column24hWidth - textLeftPadding, headerRect.height(),
+					 Qt::AlignRight | Qt::AlignVCenter, lang(lng_prices_header_price));
+
+	painter.drawText(0, headerRect.top(), headerRect.width() - textLeftPadding, headerRect.height(),
+					 Qt::AlignRight | Qt::AlignVCenter, lang(lng_prices_header_24h));
+
 //	QFont pricesPanSiteNameFont = QFont();
 //	pricesPanSiteNameFont.setPixelSize(16);
 
@@ -194,7 +220,7 @@ void PricesListWidget::updateControlsGeometry()
 	_marketCap->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://www.livecoinwatch.com")));
 
 	_marketCap->moveToLeft((width() - _marketCap->width()) / 2,
-						   _siteName->y() + _siteName->height() + st::pricesPanHeader);
+						   _siteName->y() + _siteName->height() + st::pricesPanPadding);
 }
 
 } // namespace ChatHelpers
