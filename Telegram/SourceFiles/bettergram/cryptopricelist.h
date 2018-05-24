@@ -30,6 +30,8 @@ public:
 	CryptoPrice *at(int index) const;
 	int count() const;
 
+	void createTestData();
+
 public slots:
 
 signals:
@@ -38,6 +40,13 @@ protected:
 
 private:
 	QList<CryptoPrice*> _list;
+
+	void addTestData(const QString &name,
+					 const QString &shortName,
+					 double currentPrice,
+					 double changeFor24Hours,
+					 bool isCurrentPriceGrown);
+	void clear();
 };
 
 } // namespace Bettergram
