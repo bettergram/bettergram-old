@@ -7,6 +7,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 */
 
 #include "bettergramsettings.h"
+#include "cryptopricelist.h"
 
 #include <QTimer>
 
@@ -28,7 +29,9 @@ BettergramSettings *BettergramSettings::instance()
 	return _instance;
 }
 
-Bettergram::BettergramSettings::BettergramSettings(QObject *parent) : QObject(parent)
+Bettergram::BettergramSettings::BettergramSettings(QObject *parent) :
+	QObject(parent),
+	_cryptoPriceList(new CryptoPriceList(this))
 {
 	getIsPaid();
 }
@@ -51,6 +54,11 @@ void BettergramSettings::setIsPaid(bool isPaid)
 BettergramSettings::BillingPlan BettergramSettings::billingPlan() const
 {
 	return _billingPlan;
+}
+
+CryptoPriceList *BettergramSettings::cryptoPriceList() const
+{
+	return _cryptoPriceList;
 }
 
 void BettergramSettings::setBillingPlan(BillingPlan billingPlan)
@@ -82,6 +90,11 @@ void BettergramSettings::getIsPaid()
 void BettergramSettings::getAd()
 {
 	//TODO: bettergram: get ad from servers
+}
+
+void BettergramSettings::getCryptoPriceList()
+{
+	//TODO: bettergram: get crypto price list from servers
 }
 
 } // namespace Bettergrams
