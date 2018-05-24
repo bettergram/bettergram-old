@@ -77,13 +77,7 @@ MainWindow::MainWindow()
 	_adLabel->setRichText(textcmdLink(1, qsl("Testing the Ad Banner")));
 	//_adLabel->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://desktop.telegram.org")));
 	_adLabel->setLink(1, std::make_shared<LambdaClickHandler>([this] { adBannerClicked(); }));
-	//_adLabel->setClickHandlerHook([this](auto&&...)
- //  {
- //     adBannerClicked();
- //     return false;
- //  });
 	_adLabel->setMouseTracking(true);
-	//_adLabel->setLink(1, std::make_shared<UrlClickHandler>(qsl("")));
 
 	Messenger::Instance().termsLockValue(
 	) | rpl::start_with_next([=] {
