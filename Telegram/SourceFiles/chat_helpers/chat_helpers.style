@@ -173,6 +173,7 @@ pricesPanTableRowHeight: 50;
 pricesPanTableImageSize: 24;
 pricesPanColumnPriceWidth: 110;
 pricesPanColumn24hWidth: 60;
+pricesPanHover: windowBgOver; // background of selected row in prices panel
 
 hashtagClose: IconButton {
 	width: 30px;

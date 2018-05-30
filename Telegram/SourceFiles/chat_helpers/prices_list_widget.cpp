@@ -12,6 +12,9 @@
 #include "styles/style_chat_helpers.h"
 #include "styles/style_widgets.h"
 
+#include <QMouseEvent>
+#include <QDebug>
+
 namespace ChatHelpers {
 
 using namespace Bettergram;
@@ -71,6 +74,8 @@ PricesListWidget::PricesListWidget(QWidget* parent, not_null<Window::Controller*
 
 	//TODO: bettergram: get crypto price list from servers and remove call of _cryptoPriceList->createTestData() method
 	BettergramSettings::instance()->cryptoPriceList()->createTestData();
+
+	setMouseTracking(true);
 }
 
 void PricesListWidget::refreshRecent()
@@ -115,6 +120,101 @@ void PricesListWidget::timerEvent(QTimerEvent *event)
 	}
 }
 
+void PricesListWidget::setSelectedRow(int selectedRow)
+{
+	if (_selectedRow != selectedRow) {
+		_selectedRow = selectedRow;
+
+		update();
+	}
+}
+
+int PricesListWidget::getTableTop() const
+{
+	return _marketCap->y() + _marketCap->height() + st::pricesPanPadding;
+}
+
+int PricesListWidget::getTableBottom() const
+{
+	return getTableContentTop() + getTableContentHeight();
+}
+
+int PricesListWidget::getTableContentTop() const
+{
+	return getTableTop() + st::pricesPanTableHeaderHeight;
+}
+
+int PricesListWidget::getTableContentHeight() const
+{
+	return st::pricesPanTableRowHeight * BettergramSettings::instance()->cryptoPriceList()->count();
+}
+
+int PricesListWidget::getRowTop(int row) const
+{
+	return getTableContentTop() + row * st::pricesPanTableRowHeight;
+}
+
+QRect PricesListWidget::getTableRectangle() const
+{
+	return QRect(st::pricesPanPadding,
+				 getTableTop(),
+				 width() - 2 * st::pricesPanPadding,
+				 getTableBottom());
+}
+
+QRect PricesListWidget::getTableHeaderRectangle() const
+{
+	return QRect(st::pricesPanPadding,
+				 getTableTop(),
+				 width() - 2 * st::pricesPanPadding,
+				 st::pricesPanTableHeaderHeight);
+}
+
+QRect PricesListWidget::getTableContentRectangle() const
+{
+	return QRect(st::pricesPanPadding,
+				 getTableContentTop(),
+				 width() - 2 * st::pricesPanPadding,
+				 getTableContentHeight());
+}
+
+QRect PricesListWidget::getRowRectangle(int row) const
+{
+	return QRect(st::pricesPanPadding,
+				 getRowTop(row),
+				 width() - 2 * st::pricesPanPadding,
+				 st::pricesPanTableRowHeight);
+}
+
+void PricesListWidget::countSelectedRow(const QPoint &point)
+{
+	if (_selectedRow == -1) {
+		if (!getTableContentRectangle().contains(point)) {
+			// Nothing changed
+			return;
+		}
+	} else if (getRowRectangle(_selectedRow).contains(point)) {
+		// Nothing changed
+		return;
+	}
+
+	if (!getTableContentRectangle().contains(point)) {
+		setSelectedRow(-1);
+		return;
+	}
+
+	int rowCount = BettergramSettings::instance()->cryptoPriceList()->count();
+
+	for (int row = 0; row < rowCount; row++) {
+		if (getRowRectangle(row).contains(point)) {
+			setSelectedRow(row);
+			return;
+		}
+	}
+
+	setSelectedRow(-1);
+}
+
 TabbedSelector::InnerFooter* PricesListWidget::getFooter() const
 {
 	return _footer;
@@ -124,11 +224,42 @@ int PricesListWidget::countDesiredHeight(int newWidth)
 {
 	Q_UNUSED(newWidth);
 
-	return _marketCap->y()
-			+ _marketCap->height()
-			+ st::pricesPanPadding
-			+ st::pricesPanTableHeaderHeight
-			+ st::pricesPanTableRowHeight * BettergramSettings::instance()->cryptoPriceList()->count();
+	return getTableBottom();
+}
+
+void PricesListWidget::mousePressEvent(QMouseEvent *e)
+{
+	QPointF point = e->localPos();
+
+	countSelectedRow(QPoint(static_cast<int>(qRound(point.x())),
+							static_cast<int>(qRound(point.y()))));
+
+	_pressedRow = _selectedRow;
+}
+
+void PricesListWidget::mouseReleaseEvent(QMouseEvent *e)
+{
+	QPointF point = e->localPos();
+
+	countSelectedRow(QPoint(static_cast<int>(qRound(point.x())),
+							static_cast<int>(qRound(point.y()))));
+
+	if (_pressedRow != -1 && _pressedRow == _selectedRow) {
+		//TODO: bettergram: handle click event to _pressedRow
+	}
+}
+
+void PricesListWidget::mouseMoveEvent(QMouseEvent *e)
+{
+	QPointF point = e->localPos();
+
+	countSelectedRow(QPoint(static_cast<int>(qRound(point.x())),
+							static_cast<int>(qRound(point.y()))));
+}
+
+void PricesListWidget::leaveEventHook(QEvent *event)
+{
+	setSelectedRow(-1);
 }
 
 void PricesListWidget::paintEvent(QPaintEvent *event) {
@@ -156,6 +287,9 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 
 	painter.fillRect(headerRect, st::pricesPanTableHeaderBg);
 
+	// The App::roundRect() method has artefacts if color is different from st::pricesPanHover
+	//App::roundRect(painter, headerRect, st::pricesPanHover, StickerHoverCorners);
+
 	painter.setFont(st::semiboldFont);
 
 	painter.drawText(columnCoinLeft, headerRect.top(), columnCoinWidth, headerRect.height(),
@@ -172,6 +306,12 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 	// Draw rows
 
 	int columnCoinTextLeft = columnCoinLeft + st::pricesPanTableImageSize + textLeftPadding;
+	int rowCount = BettergramSettings::instance()->cryptoPriceList()->count();
+
+	if (_selectedRow != -1 && _selectedRow < rowCount) {
+		QRect rowRectangle(0, getRowTop(_selectedRow), width(), st::pricesPanTableRowHeight);
+		App::roundRect(painter, rowRectangle, st::pricesPanHover, StickerHoverCorners);
+	}
 
 	for (const CryptoPrice *price : *BettergramSettings::instance()->cryptoPriceList()) {
 		//TODO: bettergram: draw cryptocurrency icon
@@ -207,48 +347,48 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 		top += st::pricesPanTableRowHeight;
 	}
 
-//	QFont pricesPanSiteNameFont = QFont();
-//	pricesPanSiteNameFont.setPixelSize(16);
+	//	QFont pricesPanSiteNameFont = QFont();
+	//	pricesPanSiteNameFont.setPixelSize(16);
 
-//	painter.setFont(pricesPanSiteNameFont);
+	//	painter.setFont(pricesPanSiteNameFont);
 
-//	enumerateSections([this, &painter, r, fromColumn, toColumn](const SectionInfo &info) {
-//		if (r.top() >= info.rowsBottom) {
-//			return true;
-//		} else if (r.top() + r.height() <= info.top) {
-//			return false;
-//		}
-//		if (info.section > 0 && r.top() < info.rowsTop) {
-//			painter.setFont(st::emojiPanHeaderFont);
-//			painter.setPen(st::emojiPanHeaderFg);
-//			painter.drawTextLeft(st::emojiPanHeaderLeft - st::buttonRadius, info.top + st::emojiPanHeaderTop, width(), lang(LangKey(lng_emoji_category0 + info.section)));
-//		}
-//		if (r.top() + r.height() > info.rowsTop) {
-//			ensureLoaded(info.section);
-//			auto fromRow = floorclamp(r.y() - info.rowsTop, _singleSize.height(), 0, info.rowsCount);
-//			auto toRow = ceilclamp(r.y() + r.height() - info.rowsTop, _singleSize.height(), 0, info.rowsCount);
-//			for (auto i = fromRow; i < toRow; ++i) {
-//				for (auto j = fromColumn; j < toColumn; ++j) {
-//					auto index = i * _columnCount + j;
-//					if (index >= info.count) break;
+	//	enumerateSections([this, &painter, r, fromColumn, toColumn](const SectionInfo &info) {
+	//		if (r.top() >= info.rowsBottom) {
+	//			return true;
+	//		} else if (r.top() + r.height() <= info.top) {
+	//			return false;
+	//		}
+	//		if (info.section > 0 && r.top() < info.rowsTop) {
+	//			painter.setFont(st::emojiPanHeaderFont);
+	//			painter.setPen(st::emojiPanHeaderFg);
+	//			painter.drawTextLeft(st::emojiPanHeaderLeft - st::buttonRadius, info.top + st::emojiPanHeaderTop, width(), lang(LangKey(lng_emoji_category0 + info.section)));
+	//		}
+	//		if (r.top() + r.height() > info.rowsTop) {
+	//			ensureLoaded(info.section);
+	//			auto fromRow = floorclamp(r.y() - info.rowsTop, _singleSize.height(), 0, info.rowsCount);
+	//			auto toRow = ceilclamp(r.y() + r.height() - info.rowsTop, _singleSize.height(), 0, info.rowsCount);
+	//			for (auto i = fromRow; i < toRow; ++i) {
+	//				for (auto j = fromColumn; j < toColumn; ++j) {
+	//					auto index = i * _columnCount + j;
+	//					if (index >= info.count) break;
 
-//					auto selected = (!_picker->isHidden() && info.section * MatrixRowShift + index == _pickerSel) || (info.section * MatrixRowShift + index == _selected);
+	//					auto selected = (!_picker->isHidden() && info.section * MatrixRowShift + index == _pickerSel) || (info.section * MatrixRowShift + index == _selected);
 
-//					auto w = QPoint(_rowsLeft + j * _singleSize.width(), info.rowsTop + i * _singleSize.height());
-//					if (selected) {
-//						auto tl = w;
-//						if (rtl()) tl.setX(width() - tl.x() - _singleSize.width());
-//						App::roundRect(painter, QRect(tl, _singleSize), st::emojiPanHover, StickerHoverCorners);
-//					}
-//					auto sourceRect = QRect(_emoji[info.section][index]->x() * _esize, _emoji[info.section][index]->y() * _esize, _esize, _esize);
-//					auto imageLeft = w.x() + (_singleSize.width() - (_esize / cIntRetinaFactor())) / 2;
-//					auto imageTop = w.y() + (_singleSize.height() - (_esize / cIntRetinaFactor())) / 2;
-//					painter.drawPixmapLeft(imageLeft, imageTop, width(), App::emojiLarge(), sourceRect);
-//				}
-//			}
-//		}
-//		return true;
-//	});
+	//					auto w = QPoint(_rowsLeft + j * _singleSize.width(), info.rowsTop + i * _singleSize.height());
+	//					if (selected) {
+	//						auto tl = w;
+	//						if (rtl()) tl.setX(width() - tl.x() - _singleSize.width());
+	//						App::roundRect(painter, QRect(tl, _singleSize), st::emojiPanHover, StickerHoverCorners);
+	//					}
+	//					auto sourceRect = QRect(_emoji[info.section][index]->x() * _esize, _emoji[info.section][index]->y() * _esize, _esize, _esize);
+	//					auto imageLeft = w.x() + (_singleSize.width() - (_esize / cIntRetinaFactor())) / 2;
+	//					auto imageTop = w.y() + (_singleSize.height() - (_esize / cIntRetinaFactor())) / 2;
+	//					painter.drawPixmapLeft(imageLeft, imageTop, width(), App::emojiLarge(), sourceRect);
+	//				}
+	//			}
+	//		}
+	//		return true;
+	//	});
 }
 
 void PricesListWidget::resizeEvent(QResizeEvent *e)

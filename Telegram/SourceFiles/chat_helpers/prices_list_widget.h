@@ -37,6 +37,12 @@ public slots:
 protected:
 	TabbedSelector::InnerFooter* getFooter() const override;
 	int countDesiredHeight(int newWidth) override;
+
+	void mousePressEvent(QMouseEvent *e) override;
+	void mouseReleaseEvent(QMouseEvent *e) override;
+	void mouseMoveEvent(QMouseEvent *e) override;
+	void leaveEventHook(QEvent *event) override;
+
 	void paintEvent(QPaintEvent *event) override;
 	void resizeEvent(QResizeEvent *e) override;
 	void timerEvent(QTimerEvent *event) override;
@@ -46,10 +52,27 @@ private:
 
 	int _timerIntervalMs = 5000;
 	int _timerId = -1;
+	int _selectedRow = -1;
+	int _pressedRow = -1;
 
 	Ui::FlatLabel *_siteName;
 	Ui::FlatLabel *_marketCap;
 	Footer *_footer = nullptr;
+
+	void setSelectedRow(int selectedRow);
+
+	int getTableTop() const;
+	int getTableBottom() const;
+	int getTableContentTop() const;
+	int getTableContentHeight() const;
+	int getRowTop(int row) const;
+
+	QRect getTableRectangle() const;
+	QRect getTableHeaderRectangle() const;
+	QRect getTableContentRectangle() const;
+	QRect getRowRectangle(int row) const;
+
+	void countSelectedRow(const QPoint &point);
 
 	void updateControlsGeometry();
 };
