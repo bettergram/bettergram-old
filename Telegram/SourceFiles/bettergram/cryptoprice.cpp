@@ -10,11 +10,17 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 namespace Bettergram {
 
-CryptoPrice::CryptoPrice(const QString &name, const QString &shortName, QObject *parent) :
+CryptoPrice::CryptoPrice(const QUrl &url, const QString &name, const QString &shortName, QObject *parent) :
 	QObject(parent),
+	_url(url),
 	_name(name),
 	_shortName(shortName)
 {
+}
+
+const QUrl &CryptoPrice::url() const
+{
+	return _url;
 }
 
 const QString &CryptoPrice::name() const

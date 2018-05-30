@@ -244,8 +244,13 @@ void PricesListWidget::mouseReleaseEvent(QMouseEvent *e)
 	countSelectedRow(QPoint(static_cast<int>(qRound(point.x())),
 							static_cast<int>(qRound(point.y()))));
 
-	if (_pressedRow != -1 && _pressedRow == _selectedRow) {
-		//TODO: bettergram: handle click event to _pressedRow
+	CryptoPriceList *priceList = BettergramSettings::instance()->cryptoPriceList();
+
+	if (_pressedRow >= 0 && _pressedRow < priceList->count() && _pressedRow == _selectedRow) {
+		QUrl url = priceList->at(_pressedRow)->url();
+		if (!url.isEmpty()) {
+			QDesktopServices::openUrl(url);
+		}
 	}
 }
 

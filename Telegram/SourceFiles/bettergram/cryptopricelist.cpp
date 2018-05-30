@@ -63,25 +63,26 @@ void CryptoPriceList::createTestData()
 {
 	clear();
 
-	addTestData("Bitcoin", "BTC", 7935.96, -3.22, false);
-	addTestData("Ethereum", "ETH", 625.64, -8.43, false);
-	addTestData("Ripple", "XRP", 0.6246, -6.59, true);
-	addTestData("Bitcoin Cash", "BCH", 1064.28, 9.45, true);
-	addTestData("EOS", "EOS", 11.5, -10.6358, true);
-	addTestData("Litecoin", "LTC", 125.46, -5.28, true);
-	addTestData("Cardano", "ADA", 0.2151, -9.72, true);
-	addTestData("Stellar", "XLM", 0.2882, -6.81, true);
-	addTestData("TRON", "TRX", 0.071258, -8.4789, true);
-	addTestData("IOTA", "MIOTA", 1.55, 8.77, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/Bitcoin-BTC"), "Bitcoin", "BTC", 7935.96, -3.22, false);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/Ethereum-ETH"), "Ethereum", "ETH", 625.64, -8.43, false);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/Ripple-XRP"), "Ripple", "XRP", 0.6246, -6.59, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/BitcoinCash-BCH"), "Bitcoin Cash", "BCH", 1064.28, 9.45, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/EOS-EOS"), "EOS", "EOS", 11.5, -10.6358, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/Litecoin-LTC"), "Litecoin", "LTC", 125.46, -5.28, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/Cardano-ADA"), "Cardano", "ADA", 0.2151, -9.72, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/Stellar-XLM"), "Stellar", "XLM", 0.2882, -6.81, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/TRON-TRX"), "TRON", "TRX", 0.071258, -8.4789, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/IOTA-MIOTA"), "IOTA", "MIOTA", 1.55, 8.77, true);
 }
 
-void CryptoPriceList::addTestData(const QString &name,
+void CryptoPriceList::addTestData(const QUrl &url,
+								  const QString &name,
 								  const QString &shortName,
 								  double currentPrice,
 								  double changeFor24Hours,
 								  bool isCurrentPriceGrown)
 {
-	CryptoPrice *price = new CryptoPrice(name, shortName, this);
+	CryptoPrice *price = new CryptoPrice(url, name, shortName, this);
 
 	price->setCurrentPrice(currentPrice);
 	price->setChangeFor24Hours(changeFor24Hours);

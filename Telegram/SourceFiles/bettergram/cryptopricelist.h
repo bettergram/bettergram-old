@@ -47,7 +47,8 @@ private:
 	QList<CryptoPrice*> _list;
 	double _marketCap = 0.0;
 
-	void addTestData(const QString &name,
+	void addTestData(const QUrl &url,
+					 const QString &name,
 					 const QString &shortName,
 					 double currentPrice,
 					 double changeFor24Hours,

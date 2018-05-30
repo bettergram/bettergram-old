@@ -19,8 +19,9 @@ class CryptoPrice : public QObject {
 	Q_OBJECT
 
 public:
-	explicit CryptoPrice(const QString &name, const QString &shortName, QObject *parent = nullptr);
+	explicit CryptoPrice(const QUrl &url, const QString &name, const QString &shortName, QObject *parent = nullptr);
 
+	const QUrl &url() const;
 	const QString &name() const;
 	const QString &shortName() const;
 
@@ -49,6 +50,9 @@ signals:
 protected:
 
 private:
+	/// Site address of the information about the cryptocurrency. For example: https://www.livecoinwatch.com/price/Bitcoin-BTC
+	const QUrl _url;
+
 	/// Name of the cryptocurrency. For example: Bitcoin
 	const QString _name;
 
