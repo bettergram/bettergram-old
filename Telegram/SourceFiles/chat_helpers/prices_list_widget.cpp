@@ -267,8 +267,16 @@ void PricesListWidget::mouseMoveEvent(QMouseEvent *e)
 							static_cast<int>(qRound(point.y()))));
 }
 
-void PricesListWidget::leaveEventHook(QEvent *event)
+void PricesListWidget::enterEventHook(QEvent *e)
 {
+	QPoint point = mapFromGlobal(QCursor::pos());
+	countSelectedRow(point);
+}
+
+void PricesListWidget::leaveEventHook(QEvent *e)
+{
+	Q_UNUSED(e);
+
 	setSelectedRow(-1);
 }
 
