@@ -62,7 +62,7 @@ PricesListWidget::PricesListWidget(QWidget* parent, not_null<Window::Controller*
 	_siteName = new Ui::IconButton(this, st::pricesPanSiteNameIcon);
 	_siteName->setClickedCallback([this] { QDesktopServices::openUrl(QUrl("https://www.livecoinwatch.com")); });
 
-	_marketCap = new Ui::FlatLabel(this, st::pricesMarketCapLabel);
+	_marketCap = new Ui::FlatLabel(this, st::pricesPanMarketCapLabel);
 	_marketCap->setRichText(textcmdLink(1, lang(lng_prices_market_cap)
 										.arg(BettergramSettings::instance()->cryptoPriceList()->marketCapString())));
 	_marketCap->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://www.livecoinwatch.com")));

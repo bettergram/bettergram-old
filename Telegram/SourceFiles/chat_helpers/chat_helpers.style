@@ -186,7 +186,7 @@ pricesPanSiteNameIcon: IconButton {
 }
 
 // Site name label at the PricesListWidget. Now we do not use it.
-pricesSiteNameLabel: FlatLabel(defaultFlatLabel) {
+pricesPanSiteNameLabel: FlatLabel(defaultFlatLabel) {
         align: align(center);
         textFg: pricesPanHeaderFg;
         style: TextStyle(defaultTextStyle) {
@@ -198,7 +198,7 @@ pricesSiteNameLabel: FlatLabel(defaultFlatLabel) {
 }
 
 // Market capitalization label at the PricesListWidget
-pricesMarketCapLabel: FlatLabel(defaultFlatLabel) {
+pricesPanMarketCapLabel: FlatLabel(defaultFlatLabel) {
         align: align(center);
         textFg: pricesPanHeaderFg;
         style: TextStyle(defaultTextStyle) {
