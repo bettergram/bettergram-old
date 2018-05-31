@@ -175,6 +175,39 @@ pricesPanColumnPriceWidth: 110;
 pricesPanColumn24hWidth: 60;
 pricesPanHover: windowBgOver; // background of selected row in prices panel
 
+// Site name icon at the PricesListWidget.
+pricesPanSiteNameIcon: IconButton {
+        width: 249px;
+        height: 24px;
+
+        icon: icon {{ "livecoinwatch_24", pricesPanHeaderFg }};
+        iconOver: icon {{ "livecoinwatch_24", dialogsMenuIconFgOver }};
+        iconPosition: point(0px, 0px);
+}
+
+// Site name label at the PricesListWidget. Now we do not use it.
+pricesSiteNameLabel: FlatLabel(defaultFlatLabel) {
+        align: align(center);
+        textFg: pricesPanHeaderFg;
+        style: TextStyle(defaultTextStyle) {
+                font: font(20px);
+        }
+        palette: TextPalette(defaultTextPalette) {
+                linkFg: pricesPanHeaderFg;
+        }
+}
+
+// Market capitalization label at the PricesListWidget
+pricesMarketCapLabel: FlatLabel(defaultFlatLabel) {
+        align: align(center);
+        textFg: pricesPanHeaderFg;
+        style: TextStyle(defaultTextStyle) {
+        }
+        palette: TextPalette(defaultTextPalette) {
+                linkFg: pricesPanHeaderFg;
+        }
+}
+
 hashtagClose: IconButton {
 	width: 30px;
 	height: 30px;

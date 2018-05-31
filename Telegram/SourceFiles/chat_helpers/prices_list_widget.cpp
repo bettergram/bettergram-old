@@ -59,9 +59,8 @@ void PricesListWidget::Footer::customizeClick()
 PricesListWidget::PricesListWidget(QWidget* parent, not_null<Window::Controller*> controller)
 	: Inner(parent, controller)
 {
-	_siteName = new Ui::FlatLabel(this, st::pricesSiteNameLabel);
-	_siteName->setRichText(textcmdLink(1, lang(lng_prices_site_name)));
-	_siteName->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://www.livecoinwatch.com")));
+	_siteName = new Ui::IconButton(this, st::pricesPanSiteNameIcon);
+	_siteName->setClickedCallback([this] { QDesktopServices::openUrl(QUrl("https://www.livecoinwatch.com")); });
 
 	_marketCap = new Ui::FlatLabel(this, st::pricesMarketCapLabel);
 	_marketCap->setRichText(textcmdLink(1, lang(lng_prices_market_cap)

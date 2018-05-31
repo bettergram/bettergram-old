@@ -202,29 +202,6 @@ adLabel : FlatLabel(defaultFlatLabel)
 	}
 }
 
-// Site name label at the PricesListWidget
-pricesSiteNameLabel: FlatLabel(defaultFlatLabel) {
-        align: align(center);
-        textFg: pricesPanHeaderFg;
-        style: TextStyle(defaultTextStyle) {
-                font: font(20px);
-        }
-        palette: TextPalette(defaultTextPalette) {
-                linkFg: pricesPanHeaderFg;
-        }
-}
-
-// Market capitalization label at the PricesListWidget
-pricesMarketCapLabel: FlatLabel(defaultFlatLabel) {
-        align: align(center);
-        textFg: pricesPanHeaderFg;
-        style: TextStyle(defaultTextStyle) {
-        }
-        palette: TextPalette(defaultTextPalette) {
-                linkFg: pricesPanHeaderFg;
-        }
-}
-
 // Windows specific title
 
 titleHeight: 21px;

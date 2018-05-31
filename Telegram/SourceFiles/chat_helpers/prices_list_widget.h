@@ -7,6 +7,7 @@ class Controller;
 
 namespace Ui {
 class FlatLabel;
+class IconButton;
 } // namespace Ui
 
 namespace ChatHelpers {
@@ -55,7 +56,7 @@ private:
 	int _selectedRow = -1;
 	int _pressedRow = -1;
 
-	Ui::FlatLabel *_siteName;
+	Ui::IconButton *_siteName;
 	Ui::FlatLabel *_marketCap;
 	Footer *_footer = nullptr;
 
