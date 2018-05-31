@@ -144,8 +144,8 @@ void CryptoPriceList::createTestData()
 	addTestData(QUrl("https://www.livecoinwatch.com/price/Bitcoin-BTC"), "Bitcoin", "BTC", 7935.96, -3.22, false);
 	addTestData(QUrl("https://www.livecoinwatch.com/price/Ethereum-ETH"), "Ethereum", "ETH", 625.64, -8.43, false);
 	addTestData(QUrl("https://www.livecoinwatch.com/price/Ripple-XRP"), "Ripple", "XRP", 0.6246, -6.59, true);
-	addTestData(QUrl("https://www.livecoinwatch.com/price/BitcoinCash-BCH"), "Bitcoin Cash", "BCH", 1064.28, 9.45, true);
-	addTestData(QUrl("https://www.livecoinwatch.com/price/EOS-EOS"), "EOS", "EOS", 11.5, -10.6358, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/BitcoinCash-BCH"), "Bitcoin Cash", "BCH", 10640.2856, 9.45, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/EOS-EOS"), "EOS", "EOS", 11.5, -100.6358, true);
 	addTestData(QUrl("https://www.livecoinwatch.com/price/Litecoin-LTC"), "Litecoin", "LTC", 125.46, -5.28, true);
 	addTestData(QUrl("https://www.livecoinwatch.com/price/Cardano-ADA"), "Cardano", "ADA", 0.2151, -9.72, true);
 	addTestData(QUrl("https://www.livecoinwatch.com/price/Stellar-XLM"), "Stellar", "XLM", 0.2882, -6.81, true);

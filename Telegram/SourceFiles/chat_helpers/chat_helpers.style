@@ -168,10 +168,11 @@ emojiSwitchEmoji: icon {{ "emoji_switch-flip_horizontal", emojiSwitchColor }};
 
 pricesPanPadding: emojiPanPadding;
 pricesPanHeader: emojiPanPadding;
+pricesPanTablePadding: 6px;
 pricesPanTableHeaderHeight: 50;
 pricesPanTableRowHeight: 50;
 pricesPanTableImageSize: 24;
-pricesPanColumnPriceWidth: 110;
+pricesPanColumnPriceWidth: 85;
 pricesPanColumn24hWidth: 70;
 pricesPanHover: windowBgOver; // background of selected row in prices panel
 

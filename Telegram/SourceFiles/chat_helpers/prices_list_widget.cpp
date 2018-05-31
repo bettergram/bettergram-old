@@ -319,7 +319,9 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 
 	int columnCoinWidth = _coinHeader->width()
 			- _coinHeader->contentsMargins().left()
-			- _coinHeader->contentsMargins().right();
+			- _coinHeader->contentsMargins().right()
+			- st::pricesPanTableImageSize
+			- st::pricesPanTablePadding;
 
 	int columnPriceWidth = _priceHeader->width()
 			- _priceHeader->contentsMargins().left()
@@ -335,7 +337,7 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 
 	// Draw rows
 
-	int columnCoinTextLeft = columnCoinLeft + st::pricesPanTableImageSize + st::pricesPanPadding;
+	int columnCoinTextLeft = columnCoinLeft + st::pricesPanTableImageSize + st::pricesPanTablePadding;
 	int rowCount = BettergramSettings::instance()->cryptoPriceList()->count();
 
 	if (_selectedRow != -1 && _selectedRow < rowCount) {
@@ -442,13 +444,13 @@ void PricesListWidget::updateControlsGeometry()
 	int columnCoinWidth = width() - st::pricesPanColumnPriceWidth - st::pricesPanColumn24hWidth;
 
 	_coinHeader->resize(columnCoinWidth, st::pricesPanTableHeaderHeight);
-	_coinHeader->setContentsMargins(st::pricesPanPadding, 0, st::pricesPanPadding, 0);
+	_coinHeader->setContentsMargins(st::pricesPanTablePadding, 0, st::pricesPanTablePadding, 0);
 
 	_priceHeader->resize(st::pricesPanColumnPriceWidth, st::pricesPanTableHeaderHeight);
-	_priceHeader->setContentsMargins(0, 0, st::pricesPanPadding, 0);
+	_priceHeader->setContentsMargins(0, 0, st::pricesPanTablePadding, 0);
 
 	_24hHeader->resize(st::pricesPanColumn24hWidth, st::pricesPanTableHeaderHeight);
-	_24hHeader->setContentsMargins(0, 0, st::pricesPanPadding, 0);
+	_24hHeader->setContentsMargins(0, 0, st::pricesPanTablePadding, 0);
 
 	int headerTop = getTableTop();
 
