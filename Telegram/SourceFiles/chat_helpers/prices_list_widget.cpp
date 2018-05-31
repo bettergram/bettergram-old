@@ -124,6 +124,12 @@ void PricesListWidget::setSelectedRow(int selectedRow)
 	if (_selectedRow != selectedRow) {
 		_selectedRow = selectedRow;
 
+		if (_selectedRow >= 0) {
+			setCursor(style::cur_pointer);
+		} else {
+			setCursor(style::cur_default);
+		}
+
 		update();
 	}
 }
