@@ -1,4 +1,5 @@
 #include "prices_list_widget.h"
+#include "table_column_header_widget.h"
 
 #include "bettergram/bettergramsettings.h"
 #include "bettergram/cryptopricelist.h"
@@ -60,19 +61,43 @@ PricesListWidget::PricesListWidget(QWidget* parent, not_null<Window::Controller*
 	: Inner(parent, controller)
 {
 	_siteName = new Ui::IconButton(this, st::pricesPanSiteNameIcon);
-	_siteName->setClickedCallback([this] { QDesktopServices::openUrl(QUrl("https://www.livecoinwatch.com")); });
+	_siteName->setClickedCallback([] { QDesktopServices::openUrl(QUrl("https://www.livecoinwatch.com")); });
 
 	_marketCap = new Ui::FlatLabel(this, st::pricesPanMarketCapLabel);
 	_marketCap->setRichText(textcmdLink(1, lang(lng_prices_market_cap)
 										.arg(BettergramSettings::instance()->cryptoPriceList()->marketCapString())));
 	_marketCap->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://www.livecoinwatch.com")));
 
+	_coinHeader = new TableColumnHeaderWidget(this);
+	_coinHeader->setText(lng_prices_header_coin);
+	_coinHeader->setTextFlags(Qt::AlignLeft | Qt::AlignVCenter);
+
+	_priceHeader = new TableColumnHeaderWidget(this);
+	_priceHeader->setText(lng_prices_header_price);
+	_priceHeader->setTextFlags(Qt::AlignRight | Qt::AlignVCenter);
+
+	_24hHeader = new TableColumnHeaderWidget(this);
+	_24hHeader->setText(lng_prices_header_24h);
+	_24hHeader->setTextFlags(Qt::AlignRight | Qt::AlignVCenter);
+
+	connect(_coinHeader, &TableColumnHeaderWidget::sortOrderChanged,
+			this, &PricesListWidget::onCoinColumnSortOrderChanged);
+
+	connect(_priceHeader, &TableColumnHeaderWidget::sortOrderChanged,
+			this, &PricesListWidget::onPriceColumnSortOrderChanged);
+
+	connect(_24hHeader, &TableColumnHeaderWidget::sortOrderChanged,
+			this, &PricesListWidget::on24hColumnSortOrderChanged);
+
 	BettergramSettings::instance()->getCryptoPriceList();
 
 	updateControlsGeometry();
 
+	CryptoPriceList *priceList = BettergramSettings::instance()->cryptoPriceList();
+	connect(priceList, &CryptoPriceList::sorted, this, &PricesListWidget::onPriceListSorted);
+
 	//TODO: bettergram: get crypto price list from servers and remove call of _cryptoPriceList->createTestData() method
-	BettergramSettings::instance()->cryptoPriceList()->createTestData();
+	priceList->createTestData();
 
 	setMouseTracking(true);
 }
@@ -161,33 +186,33 @@ int PricesListWidget::getRowTop(int row) const
 
 QRect PricesListWidget::getTableRectangle() const
 {
-	return QRect(st::pricesPanPadding,
+	return QRect(0,
 				 getTableTop(),
-				 width() - 2 * st::pricesPanPadding,
+				 width(),
 				 getTableBottom());
 }
 
 QRect PricesListWidget::getTableHeaderRectangle() const
 {
-	return QRect(st::pricesPanPadding,
+	return QRect(0,
 				 getTableTop(),
-				 width() - 2 * st::pricesPanPadding,
+				 width(),
 				 st::pricesPanTableHeaderHeight);
 }
 
 QRect PricesListWidget::getTableContentRectangle() const
 {
-	return QRect(st::pricesPanPadding,
+	return QRect(0,
 				 getTableContentTop(),
-				 width() - 2 * st::pricesPanPadding,
+				 width(),
 				 getTableContentHeight());
 }
 
 QRect PricesListWidget::getRowRectangle(int row) const
 {
-	return QRect(st::pricesPanPadding,
+	return QRect(0,
 				 getRowTop(row),
-				 width() - 2 * st::pricesPanPadding,
+				 width(),
 				 st::pricesPanTableRowHeight);
 }
 
@@ -290,46 +315,35 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 
 	painter.fillRect(r, st::pricesPanBg);
 
-	int top = _marketCap->y() + _marketCap->height() + st::pricesPanPadding;
-	int textLeftPadding = st::pricesPanPadding;
+	int top = getTableContentTop();
 
-	// Draw table header
+	int columnCoinWidth = _coinHeader->width()
+			- _coinHeader->contentsMargins().left()
+			- _coinHeader->contentsMargins().right();
 
-	int columnCoinWidth = width() - st::pricesPanColumnPriceWidth - st::pricesPanColumn24hWidth - 2 * textLeftPadding;
+	int columnPriceWidth = _priceHeader->width()
+			- _priceHeader->contentsMargins().left()
+			- _priceHeader->contentsMargins().right();
 
-	int columnCoinLeft = textLeftPadding;
-	int columnPriceLeft = textLeftPadding + columnCoinWidth;
-	int column24hLeft = width() - st::pricesPanColumn24hWidth - textLeftPadding;
+	int column24hWidth = _24hHeader->width()
+			- _24hHeader->contentsMargins().left()
+			- _24hHeader->contentsMargins().right();
 
-	QRect headerRect(0, top, width(), st::pricesPanTableHeaderHeight);
-
-	painter.fillRect(headerRect, st::pricesPanTableHeaderBg);
-
-	// The App::roundRect() method has artefacts if color is different from st::pricesPanHover
-	//App::roundRect(painter, headerRect, st::pricesPanHover, StickerHoverCorners);
-
-	painter.setFont(st::semiboldFont);
-
-	painter.drawText(columnCoinLeft, headerRect.top(), columnCoinWidth, headerRect.height(),
-					 Qt::AlignLeft | Qt::AlignVCenter, lang(lng_prices_header_coin));
-
-	painter.drawText(columnPriceLeft, headerRect.top(), st::pricesPanColumnPriceWidth, headerRect.height(),
-					 Qt::AlignRight | Qt::AlignVCenter, lang(lng_prices_header_price));
-
-	painter.drawText(column24hLeft, headerRect.top(), st::pricesPanColumn24hWidth, headerRect.height(),
-					 Qt::AlignRight | Qt::AlignVCenter, lang(lng_prices_header_24h));
-
-	top += st::pricesPanTableHeaderHeight;
+	int columnCoinLeft = _coinHeader->x() + _coinHeader->contentsMargins().left();
+	int columnPriceLeft = _priceHeader->x() + _priceHeader->contentsMargins().left();
+	int column24hLeft = _24hHeader->x() + _24hHeader->contentsMargins().left();
 
 	// Draw rows
 
-	int columnCoinTextLeft = columnCoinLeft + st::pricesPanTableImageSize + textLeftPadding;
+	int columnCoinTextLeft = columnCoinLeft + st::pricesPanTableImageSize + st::pricesPanPadding;
 	int rowCount = BettergramSettings::instance()->cryptoPriceList()->count();
 
 	if (_selectedRow != -1 && _selectedRow < rowCount) {
 		QRect rowRectangle(0, getRowTop(_selectedRow), width(), st::pricesPanTableRowHeight);
 		App::roundRect(painter, rowRectangle, st::pricesPanHover, StickerHoverCorners);
 	}
+
+	painter.setFont(st::semiboldFont);
 
 	for (const CryptoPrice *price : *BettergramSettings::instance()->cryptoPriceList()) {
 		//TODO: bettergram: draw cryptocurrency icon
@@ -350,7 +364,7 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 			painter.setPen(st::pricesPanTableDownFg);
 		}
 
-		painter.drawText(columnPriceLeft, top, st::pricesPanColumnPriceWidth, st::pricesPanTableRowHeight,
+		painter.drawText(columnPriceLeft, top, columnPriceWidth, st::pricesPanTableRowHeight,
 						 Qt::AlignRight | Qt::AlignVCenter, price->currentPriceString());
 
 		if (price->isChangeFor24HoursGrown()) {
@@ -359,7 +373,7 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 			painter.setPen(st::pricesPanTableDownFg);
 		}
 
-		painter.drawText(column24hLeft, top, st::pricesPanColumn24hWidth, st::pricesPanTableRowHeight,
+		painter.drawText(column24hLeft, top, column24hWidth, st::pricesPanTableRowHeight,
 						 Qt::AlignRight | Qt::AlignVCenter, price->changeFor24HoursString());
 
 		top += st::pricesPanTableRowHeight;
@@ -424,6 +438,82 @@ void PricesListWidget::updateControlsGeometry()
 
 	_marketCap->moveToLeft((width() - _marketCap->width()) / 2,
 						   _siteName->y() + _siteName->height() + st::pricesPanPadding);
+
+	int columnCoinWidth = width() - st::pricesPanColumnPriceWidth - st::pricesPanColumn24hWidth;
+
+	_coinHeader->resize(columnCoinWidth, st::pricesPanTableHeaderHeight);
+	_coinHeader->setContentsMargins(st::pricesPanPadding, 0, st::pricesPanPadding, 0);
+
+	_priceHeader->resize(st::pricesPanColumnPriceWidth, st::pricesPanTableHeaderHeight);
+	_priceHeader->setContentsMargins(0, 0, st::pricesPanPadding, 0);
+
+	_24hHeader->resize(st::pricesPanColumn24hWidth, st::pricesPanTableHeaderHeight);
+	_24hHeader->setContentsMargins(0, 0, st::pricesPanPadding, 0);
+
+	int headerTop = getTableTop();
+
+	_coinHeader->moveToLeft(0, headerTop);
+	_priceHeader->moveToLeft(_coinHeader->x() + _coinHeader->width(), headerTop);
+	_24hHeader->moveToLeft(_priceHeader->x() + _priceHeader->width(), headerTop);
+}
+
+void PricesListWidget::onCoinColumnSortOrderChanged()
+{
+	if (_coinHeader->sortOrder() != TableColumnHeaderWidget::SortOrder::None) {
+		_priceHeader->resetSortOrder();
+		_24hHeader->resetSortOrder();
+
+		CryptoPriceList::SortOrder sortOrder = CryptoPriceList::SortOrder::None;
+
+		if (_coinHeader->sortOrder() == TableColumnHeaderWidget::SortOrder::Ascending) {
+			sortOrder = CryptoPriceList::SortOrder::NameAscending;
+		} else {
+			sortOrder = CryptoPriceList::SortOrder::NameDescending;
+		}
+
+		BettergramSettings::instance()->cryptoPriceList()->setSortOrder(sortOrder);
+	}
+}
+
+void PricesListWidget::onPriceColumnSortOrderChanged()
+{
+	if (_priceHeader->sortOrder() != TableColumnHeaderWidget::SortOrder::None) {
+		_coinHeader->resetSortOrder();
+		_24hHeader->resetSortOrder();
+
+		CryptoPriceList::SortOrder sortOrder = CryptoPriceList::SortOrder::None;
+
+		if (_priceHeader->sortOrder() == TableColumnHeaderWidget::SortOrder::Ascending) {
+			sortOrder = CryptoPriceList::SortOrder::PriceAscending;
+		} else {
+			sortOrder = CryptoPriceList::SortOrder::PriceDescending;
+		}
+
+		BettergramSettings::instance()->cryptoPriceList()->setSortOrder(sortOrder);
+	}
+}
+
+void PricesListWidget::on24hColumnSortOrderChanged()
+{
+	if (_24hHeader->sortOrder() != TableColumnHeaderWidget::SortOrder::None) {
+		_coinHeader->resetSortOrder();
+		_priceHeader->resetSortOrder();
+
+		CryptoPriceList::SortOrder sortOrder = CryptoPriceList::SortOrder::None;
+
+		if (_24hHeader->sortOrder() == TableColumnHeaderWidget::SortOrder::Ascending) {
+			sortOrder = CryptoPriceList::SortOrder::ChangeFor24hAscending;
+		} else {
+			sortOrder = CryptoPriceList::SortOrder::ChangeFor24hDescending;
+		}
+
+		BettergramSettings::instance()->cryptoPriceList()->setSortOrder(sortOrder);
+	}
+}
+
+void PricesListWidget::onPriceListSorted()
+{
+	update();
 }
 
 } // namespace ChatHelpers

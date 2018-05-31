@@ -138,6 +138,8 @@
 <(src_loc)/chat_helpers/tabbed_section.h
 <(src_loc)/chat_helpers/tabbed_selector.cpp
 <(src_loc)/chat_helpers/tabbed_selector.h
+<(src_loc)/chat_helpers/table_column_header_widget.cpp
+<(src_loc)/chat_helpers/table_column_header_widget.h
 <(src_loc)/core/basic_types.h
 <(src_loc)/core/changelogs.cpp
 <(src_loc)/core/changelogs.h

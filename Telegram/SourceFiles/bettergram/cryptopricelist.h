@@ -20,6 +20,19 @@ class CryptoPriceList : public QObject {
 	Q_OBJECT
 
 public:
+	enum class SortOrder {
+		None,
+
+		NameAscending,
+		NameDescending,
+
+		PriceAscending,
+		PriceDescending,
+
+		ChangeFor24hAscending,
+		ChangeFor24hDescending,
+	};
+
 	typedef QList<CryptoPrice*>::const_iterator const_iterator;
 
 	explicit CryptoPriceList(QObject *parent = nullptr);
@@ -34,18 +47,30 @@ public:
 	CryptoPrice *at(int index) const;
 	int count() const;
 
+	SortOrder sortOrder() const;
+	void setSortOrder(const SortOrder &sortOrder);
+
 	void createTestData();
 
 public slots:
 
 signals:
 	void marketCapChanged();
+	void sortOrderChanged();
+	void sorted();
 
 protected:
 
 private:
 	QList<CryptoPrice*> _list;
 	double _marketCap = 0.0;
+	SortOrder _sortOrder = SortOrder::None;
+
+	static bool sortByName(const CryptoPrice *price1, const CryptoPrice *price2);
+	static bool sortByPrice(const CryptoPrice *price1, const CryptoPrice *price2);
+	static bool sortBy24h(const CryptoPrice *price1, const CryptoPrice *price2);
+
+	void sort();
 
 	void addTestData(const QUrl &url,
 					 const QString &name,

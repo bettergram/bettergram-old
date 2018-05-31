@@ -12,6 +12,8 @@ class IconButton;
 
 namespace ChatHelpers {
 
+class TableColumnHeaderWidget;
+
 /**
  * @brief The PricesListWidget class shows cryptocurrency price list.
  * In normal Qt application we should use QTableView, but it would be strange for this application
@@ -57,8 +59,11 @@ private:
 	int _selectedRow = -1;
 	int _pressedRow = -1;
 
-	Ui::IconButton *_siteName;
-	Ui::FlatLabel *_marketCap;
+	Ui::IconButton *_siteName = nullptr;
+	Ui::FlatLabel *_marketCap = nullptr;
+	TableColumnHeaderWidget *_coinHeader = nullptr;
+	TableColumnHeaderWidget *_priceHeader = nullptr;
+	TableColumnHeaderWidget *_24hHeader = nullptr;
 	Footer *_footer = nullptr;
 
 	void setSelectedRow(int selectedRow);
@@ -77,6 +82,13 @@ private:
 	void countSelectedRow(const QPoint &point);
 
 	void updateControlsGeometry();
+
+private slots:
+	void onCoinColumnSortOrderChanged();
+	void onPriceColumnSortOrderChanged();
+	void on24hColumnSortOrderChanged();
+
+	void onPriceListSorted();
 };
 
 } // namespace ChatHelpers

@@ -172,7 +172,7 @@ pricesPanTableHeaderHeight: 50;
 pricesPanTableRowHeight: 50;
 pricesPanTableImageSize: 24;
 pricesPanColumnPriceWidth: 110;
-pricesPanColumn24hWidth: 60;
+pricesPanColumn24hWidth: 70;
 pricesPanHover: windowBgOver; // background of selected row in prices panel
 
 // Site name icon at the PricesListWidget.

@@ -59,6 +59,84 @@ int CryptoPriceList::count() const
 	return _list.count();
 }
 
+CryptoPriceList::SortOrder CryptoPriceList::sortOrder() const
+{
+	return _sortOrder;
+}
+
+void CryptoPriceList::setSortOrder(const SortOrder &sortOrder)
+{
+	if (_sortOrder != sortOrder) {
+		_sortOrder = sortOrder;
+
+		sort();
+		emit sortOrderChanged();
+	}
+}
+
+bool CryptoPriceList::sortByName(const CryptoPrice *price1, const CryptoPrice *price2)
+{
+	return QString::compare(price1->name(), price2->name(), Qt::CaseInsensitive) < 0;
+}
+
+bool CryptoPriceList::sortByPrice(const CryptoPrice *price1, const CryptoPrice *price2)
+{
+	return price1->currentPrice() < price2->currentPrice();
+}
+
+bool CryptoPriceList::sortBy24h(const CryptoPrice *price1, const CryptoPrice *price2)
+{
+	return price1->changeFor24Hours() < price2->changeFor24Hours();
+}
+
+void CryptoPriceList::sort()
+{
+	switch (_sortOrder) {
+	case SortOrder::None:
+		break;
+	case SortOrder::NameAscending:
+		std::sort(_list.begin(), _list.end(),
+				  [](const CryptoPrice *price1, const CryptoPrice *price2) {
+			return sortByName(price1, price2);
+		});
+		break;
+	case SortOrder::NameDescending:
+		std::sort(_list.begin(), _list.end(),
+				  [](const CryptoPrice *price1, const CryptoPrice *price2) {
+			return !sortByName(price1, price2);
+		});
+		break;
+	case SortOrder::PriceAscending:
+		std::sort(_list.begin(), _list.end(),
+				  [](const CryptoPrice *price1, const CryptoPrice *price2) {
+			return sortByPrice(price1, price2);
+		});
+		break;
+	case SortOrder::PriceDescending:
+		std::sort(_list.begin(), _list.end(),
+				  [](const CryptoPrice *price1, const CryptoPrice *price2) {
+			return !sortByPrice(price1, price2);
+		});
+		break;
+	case SortOrder::ChangeFor24hAscending:
+		std::sort(_list.begin(), _list.end(),
+				  [](const CryptoPrice *price1, const CryptoPrice *price2) {
+			return sortBy24h(price1, price2);
+		});
+		break;
+	case SortOrder::ChangeFor24hDescending:
+		std::sort(_list.begin(), _list.end(),
+				  [](const CryptoPrice *price1, const CryptoPrice *price2) {
+			return !sortBy24h(price1, price2);
+		});
+		break;
+	default:
+		break;
+	}
+
+	emit sorted();
+}
+
 void CryptoPriceList::createTestData()
 {
 	clear();
