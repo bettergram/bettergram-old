@@ -209,6 +209,26 @@ pricesPanMarketCapLabel: FlatLabel(defaultFlatLabel) {
         }
 }
 
+// Ascending icon at the table column header.
+tableColumnSortAscending: IconButton {
+        width: 13px;
+        height: 10px;
+
+        icon: icon {{ "ascending", tableColumnSortInactiveFg }};
+        iconOver: icon {{ "ascending", dialogsMenuIconFgOver }};
+        iconPosition: point(0px, 0px);
+}
+
+// Descending icon at the table column header.
+tableColumnSortDescending: IconButton {
+        width: 13px;
+        height: 10px;
+
+        icon: icon {{ "descending", tableColumnSortInactiveFg }};
+        iconOver: icon {{ "descending", dialogsMenuIconFgOver }};
+        iconPosition: point(0px, 0px);
+}
+
 hashtagClose: IconButton {
 	width: 30px;
 	height: 30px;
