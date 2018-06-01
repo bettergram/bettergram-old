@@ -10,11 +10,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 #include "dialogs_entry.h"
 
-namespace Ui {
-class IconButton;
-} // namespace Ui
-
 namespace Dialogs {
+
+class ChatTabButton;
 
 class ChatTabs : public TWidget {
 	Q_OBJECT
@@ -40,12 +38,12 @@ protected:
 private:
 	EntryTypes _type;
 
-	object_ptr<Ui::IconButton> _favoriteButton;
-	object_ptr<Ui::IconButton> _groupButton;
-	object_ptr<Ui::IconButton> _oneOnOneButton;
-	object_ptr<Ui::IconButton> _announcementButton;
+	object_ptr<ChatTabButton> _favoriteButton;
+	object_ptr<ChatTabButton> _groupButton;
+	object_ptr<ChatTabButton> _oneOnOneButton;
+	object_ptr<ChatTabButton> _announcementButton;
 
-	QList<Ui::IconButton*> _listButtons;
+	QList<ChatTabButton*> _listButtons;
 
 	void updateControlsGeometry();
 };

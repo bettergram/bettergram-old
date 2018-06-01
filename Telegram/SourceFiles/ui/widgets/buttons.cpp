@@ -461,6 +461,11 @@ QPoint IconButton::prepareRippleStartPosition() const {
 		: DisabledRippleStartPosition();
 }
 
+const style::IconButton &IconButton::style()
+{
+	return _st;
+}
+
 QImage IconButton::prepareRippleMask() const {
 	return RippleAnimation::ellipseMask(QSize(_st.rippleAreaSize, _st.rippleAreaSize));
 }

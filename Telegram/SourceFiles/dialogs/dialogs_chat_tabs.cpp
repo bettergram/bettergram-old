@@ -7,6 +7,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 */
 
 #include "dialogs_chat_tabs.h"
+#include "dialogs_chat_tab_button.h"
 #include "ui/widgets/buttons.h"
 #include "styles/style_dialogs.h"
 
@@ -45,10 +46,10 @@ void ChatTabs::selectTab(const EntryTypes &type)
 	_type = type;
 
 	// Set default icons to tab buttons
-	_favoriteButton->setIconOverride(nullptr);
-	_groupButton->setIconOverride(nullptr);
-	_oneOnOneButton->setIconOverride(nullptr);
-	_announcementButton->setIconOverride(nullptr);
+	_favoriteButton->unselect();
+	_groupButton->unselect();
+	_oneOnOneButton->unselect();
+	_announcementButton->unselect();
 
 	QSettings().setValue(qsl("last_tab"), static_cast<unsigned>(type));
 
@@ -56,18 +57,18 @@ void ChatTabs::selectTab(const EntryTypes &type)
 
 	switch (_type.value()) {
 	case static_cast<unsigned>(EntryType::Favorite):
-		_favoriteButton->setIconOverride(&st::dialogsChatTabsFavoriteButton.iconOver, &st::dialogsChatTabsFavoriteSelectedHoverIcon);
+		_favoriteButton->select();
 		break;
 	case static_cast<unsigned>(EntryType::Group):
-		_groupButton->setIconOverride(&st::dialogsChatTabsGroupButton.iconOver, &st::dialogsChatTabsGroupSelectedHoverIcon);
+		_groupButton->select();
 		break;
 	case static_cast<unsigned>(EntryType::OneOnOne):
-		_oneOnOneButton->setIconOverride(&st::dialogsChatTabsOneOnOneButton.iconOver, &st::dialogsChatTabsOneOnOneSelectedHoverIcon);
+		_oneOnOneButton->select();
 		break;
 	case static_cast<unsigned>(EntryType::Channel):
 	case static_cast<unsigned>(EntryType::Feed):
 	case (EntryType::Channel | EntryType::Feed).value():
-		_announcementButton->setIconOverride(&st::dialogsChatTabsAnnouncementButton.iconOver, &st::dialogsChatTabsAnnouncementSelectedHoverIcon);
+		_announcementButton->select();
 		break;
 	case static_cast<unsigned>(EntryType::None):
 		break;

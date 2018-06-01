@@ -228,7 +228,6 @@ dialogsSearchFromPalette: TextPalette(defaultTextPalette) {
 	linkFg: dialogsNameFg;
 }
 
-dialogsChatTabsFavoriteSelectedHoverIcon: icon {{ "favorites_icon", dialogsChatTabsSelectedHoverFg }};
 dialogsChatTabsFavoriteButton: IconButton {
         width: 40px;
         height: 40px;
@@ -244,7 +243,6 @@ dialogsChatTabsFavoriteButton: IconButton {
         }
 }
 
-dialogsChatTabsGroupSelectedHoverIcon: icon {{ "group_icon", dialogsChatTabsSelectedHoverFg }};
 dialogsChatTabsGroupButton: IconButton {
         width: 40px;
         height: 40px;
@@ -260,7 +258,6 @@ dialogsChatTabsGroupButton: IconButton {
         }
 }
 
-dialogsChatTabsOneOnOneSelectedHoverIcon: icon {{ "private_icon", dialogsChatTabsSelectedHoverFg }};
 dialogsChatTabsOneOnOneButton: IconButton {
         width: 40px;
         height: 40px;
@@ -276,7 +273,6 @@ dialogsChatTabsOneOnOneButton: IconButton {
         }
 }
 
-dialogsChatTabsAnnouncementSelectedHoverIcon: icon {{ "announcements_icon", dialogsChatTabsSelectedHoverFg }};
 dialogsChatTabsAnnouncementButton: IconButton {
         width: 40px;
         height: 40px;
