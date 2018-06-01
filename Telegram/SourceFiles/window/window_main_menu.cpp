@@ -62,13 +62,13 @@ MainMenu::MainMenu(
 	refreshMenu();
 
 	_telegram->setRichText(textcmdLink(1, qsl("Bettergram")));
-	_telegram->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://desktop.telegram.org")));
+	_telegram->setLink(1, std::make_shared<UrlClickHandler>(qsl("http://www.bettergram.io")));
 	_version->setRichText(textcmdLink(1, lng_settings_current_version(lt_version, currentVersionText())) + QChar(' ') + QChar(8211) + QChar(' ') + textcmdLink(2, lang(lng_menu_about)));
-	_version->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://desktop.telegram.org/changelog")));
-	_version->setLink(2, std::make_shared<LambdaClickHandler>([] { Ui::show(Box<AboutBox>()); }));
+	_version->setLink(1, std::make_shared<UrlClickHandler>(qsl("http://www.bettergram.io/changelog")));
+	_version->setLink(2, std::make_shared<UrlClickHandler>(qsl("http://www.bettergram.io/about")));
 
 	_manageSubscription->setRichText(textcmdLink(1, lang(lng_menu_manage_subscription)));
-	_manageSubscription->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://desktop.telegram.org")));
+	_manageSubscription->setLink(1, std::make_shared<UrlClickHandler>(qsl("http://www.bettergram.io")));
 	_manageSubscription->setVisible(false);
 
 	Bettergram::BettergramSettings *settings = Bettergram::BettergramSettings::instance();
