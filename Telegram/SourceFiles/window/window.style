@@ -189,7 +189,7 @@ adLabel : FlatLabel(defaultFlatLabel)
 {
 	align: align(center);
 	margin: margins(5px, 5px, 5px, 5px);
-	textFg: lightButtonFg;
+        textFg: windowActiveTextFg;
 	style: TextStyle(defaultTextStyle)
 	{
 		font: semiboldFont;
@@ -198,7 +198,7 @@ adLabel : FlatLabel(defaultFlatLabel)
 	}
 	palette: TextPalette(defaultTextPalette)
 	{
-		linkFg: windowSubTextFg;
+                linkFg: windowActiveTextFg;
 	}
 }
 
