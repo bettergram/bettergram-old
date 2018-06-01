@@ -28,7 +28,7 @@ public:
 protected:
 	void processPanelHideFinished() override;
 	void resizeEvent(QResizeEvent* e) override;
-	void customizeClick();
+	void onFooterClicked();
 
 private:
 	not_null<PricesListWidget*> _parent;
@@ -38,12 +38,11 @@ private:
 PricesListWidget::Footer::Footer(not_null<PricesListWidget*> parent)
 	:  InnerFooter(parent)
 	, _parent(parent)
-	, _link(object_ptr<Ui::LinkButton>(this, lang(lng_prices_upgrade_now), st::largeLinkButton))
+	, _link(object_ptr<Ui::LinkButton>(this, lang(lng_prices_footer), st::largeLinkButton))
 {
 	//TODO: bettergram: if a user is paid then we must to hide the "Upgrade Now" text
 
-	_link->setClickedCallback([this] { customizeClick(); });
-	_link->setVisible(false);
+	_link->setClickedCallback([this] { onFooterClicked(); });
 }
 
 void PricesListWidget::Footer::resizeEvent(QResizeEvent* e)
@@ -55,9 +54,9 @@ void PricesListWidget::Footer::processPanelHideFinished()
 {
 }
 
-void PricesListWidget::Footer::customizeClick()
+void PricesListWidget::Footer::onFooterClicked()
 {
-	//TODO: bettergram: realize PricesListWidget::Footer::customizeClick() method
+	QDesktopServices::openUrl(QUrl("https://www.livecoinwatch.com"));
 }
 
 PricesListWidget::PricesListWidget(QWidget* parent, not_null<Window::Controller*> controller)
