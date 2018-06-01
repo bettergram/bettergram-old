@@ -56,18 +56,18 @@ void ChatTabs::selectTab(const EntryTypes &type)
 
 	switch (_type.value()) {
 	case static_cast<unsigned>(EntryType::Favorite):
-		_favoriteButton->setIconOverride(&st::dialogsChatTabsFavoriteButton.iconOver);
+		_favoriteButton->setIconOverride(&st::dialogsChatTabsFavoriteButton.iconOver, &st::dialogsChatTabsFavoriteSelectedHoverIcon);
 		break;
 	case static_cast<unsigned>(EntryType::Group):
-		_groupButton->setIconOverride(&st::dialogsChatTabsGroupButton.iconOver);
+		_groupButton->setIconOverride(&st::dialogsChatTabsGroupButton.iconOver, &st::dialogsChatTabsGroupSelectedHoverIcon);
 		break;
 	case static_cast<unsigned>(EntryType::OneOnOne):
-		_oneOnOneButton->setIconOverride(&st::dialogsChatTabsOneOnOneButton.iconOver);
+		_oneOnOneButton->setIconOverride(&st::dialogsChatTabsOneOnOneButton.iconOver, &st::dialogsChatTabsOneOnOneSelectedHoverIcon);
 		break;
 	case static_cast<unsigned>(EntryType::Channel):
 	case static_cast<unsigned>(EntryType::Feed):
 	case (EntryType::Channel | EntryType::Feed).value():
-		_announcementButton->setIconOverride(&st::dialogsChatTabsAnnouncementButton.iconOver);
+		_announcementButton->setIconOverride(&st::dialogsChatTabsAnnouncementButton.iconOver, &st::dialogsChatTabsAnnouncementSelectedHoverIcon);
 		break;
 	case static_cast<unsigned>(EntryType::None):
 		break;
