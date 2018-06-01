@@ -224,7 +224,6 @@ dialogsSentIconFgActive: dialogsTextFgActive; // chat list sent message tick / d
 dialogsUnreadBgActive: dialogsTextFgActive; // chat list unread badge background for not muted chat for current (active) chat
 dialogsUnreadBgMutedActive: dialogsDraftFgActive; // chat list unread badge background for muted chat for current (active) chat
 dialogsUnreadFgActive: dialogsBgActive; // chat list unread badge text for current (active) chat
-dialogsChatTabsSelectedHoverFg: #1c8a7c;
 
 dialogsRippleBg: windowBgRipple; // chat list background ripple effect
 dialogsRippleBgActive: activeButtonBgRipple; // chat list background ripple effect for current (active) chat
