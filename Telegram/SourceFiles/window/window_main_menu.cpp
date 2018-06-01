@@ -69,6 +69,7 @@ MainMenu::MainMenu(
 
 	_manageSubscription->setRichText(textcmdLink(1, lang(lng_menu_manage_subscription)));
 	_manageSubscription->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://desktop.telegram.org")));
+	_manageSubscription->setVisible(false);
 
 	Bettergram::BettergramSettings *settings = Bettergram::BettergramSettings::instance();
 	subscribe(settings->isPaidObservable(), [this] { updateBettergramProText(); });
