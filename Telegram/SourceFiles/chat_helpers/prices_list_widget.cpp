@@ -38,8 +38,10 @@ private:
 PricesListWidget::Footer::Footer(not_null<PricesListWidget*> parent)
 	:  InnerFooter(parent)
 	, _parent(parent)
-	, _link(object_ptr<Ui::LinkButton>(this, lang(lng_prices_customize_list), st::largeLinkButton))
+	, _link(object_ptr<Ui::LinkButton>(this, lang(lng_prices_upgrade_now), st::largeLinkButton))
 {
+	//TODO: bettergram: if a user is paid then we must to hide the "Upgrade Now" text
+
 	_link->setClickedCallback([this] { customizeClick(); });
 }
 
