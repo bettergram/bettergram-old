@@ -2407,12 +2407,13 @@ bool History::isMegagroup() const {
 
 Dialogs::EntryTypes History::getEntryType() const
 {
-   auto  ret = peer->isChat() && peer->isMegagroup()
-      ?  Dialogs::EntryType::Group
-      :  isChannel()
-         ?  Dialogs::EntryType::Channel
-         :  Dialogs::EntryType::OneOnOne;
-   return ret | Entry::getEntryType();
+	Dialogs::EntryType ret = peer->isChat() || peer->isMegagroup()
+			?  Dialogs::EntryType::Group
+			:  isChannel()
+				?  Dialogs::EntryType::Channel
+				:  Dialogs::EntryType::OneOnOne;
+
+	return ret | Entry::getEntryType();
 }
 
 not_null<History*> History::migrateToOrMe() const {
