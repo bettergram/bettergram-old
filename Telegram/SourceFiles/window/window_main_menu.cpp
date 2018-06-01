@@ -42,6 +42,9 @@ MainMenu::MainMenu(
 , _noAdsPlusCustomPrices(this, st::mainMenuNoAdsPlusCustomPricesLabel) {
 	setAttribute(Qt::WA_OpaquePaintEvent);
 
+	_upgradeToBettergramPro->setVisible(false);
+	_noAdsPlusCustomPrices->setVisible(false);
+
 	subscribe(Global::RefSelfChanged(), [this] {
 		checkSelf();
 	});

@@ -43,6 +43,7 @@ PricesListWidget::Footer::Footer(not_null<PricesListWidget*> parent)
 	//TODO: bettergram: if a user is paid then we must to hide the "Upgrade Now" text
 
 	_link->setClickedCallback([this] { customizeClick(); });
+	_link->setVisible(false);
 }
 
 void PricesListWidget::Footer::resizeEvent(QResizeEvent* e)
