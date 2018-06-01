@@ -11,7 +11,7 @@ using "ui/widgets/widgets.style";
 using "history/history.style";
 
 windowMinWidth: 380px;
-windowMinHeight: 480px;
+windowMinHeight: 600px;
 windowDefaultWidth: 800px;
 windowDefaultHeight: 600px;
 windowShadow: icon {{ "window_shadow", windowShadowFg }};
