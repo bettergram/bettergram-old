@@ -9,6 +9,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 #include "base/observer.h"
 #include <QObject>
+#include <QtNetwork/QNetworkAccessManager>
 
 namespace Bettergram {
 
@@ -51,6 +52,8 @@ protected:
 private:
 	static BettergramSettings *_instance;
 
+	QNetworkAccessManager _networkManager;
+
 	bool _isPaid = false;
 	BillingPlan _billingPlan = BillingPlan::Unknown;
 	CryptoPriceList *_cryptoPriceList = nullptr;
@@ -65,6 +68,12 @@ private:
 
 	void getIsPaid();
 	void getAd();
+
+	void parseCryptoPriceList(const QByteArray &byteArray);
+
+private slots:
+	void onGetCryptoPriceListFinished();
+	void onGetCryptoPriceListSslFailed(QList<QSslError> errors);
 };
 
 } // namespace Bettergram

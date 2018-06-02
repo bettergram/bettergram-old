@@ -10,7 +10,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 namespace Bettergram {
 
-CryptoPrice::CryptoPrice(const QUrl &url, const QString &name, const QString &shortName, QObject *parent) :
+CryptoPrice::CryptoPrice(const QUrl &url,
+						 const QString &name,
+						 const QString &shortName,
+						 QObject *parent) :
 	QObject(parent),
 	_url(url),
 	_name(name),
@@ -18,9 +21,56 @@ CryptoPrice::CryptoPrice(const QUrl &url, const QString &name, const QString &sh
 {
 }
 
+CryptoPrice::CryptoPrice(const QUrl &url,
+						 const QString &name,
+						 const QString &shortName,
+						 double currentPrice,
+						 double changeFor24Hours,
+						 bool isCurrentPriceGrown,
+						 QObject *parent) :
+	QObject(parent),
+	_url(url),
+	_name(name),
+	_shortName(shortName),
+	_currentPrice(currentPrice),
+	_changeFor24Hours(changeFor24Hours),
+	_isCurrentPriceGrown(isCurrentPriceGrown),
+	_isChangeFor24HoursGrown(_changeFor24Hours >= 0.0)
+{
+}
+
+CryptoPrice::CryptoPrice(const CryptoPrice &price, QObject *parent) :
+	QObject(parent),
+	_url(price._url),
+	_name(price._name),
+	_shortName(price._shortName),
+	_currentPrice(price._currentPrice),
+	_changeFor24Hours(price._changeFor24Hours),
+	_isCurrentPriceGrown(price._isCurrentPriceGrown),
+	_isChangeFor24HoursGrown(price._isChangeFor24HoursGrown)
+{
+}
+
+CryptoPrice &CryptoPrice::operator=(const CryptoPrice &price)
+{
+	setUrl(price._url);
+	setName(price._name);
+	setShortName(price._shortName);
+	setCurrentPrice(price._currentPrice);
+	setChangeFor24Hours(price._changeFor24Hours);
+	setIsCurrentPriceGrown(price._isCurrentPriceGrown);
+
+	return *this;
+}
+
 const QUrl &CryptoPrice::url() const
 {
 	return _url;
+}
+
+void CryptoPrice::setUrl(const QUrl &url)
+{
+	_url = url;
 }
 
 const QString &CryptoPrice::name() const
@@ -28,9 +78,19 @@ const QString &CryptoPrice::name() const
 	return _name;
 }
 
+void CryptoPrice::setName(const QString &name)
+{
+	_name = name;
+}
+
 const QString &CryptoPrice::shortName() const
 {
 	return _shortName;
+}
+
+void CryptoPrice::setShortName(const QString &shortName)
+{
+	_shortName = shortName;
 }
 
 double CryptoPrice::currentPrice() const
@@ -99,6 +159,13 @@ void CryptoPrice::setIsChangeFor24HoursGrown(bool isChangeFor24HoursGrown)
 		_isChangeFor24HoursGrown = isChangeFor24HoursGrown;
 		emit isChangeFor24HoursGrownChanged();
 	}
+}
+
+void CryptoPrice::updateData(const CryptoPrice &price)
+{
+	setCurrentPrice(price.currentPrice());
+	setChangeFor24Hours(price.changeFor24Hours());
+	setIsCurrentPriceGrown(price.isCurrentPriceGrown());
 }
 
 } // namespace Bettergrams

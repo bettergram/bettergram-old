@@ -74,6 +74,59 @@ void CryptoPriceList::setSortOrder(const SortOrder &sortOrder)
 	}
 }
 
+void CryptoPriceList::updateData(double marketCap, const QList<CryptoPrice> &priceList)
+{
+	setMarketCap(marketCap);
+
+	// Remove old crypto prices
+	for (QList<CryptoPrice*>::iterator it = _list.begin(); it != _list.end();) {
+		CryptoPrice *price = *it;
+
+		if (containsName(priceList, price->name())) {
+			++it;
+		} else {
+			price->deleteLater();
+			it = _list.erase(it);
+		}
+	}
+
+	// Update existed crypto prices and add new ones
+	for (const CryptoPrice &price : priceList) {
+		CryptoPrice *existedPrice = findByName(price.name());
+
+		if (existedPrice) {
+			existedPrice->updateData(price);
+		} else {
+			existedPrice = new CryptoPrice(price, this);
+			_list.push_back(existedPrice);
+		}
+	}
+
+	sort();
+}
+
+CryptoPrice *CryptoPriceList::findByName(const QString &name)
+{
+	for (CryptoPrice *price : _list) {
+		if (price->name() == name) {
+			return price;
+		}
+	}
+
+	return nullptr;
+}
+
+bool CryptoPriceList::containsName(const QList<CryptoPrice> &priceList, const QString &name)
+{
+	for (const CryptoPrice &price : priceList) {
+		if (price.name() == name) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 bool CryptoPriceList::sortByName(const CryptoPrice *price1, const CryptoPrice *price2)
 {
 	return QString::compare(price1->name(), price2->name(), Qt::CaseInsensitive) < 0;
@@ -134,7 +187,7 @@ void CryptoPriceList::sort()
 		break;
 	}
 
-	emit sorted();
+	emit updated();
 }
 
 void CryptoPriceList::createTestData()

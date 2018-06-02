@@ -19,7 +19,22 @@ class CryptoPrice : public QObject {
 	Q_OBJECT
 
 public:
-	explicit CryptoPrice(const QUrl &url, const QString &name, const QString &shortName, QObject *parent = nullptr);
+	explicit CryptoPrice(const QUrl &url,
+						 const QString &name,
+						 const QString &shortName,
+						 QObject *parent = nullptr);
+
+	explicit CryptoPrice(const QUrl &url,
+						 const QString &name,
+						 const QString &shortName,
+						 double currentPrice,
+						 double changeFor24Hours,
+						 bool isCurrentPriceGrown,
+						 QObject *parent = nullptr);
+
+	explicit CryptoPrice(const CryptoPrice &price, QObject *parent = nullptr);
+
+	CryptoPrice &operator=(const CryptoPrice &price);
 
 	const QUrl &url() const;
 	const QString &name() const;
@@ -38,6 +53,8 @@ public:
 
 	bool isChangeFor24HoursGrown() const;
 
+	void updateData(const CryptoPrice &price);
+
 public slots:
 
 signals:
@@ -51,13 +68,13 @@ protected:
 
 private:
 	/// Site address of the information about the cryptocurrency. For example: https://www.livecoinwatch.com/price/Bitcoin-BTC
-	const QUrl _url;
+	QUrl _url;
 
 	/// Name of the cryptocurrency. For example: Bitcoin
-	const QString _name;
+	QString _name;
 
 	/// Short name of the cryptocurrency. For example: BTC
-	const QString _shortName;
+	QString _shortName;
 
 	/// Current price of the cryptocurrency. For example: $7935.96
 	double _currentPrice;
@@ -71,6 +88,9 @@ private:
 	/// True if the price change of the cryptocurrency for the latest 24 hours is grown
 	bool _isChangeFor24HoursGrown;
 
+	void setUrl(const QUrl &url);
+	void setName(const QString &name);
+	void setShortName(const QString &shortName);
 	void setIsChangeFor24HoursGrown(bool isChangeFor24HoursGrown);
 };
 

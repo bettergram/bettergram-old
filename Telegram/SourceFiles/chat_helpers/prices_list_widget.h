@@ -88,7 +88,7 @@ private slots:
 	void onPriceColumnSortOrderChanged();
 	void on24hColumnSortOrderChanged();
 
-	void onPriceListSorted();
+	void onPriceListUpdated();
 };
 
 } // namespace ChatHelpers

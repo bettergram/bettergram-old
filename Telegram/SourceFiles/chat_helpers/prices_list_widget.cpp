@@ -96,10 +96,7 @@ PricesListWidget::PricesListWidget(QWidget* parent, not_null<Window::Controller*
 	updateControlsGeometry();
 
 	CryptoPriceList *priceList = BettergramSettings::instance()->cryptoPriceList();
-	connect(priceList, &CryptoPriceList::sorted, this, &PricesListWidget::onPriceListSorted);
-
-	//TODO: bettergram: get crypto price list from servers and remove call of _cryptoPriceList->createTestData() method
-	priceList->createTestData();
+	connect(priceList, &CryptoPriceList::updated, this, &PricesListWidget::onPriceListUpdated);
 
 	setMouseTracking(true);
 }
@@ -515,7 +512,7 @@ void PricesListWidget::on24hColumnSortOrderChanged()
 	}
 }
 
-void PricesListWidget::onPriceListSorted()
+void PricesListWidget::onPriceListUpdated()
 {
 	update();
 }

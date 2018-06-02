@@ -50,6 +50,8 @@ public:
 	SortOrder sortOrder() const;
 	void setSortOrder(const SortOrder &sortOrder);
 
+	void updateData(double marketCap, const QList<CryptoPrice> &priceList);
+
 	void createTestData();
 
 public slots:
@@ -57,7 +59,7 @@ public slots:
 signals:
 	void marketCapChanged();
 	void sortOrderChanged();
-	void sorted();
+	void updated();
 
 protected:
 
@@ -66,10 +68,13 @@ private:
 	double _marketCap = 0.0;
 	SortOrder _sortOrder = SortOrder::None;
 
+	static bool containsName(const QList<CryptoPrice> &priceList, const QString &name);
+
 	static bool sortByName(const CryptoPrice *price1, const CryptoPrice *price2);
 	static bool sortByPrice(const CryptoPrice *price1, const CryptoPrice *price2);
 	static bool sortBy24h(const CryptoPrice *price1, const CryptoPrice *price2);
 
+	CryptoPrice *findByName(const QString &name);
 	void sort();
 
 	void addTestData(const QUrl &url,
