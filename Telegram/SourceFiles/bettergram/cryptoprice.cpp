@@ -8,6 +8,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 #include "cryptoprice.h"
 
+#include <QTimer>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
@@ -98,34 +99,46 @@ void CryptoPrice::setIconUrl(const QUrl &iconUrl)
 	if (_iconUrl != iconUrl) {
 		_iconUrl = iconUrl;
 
-		QNetworkAccessManager *networkManager = new QNetworkAccessManager();
-
-		QNetworkRequest request;
-		request.setUrl(_iconUrl);
-
-		QNetworkReply *reply = networkManager->get(request);
-
-		connect(reply, &QNetworkReply::finished, this, [this, networkManager, reply]() {
-			if(reply->error() == QNetworkReply::NoError) {
-				setIcon(reply->readAll());
-			} else {
-				qWarning() << QString("Can not get icon for crypto currency. %1 (%2)")
-							  .arg(reply->errorString())
-							  .arg(reply->error());
-			}
-		});
-
-		connect(reply, &QNetworkReply::finished, [networkManager, reply]() {
-			reply->deleteLater();
-			networkManager->deleteLater();
-		});
-
-		connect(reply, &QNetworkReply::sslErrors, this, [](QList<QSslError> errors) {
-			for(const QSslError &error : errors) {
-				qWarning() << error.errorString();
-			}
-		});
+		downloadIcon();
 	}
+}
+
+void CryptoPrice::downloadIcon()
+{
+	QNetworkAccessManager *networkManager = new QNetworkAccessManager();
+
+	QNetworkRequest request;
+	request.setUrl(_iconUrl);
+
+	QNetworkReply *reply = networkManager->get(request);
+
+	connect(reply, &QNetworkReply::finished, this, [this, networkManager, reply]() {
+		if(reply->error() == QNetworkReply::NoError) {
+			setIcon(reply->readAll());
+		} else {
+			qWarning() << QString("Can not get icon for crypto currency. %1 (%2)")
+						  .arg(reply->errorString())
+						  .arg(reply->error());
+
+			downloadIconLater();
+		}
+	});
+
+	connect(reply, &QNetworkReply::finished, [networkManager, reply]() {
+		reply->deleteLater();
+		networkManager->deleteLater();
+	});
+
+	connect(reply, &QNetworkReply::sslErrors, this, [](QList<QSslError> errors) {
+		for(const QSslError &error : errors) {
+			qWarning() << error.errorString();
+		}
+	});
+}
+
+void CryptoPrice::downloadIconLater()
+{
+	QTimer::singleShot(5000, this, [this](){ downloadIcon(); });
 }
 
 void CryptoPrice::setIcon(const QByteArray &byteArray)
@@ -148,6 +161,7 @@ void CryptoPrice::setIcon(const QByteArray &byteArray)
 void CryptoPrice::setIcon(const QPixmap &icon)
 {
 	_icon = icon;
+	emit iconChanged();
 }
 
 const QString &CryptoPrice::name() const

@@ -62,6 +62,8 @@ public:
 public slots:
 
 signals:
+	void iconChanged();
+
 	void currentPriceChanged();
 	void changeFor24HoursChanged();
 
@@ -96,6 +98,9 @@ private:
 
 	/// True if the price change of the cryptocurrency for the latest 24 hours is grown
 	bool _isChangeFor24HoursGrown;
+
+	void downloadIcon();
+	void downloadIconLater();
 
 	void setUrl(const QUrl &url);
 	void setIconUrl(const QUrl &iconUrl);

@@ -98,6 +98,8 @@ void CryptoPriceList::updateData(double marketCap, const QList<CryptoPrice> &pri
 			existedPrice->updateData(price);
 		} else {
 			existedPrice = new CryptoPrice(price, this);
+			connect(existedPrice, &CryptoPrice::iconChanged, this, &CryptoPriceList::updated);
+
 			_list.push_back(existedPrice);
 		}
 	}
