@@ -347,7 +347,14 @@ void PricesListWidget::paintEvent(QPaintEvent *event) {
 	painter.setFont(st::semiboldFont);
 
 	for (const CryptoPrice *price : *BettergramSettings::instance()->cryptoPriceList()) {
-		//TODO: bettergram: draw cryptocurrency icon
+		if (!price->icon().isNull()) {
+			QRect targetRect(columnCoinLeft,
+							 top + (st::pricesPanTableRowHeight - st::pricesPanTableImageSize) / 2,
+							 st::pricesPanTableImageSize,
+							 st::pricesPanTableImageSize);
+
+			painter.drawPixmap(targetRect, price->icon());
+		}
 
 		painter.setPen(st::pricesPanTableCryptoNameFg);
 
