@@ -52,6 +52,7 @@ CryptoPrice::CryptoPrice(const CryptoPrice &price, QObject *parent) :
 	QObject(parent),
 	_url(price._url),
 	_iconUrl(price._iconUrl),
+	_icon(price._icon),
 	_name(price._name),
 	_shortName(price._shortName),
 	_currentPrice(price._currentPrice),
@@ -65,6 +66,7 @@ CryptoPrice &CryptoPrice::operator=(const CryptoPrice &price)
 {
 	setUrl(price._url);
 	setIconUrl(price._iconUrl);
+	setIcon(price._icon);
 	setName(price._name);
 	setShortName(price._shortName);
 	setCurrentPrice(price._currentPrice);

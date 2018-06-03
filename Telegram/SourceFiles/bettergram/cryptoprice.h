@@ -58,6 +58,7 @@ public:
 	bool isChangeFor24HoursGrown() const;
 
 	void updateData(const CryptoPrice &price);
+	void downloadIcon();
 
 public slots:
 
@@ -99,7 +100,6 @@ private:
 	/// True if the price change of the cryptocurrency for the latest 24 hours is grown
 	bool _isChangeFor24HoursGrown;
 
-	void downloadIcon();
 	void downloadIconLater();
 
 	void setUrl(const QUrl &url);
