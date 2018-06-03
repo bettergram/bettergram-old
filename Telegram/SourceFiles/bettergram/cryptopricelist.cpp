@@ -194,26 +194,27 @@ void CryptoPriceList::createTestData()
 {
 	clear();
 
-	addTestData(QUrl("https://www.livecoinwatch.com/price/Bitcoin-BTC"), "Bitcoin", "BTC", 7935.96, -3.22, false);
-	addTestData(QUrl("https://www.livecoinwatch.com/price/Ethereum-ETH"), "Ethereum", "ETH", 625.64, -8.43, false);
-	addTestData(QUrl("https://www.livecoinwatch.com/price/Ripple-XRP"), "Ripple", "XRP", 0.6246, -6.59, true);
-	addTestData(QUrl("https://www.livecoinwatch.com/price/BitcoinCash-BCH"), "Bitcoin Cash", "BCH", 10640.2856, 9.45, true);
-	addTestData(QUrl("https://www.livecoinwatch.com/price/EOS-EOS"), "EOS", "EOS", 11.5, -100.6358, true);
-	addTestData(QUrl("https://www.livecoinwatch.com/price/Litecoin-LTC"), "Litecoin", "LTC", 125.46, -5.28, true);
-	addTestData(QUrl("https://www.livecoinwatch.com/price/Cardano-ADA"), "Cardano", "ADA", 0.2151, -9.72, true);
-	addTestData(QUrl("https://www.livecoinwatch.com/price/Stellar-XLM"), "Stellar", "XLM", 0.2882, -6.81, true);
-	addTestData(QUrl("https://www.livecoinwatch.com/price/TRON-TRX"), "TRON", "TRX", 0.071258, -8.4789, true);
-	addTestData(QUrl("https://www.livecoinwatch.com/price/IOTA-MIOTA"), "IOTA", "MIOTA", 1.55, 8.77, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/Bitcoin-BTC"), QUrl("https://www.livecoinwatch.com/images/icons32/btc.png"), "Bitcoin", "BTC", 7935.96, -3.22, false);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/Ethereum-ETH"), QUrl("https://www.livecoinwatch.com/images/icons32/eth.png"), "Ethereum", "ETH", 625.64, -8.43, false);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/Ripple-XRP"), QUrl("https://www.livecoinwatch.com/images/icons32/xrp.png"), "Ripple", "XRP", 0.6246, -6.59, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/BitcoinCash-BCH"), QUrl("https://www.livecoinwatch.com/images/icons32/bch.png"), "Bitcoin Cash", "BCH", 10640.2856, 9.45, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/EOS-EOS"), QUrl("https://www.livecoinwatch.com/images/icons32/eos.png"), "EOS", "EOS", 11.5, -100.6358, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/Litecoin-LTC"), QUrl("https://www.livecoinwatch.com/images/icons32/ltc.png"), "Litecoin", "LTC", 125.46, -5.28, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/Cardano-ADA"), QUrl("https://www.livecoinwatch.com/images/icons32/ada.png"), "Cardano", "ADA", 0.2151, -9.72, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/Stellar-XLM"), QUrl("https://www.livecoinwatch.com/images/icons32/xlm.png"), "Stellar", "XLM", 0.2882, -6.81, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/TRON-TRX"), QUrl("https://www.livecoinwatch.com/images/icons32/trx.png"), "TRON", "TRX", 0.071258, -8.4789, true);
+	addTestData(QUrl("https://www.livecoinwatch.com/price/IOTA-MIOTA"), QUrl("https://www.livecoinwatch.com/images/icons32/miota.png"), "IOTA", "MIOTA", 1.55, 8.77, true);
 }
 
 void CryptoPriceList::addTestData(const QUrl &url,
+								  const QUrl &iconUrl,
 								  const QString &name,
 								  const QString &shortName,
 								  double currentPrice,
 								  double changeFor24Hours,
 								  bool isCurrentPriceGrown)
 {
-	CryptoPrice *price = new CryptoPrice(url, name, shortName, this);
+	CryptoPrice *price = new CryptoPrice(url, iconUrl, name, shortName, this);
 
 	price->setCurrentPrice(currentPrice);
 	price->setChangeFor24Hours(changeFor24Hours);

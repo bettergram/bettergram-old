@@ -177,11 +177,17 @@ void BettergramSettings::parseCryptoPriceList(const QByteArray &byteArray)
 			continue;
 		}
 
+		QString iconUrl = priceJson.value("iconUrl").toString();
+		if (iconUrl.isEmpty()) {
+			qWarning() << "Price icon url is empty";
+			continue;
+		}
+
 		double price = priceJson.value("price").toDouble();
 		double changeFor24Hours = priceJson.value("24h").toDouble();
 		bool isCurrentPriceGrown = priceJson.value("isGrown").toBool();
 
-		CryptoPrice cryptoPrice(url, name, shortName, price, changeFor24Hours, isCurrentPriceGrown);
+		CryptoPrice cryptoPrice(url, iconUrl, name, shortName, price, changeFor24Hours, isCurrentPriceGrown);
 		priceList.push_back(cryptoPrice);
 	}
 

@@ -20,11 +20,13 @@ class CryptoPrice : public QObject {
 
 public:
 	explicit CryptoPrice(const QUrl &url,
+						 const QUrl &iconUrl,
 						 const QString &name,
 						 const QString &shortName,
 						 QObject *parent = nullptr);
 
 	explicit CryptoPrice(const QUrl &url,
+						 const QUrl &iconUrl,
 						 const QString &name,
 						 const QString &shortName,
 						 double currentPrice,
@@ -37,6 +39,7 @@ public:
 	CryptoPrice &operator=(const CryptoPrice &price);
 
 	const QUrl &url() const;
+	const QUrl &iconUrl() const;
 	const QString &name() const;
 	const QString &shortName() const;
 
@@ -70,6 +73,9 @@ private:
 	/// Site address of the information about the cryptocurrency. For example: https://www.livecoinwatch.com/price/Bitcoin-BTC
 	QUrl _url;
 
+	/// Url of the cryptocurrency icon. For example: https://www.livecoinwatch.com/images/icons32/btc.png
+	QUrl _iconUrl;
+
 	/// Name of the cryptocurrency. For example: Bitcoin
 	QString _name;
 
@@ -89,6 +95,7 @@ private:
 	bool _isChangeFor24HoursGrown;
 
 	void setUrl(const QUrl &url);
+	void setIconUrl(const QUrl &iconUrl);
 	void setName(const QString &name);
 	void setShortName(const QString &shortName);
 	void setIsChangeFor24HoursGrown(bool isChangeFor24HoursGrown);

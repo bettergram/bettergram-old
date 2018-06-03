@@ -78,6 +78,7 @@ private:
 	void sort();
 
 	void addTestData(const QUrl &url,
+					 const QUrl &iconUrl,
 					 const QString &name,
 					 const QString &shortName,
 					 double currentPrice,
