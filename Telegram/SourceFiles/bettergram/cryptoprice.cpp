@@ -8,6 +8,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 #include "cryptoprice.h"
 
+#include "styles/style_chat_helpers.h"
+
 #include <QTimer>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
@@ -163,6 +165,14 @@ void CryptoPrice::setIcon(const QByteArray &byteArray)
 void CryptoPrice::setIcon(const QPixmap &icon)
 {
 	_icon = icon;
+
+	if (_icon.width() != st::pricesPanTableImageSize || _icon.height() != st::pricesPanTableImageSize) {
+		_icon = _icon.scaled(st::pricesPanTableImageSize,
+							 st::pricesPanTableImageSize,
+							 Qt::KeepAspectRatio,
+							 Qt::SmoothTransformation);
+	}
+
 	emit iconChanged();
 }
 
