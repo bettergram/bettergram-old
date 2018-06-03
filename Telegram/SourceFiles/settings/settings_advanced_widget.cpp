@@ -74,6 +74,7 @@ void AdvancedWidget::createControls() {
 	if (self()) {
 		style::margins marginLogout(0, 0, 0, 2 * st::settingsLargeSkip);
 		createChildRow(_logOut, marginLogout, lang(lng_settings_logout), SLOT(onLogOut()));
+		createChildRow(_deleteAccount, marginLogout, lang(lng_settings_delete_account), SLOT(onDeleteAccount()));
 	}
 }
 
@@ -158,6 +159,10 @@ void AdvancedWidget::onTelegramFAQ() {
 
 void AdvancedWidget::onLogOut() {
 	App::wnd()->onLogout();
+}
+
+void AdvancedWidget::onDeleteAccount() {
+	QDesktopServices::openUrl(QUrl("https://my.telegram.org/auth?to=deactivate"));
 }
 
 } // namespace Settings

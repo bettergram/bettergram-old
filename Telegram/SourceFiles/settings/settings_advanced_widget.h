@@ -29,6 +29,7 @@ private slots:
 	void onToggleNightTheme();
 	void onTelegramFAQ();
 	void onLogOut();
+	void onDeleteAccount();
 
 private:
 	void createControls();
@@ -48,6 +49,7 @@ private:
 	Ui::LinkButton *_askQuestion = nullptr;
 	Ui::LinkButton *_telegramFAQ = nullptr;
 	Ui::LinkButton *_logOut = nullptr;
+	Ui::LinkButton *_deleteAccount = nullptr;
 
 	mtpRequestId _supportGetRequest = 0;
 

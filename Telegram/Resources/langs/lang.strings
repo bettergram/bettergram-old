@@ -489,6 +489,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_faq" = "Telegram FAQ";
 "lng_settings_logout" = "Log Out";
 "lng_sure_logout" = "Are you sure you want to log out?";
+"lng_settings_delete_account" = "Delete Account";
 
 "lng_settings_need_restart" = "You need to restart for applying some of the new settings. Restart now?";
 "lng_settings_restart_now" = "RESTART";
