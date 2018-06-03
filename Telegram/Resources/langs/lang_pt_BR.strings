@@ -19,10 +19,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_disable_notifications_from_tray" = "Desabilitar notificações";
 "lng_enable_notifications_from_tray" = "Habilitar notificações";
-"lng_open_from_tray" = "Abrir Telegram";
+"lng_open_from_tray" = "Abrir Bettergram";
 "lng_minimize_to_tray" = "Minimizar";
-"lng_quit_from_tray" = "Sair do Telegram";
-"lng_tray_icon_text" = "Telegram ainda está sendo executado,\nvocê pode mudar isso nas configurações.\nSe este ícone desaparecer de sua bandeja,\nvocê pode arrastar de volta dos ícones ";
+"lng_quit_from_tray" = "Sair do Bettergram";
+"lng_tray_icon_text" = "Bettergram ainda está sendo executado,\nvocê pode mudar isso nas configurações.\nSe este ícone desaparecer de sua bandeja,\nvocê pode arrastar de volta dos ícones ";
 
 "lng_month1" = "Janeiro";
 "lng_month2" = "Fevereiro";
@@ -156,7 +156,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_pinned_unpin" = "Desafixar";
 "lng_pinned_notify" = "Notificar todos os membros";
 
-"lng_intro_about" = "Bem vindo ao aplicativo oficial Telegram Desktop.\nÉ rápido e seguro.";
+"lng_intro_about" = "Bem vindo ao aplicativo oficial Bettergram.\nÉ rápido e seguro.";
 "lng_start_msgs" = "COMECE A CONVERSAR";
 
 "lng_intro_next" = "PRÓXIMO";
@@ -234,7 +234,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_contacts_loading" = "Carregando...";
 "lng_contacts_not_found" = "Nenhum contato encontrado";
 "lng_dlg_search_for_messages" = "Buscar por mensagens";
-"lng_update_telegram" = "Atualizar o Telegram";
+"lng_update_telegram" = "Atualizar o Bettergram";
 "lng_dlg_search_in" = "Buscar mensagens em";
 "lng_dlg_search_from" = "De: {user}";
 
@@ -288,7 +288,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_section_general" = "Geral";
 "lng_settings_change_lang" = "Alterar idioma";
 "lng_languages" = "Idiomas";
-"lng_sure_save_language" = "Telegram irá reiniciar para alterar o idioma";
+"lng_sure_save_language" = "Bettergram irá reiniciar para alterar o idioma";
 "lng_settings_update_automatically" = "Atualizar automaticamente";
 "lng_settings_current_version_label" = "Versão {version}:";
 "lng_settings_current_version" = "Versão {version}";
@@ -301,9 +301,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_settings_update_fail" = "Verificação de atualização falhou :(";
 "lng_settings_workmode_tray" = "Mostrar ícone na bandeja";
 "lng_settings_workmode_window" = "Mostrar ícone na barra de ferramentas";
-"lng_settings_auto_start" = "Iniciar Telegram junto ao sistema";
+"lng_settings_auto_start" = "Iniciar Bettergram junto ao sistema";
 "lng_settings_start_min" = "Iniciar minimizado";
-"lng_settings_add_sendto" = "Colocar Telegram no menu «Enviar para»";
+"lng_settings_add_sendto" = "Colocar Bettergram no menu «Enviar para»";
 "lng_settings_section_scale" = "Escala de Interface";
 "lng_settings_scale_auto" = "Auto ({cur})";
 
@@ -336,7 +336,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_download_path_default" = "pasta padrão";
 "lng_download_path_clear" = "Limpar tudo";
 "lng_download_path_header" = "Escolher caminho do download";
-"lng_download_path_default_radio" = "Pasta do Telegram no sistema «Downloads»";
+"lng_download_path_default_radio" = "Pasta do Bettergram no sistema «Downloads»";
 "lng_download_path_temp_radio" = "Pasta temporária, limpar ao sair";
 "lng_download_path_dir_radio" = "Pasta escolhida, limpar manualmente";
 "lng_download_path_choose" = "Escolher caminho do download";
@@ -383,7 +383,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_passcode_enter_first" = "Insira uma senha";
 "lng_passcode_enter_new" = "Insira sua nova senha";
 "lng_passcode_confirm_new" = "Re-insira sua nova senha";
-"lng_passcode_about" = "Quando uma senha de bloqueio é definida, um cadeado aparecerá no topo de sua lista de conversas. Clique para travar o aplicativo.\n\nNota: Se você esquecer sua senha, terá que entrar novamente no Telegram Desktop.";
+"lng_passcode_about" = "Quando uma senha de bloqueio é definida, um cadeado aparecerá no topo de sua lista de conversas. Clique para travar o aplicativo.\n\nNota: Se você esquecer sua senha, terá que entrar novamente no Bettergram.";
 "lng_passcode_differ" = "As senhas não correspondem";
 "lng_passcode_wrong" = "Senha errada";
 "lng_passcode_is_same" = "Senha não alterada";
@@ -700,7 +700,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_sure_delete_group" = "Tem certeza que deseja apagar este grupo? Todos os membros serão removidos e todas as mensagens serão perdidas.";
 
 "lng_message_empty" = "Mensagem Vazia";
-"lng_message_unsupported" = "Essa mensagem não é suportada em sua versão do Telegram Desktop. Atualize para a última versão nas Configurações ou instale por aqui {link}";
+"lng_message_unsupported" = "Essa mensagem não é suportada em sua versão do Bettergram Desktop. Atualize para a última versão nas Configurações ou instale por aqui {link}";
 
 "lng_duration_seconds#one" = "{count} segundo";
 "lng_duration_seconds#other" = "{count} segundos";
@@ -829,8 +829,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_cancel_edit_post_yes" = "Sim";
 "lng_cancel_edit_post_no" = "Não";
 
-"lng_bot_share_location_unavailable" = "O compartilhamento de localização está atualmente indisponível no Telegram Desktop.";
-"lng_bot_inline_geo_unavailable" = "Esse bot requer compartilhamento de localização\nIsso não está disponível no Telegram Desktop.";
+"lng_bot_share_location_unavailable" = "O compartilhamento de localização está atualmente indisponível no Bettergram Desktop.";
+"lng_bot_inline_geo_unavailable" = "Esse bot requer compartilhamento de localização\nIsso não está disponível no Bettergram Desktop.";
 "lng_bot_share_phone" = "Compartilhar Número de Telefone?";
 "lng_bot_share_phone_confirm" = "Compartilhar";
 
@@ -1218,7 +1218,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_new_authorization" = "{name},\nDetectamos um acesso à sua conta de um novo dispositivo em {day}, {date} às {time}\n\nDispositivo: {device}\nLocalização: {location}\n\nCaso não tenha sido você, vá em Configurações – Mostrar todas as sessões e terminar essa sessão.\n\nSe você acha que alguém entrou em sua conta, você pode ativar a verificação em duas etapas nas Configurações.\n\nObrigado,\nEquipe Telegram";
 
-"lng_new_version_wrap" = "Telegram Desktop foi atualizado para a versão {version}\n\n{changes}\n\nHistórico completo de mudanças disponível aqui:\n{link}";
+"lng_new_version_wrap" = "Bettergram Desktop foi atualizado para a versão {version}\n\n{changes}\n\nHistórico completo de mudanças disponível aqui:\n{link}";
 "lng_new_version_minor" = "— Resolução de bugs e outras melhorias menores";
 "lng_new_version_text" = "— Melhorias nas vídeo mensagens: progresso de reprodução, suporte à Picture-in-Picture, contador de duração.\n— Mensagens de voz e de vídeo agora são tocadas automaticamente uma após a outra.";
 
@@ -1249,7 +1249,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_theme_editor_title" = "Editar paleta de cores";
 "lng_theme_editor_export_button" = "Exportar tema";
 
-"lng_payments_not_supported" = "Desculpe, o Telegram Desktop ainda não suporta pagamentos. Use um de nossos apps móveis para isso.";
+"lng_payments_not_supported" = "Desculpe, o Bettergram Desktop ainda não suporta pagamentos. Use um de nossos apps móveis para isso.";
 "lng_payments_receipt_label" = "Recibo";
 "lng_payments_receipt_label_test" = "Recibo de teste";
 "lng_payments_invoice_label" = "Fatura";
@@ -1325,8 +1325,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_rights_chat_banned_forever" = "Sempre";
 "lng_rights_chat_banned_day#one" = "Por {count} dia";
 "lng_rights_chat_banned_day#other" = "Por {count} dias";
-"lng_rights_chat_banned_week#one" = "Por {count} semana";
-"lng_rights_chat_banned_week#other" = "Por {count} semanas";
+"lng_rights_chat_banned_week#one" = "Por {count} semana";
+"lng_rights_chat_banned_week#other" = "Por {count} semanas";
 "lng_rights_chat_banned_custom" = "Personalizado";
 "lng_rights_chat_banned_custom_date" = "Até {date}";
 "lng_rights_chat_banned_block" = "Banir e remover do grupo";
@@ -1456,12 +1456,12 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_mac_not_known_app" = "Não sabemos se essa aplicação pode abrir \"{file}\".";
 
 "lng_mac_menu_services" = "Serviços";
-"lng_mac_menu_hide_telegram" = "Ocultar {telegram}";
+"lng_mac_menu_hide_telegram" = "Ocultar Bettergram";
 "lng_mac_menu_hide_others" = "Ocultar Outros";
 "lng_mac_menu_show_all" = "Mostrar Todos";
 "lng_mac_menu_preferences" = "Preferências...";
-"lng_mac_menu_quit_telegram" = "Fechar {telegram}";
-"lng_mac_menu_about_telegram" = "Sobre {telegram}";
+"lng_mac_menu_quit_telegram" = "Fechar Bettergram";
+"lng_mac_menu_about_telegram" = "Sobre Bettergram";
 "lng_mac_menu_file" = "Arquivo";
 "lng_mac_menu_logout" = "Sair";
 "lng_mac_menu_edit" = "Editar";
@@ -1477,6 +1477,6 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_mac_menu_add_contact" = "Adicionar Contato";
 "lng_mac_menu_new_group" = "Novo Grupo";
 "lng_mac_menu_new_channel" = "Novo Canal";
-"lng_mac_menu_show" = "Mostrar Telegram";
+"lng_mac_menu_show" = "Mostrar Bettergram";
 
 // Keys finished

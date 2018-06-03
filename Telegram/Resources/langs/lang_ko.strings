@@ -19,10 +19,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_disable_notifications_from_tray" = "알림 해제";
 "lng_enable_notifications_from_tray" = "알림 사용";
-"lng_open_from_tray" = "텔레그램 실행";
+"lng_open_from_tray" = "Bettergram 실행";
 "lng_minimize_to_tray" = "창을 최소화";
-"lng_quit_from_tray" = "텔레그램 종료";
-"lng_tray_icon_text" = "텔레그램은 아직 실행중입니다. \n설정 화면에서 실행설정을 변경하실 수 있습니다. \n트레이메뉴에서 이 아이콘이 사라질 경우. \n숨겨진 아이콘 목록에서 다시 복원할 수 있습니다.";
+"lng_quit_from_tray" = "Bettergram 종료";
+"lng_tray_icon_text" = "Bettergram 아직 실행중입니다. \n설정 화면에서 실행설정을 변경하실 수 있습니다. \n트레이메뉴에서 이 아이콘이 사라질 경우. \n숨겨진 아이콘 목록에서 다시 복원할 수 있습니다.";
 
 "lng_month1" = "1월";
 "lng_month2" = "2월";
@@ -236,7 +236,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_dlg_search_chat" = "이 채팅에서 검색";
 "lng_dlg_search_channel" = "이 채널방에서 검색";
 "lng_dlg_search_for_messages" = "메시지 검색";
-"lng_update_telegram" = "텔레그램 업데이트";
+"lng_update_telegram" = "Bettergram 업데이트";
 
 "lng_settings_save" = "저장";
 "lng_settings_upload" = "프로필 이미지 선택";
@@ -1437,12 +1437,12 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_mac_not_known_app" = "\"{file}\"을 열수 있는 어플리케이션인지 알 수 없습니다.";
 
 "lng_mac_menu_services" = "서비스";
-"lng_mac_menu_hide_telegram" = "숨기기 {telegram}";
+"lng_mac_menu_hide_telegram" = "숨기기 Bettergram";
 "lng_mac_menu_hide_others" = "나머지 숨기기";
 "lng_mac_menu_show_all" = "전체 보기";
 "lng_mac_menu_preferences" = "환경설정...";
-"lng_mac_menu_quit_telegram" = "{telegram} 종료 ";
-"lng_mac_menu_about_telegram" = "{telegram} 정보";
+"lng_mac_menu_quit_telegram" = "Bettergram 종료 ";
+"lng_mac_menu_about_telegram" = "Bettergram 정보";
 "lng_mac_menu_file" = "파일";
 "lng_mac_menu_logout" = "로그아웃";
 "lng_mac_menu_edit" = "수정";
@@ -1458,6 +1458,6 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_mac_menu_add_contact" = "연락처 추가";
 "lng_mac_menu_new_group" = "새로운 그룹";
 "lng_mac_menu_new_channel" = "새로운 채널";
-"lng_mac_menu_show" = "텔레그램 보기";
+"lng_mac_menu_show" = "Bettergram 보기";
 
 // Keys finished

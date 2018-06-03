@@ -19,10 +19,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_disable_notifications_from_tray" = "Meldingen uitschakelen";
 "lng_enable_notifications_from_tray" = "Meldingen inschakelen";
-"lng_open_from_tray" = "Telegram openen";
+"lng_open_from_tray" = "Bettergram openen";
 "lng_minimize_to_tray" = "Minimaliseer naar systeemvak";
-"lng_quit_from_tray" = "Telegram afsluiten";
-"lng_tray_icon_text" = "Telegram is nog steeds actief, \nje kunt dit wijzigen via instellingen.\nAls dit icoon verdwijnt van het systeemvak,\nkun je deze terugslepen vanaf de verborgen iconen.";
+"lng_quit_from_tray" = "Bettergram afsluiten";
+"lng_tray_icon_text" = "Bettergram is nog steeds actief, \nje kunt dit wijzigen via instellingen.\nAls dit icoon verdwijnt van het systeemvak,\nkun je deze terugslepen vanaf de verborgen iconen.";
 
 "lng_month1" = "januari";
 "lng_month2" = "februari";
@@ -156,7 +156,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_pinned_unpin" = "Losmaken";
 "lng_pinned_notify" = "Leden informeren";
 
-"lng_intro_about" = "Welkom bij de officiële Telegram desktop-app.\nSnel en veilig.";
+"lng_intro_about" = "Welkom bij de officiële Bettergram desktop-app.\nSnel en veilig.";
 "lng_start_msgs" = "BEGIN MET CHATTEN";
 
 "lng_intro_next" = "VOLGENDE";
@@ -234,7 +234,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_contacts_loading" = "Laden...";
 "lng_contacts_not_found" = "Geen contacten gevonden";
 "lng_dlg_search_for_messages" = "Zoek berichten";
-"lng_update_telegram" = "Telegram bijwerken";
+"lng_update_telegram" = "Bettergram bijwerken";
 "lng_dlg_search_in" = "Zoek berichten";
 "lng_dlg_search_from" = "Van: {user}";
 
@@ -336,7 +336,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_download_path_default" = "standaardmap";
 "lng_download_path_clear" = "Alles wissen";
 "lng_download_path_header" = "Downloadmap kiezen";
-"lng_download_path_default_radio" = "Telegram-map  \"Downloads\"";
+"lng_download_path_default_radio" = "Bettergram-map  \"Downloads\"";
 "lng_download_path_temp_radio" = "Temp map, gewist bij uitloggen/deïnstallatie";
 "lng_download_path_dir_radio" = "Aangepaste map, handmatig schonen";
 "lng_download_path_choose" = "Downloadmap kiezen";
@@ -700,7 +700,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_sure_delete_group" = "Groep echt verwijderen? Berichten worden gewist en alle leden verwijderd.";
 
 "lng_message_empty" = "Leeg bericht";
-"lng_message_unsupported" = "Dit bericht wordt niet ondersteund door jouw versie van Telegram Desktop. Werk bij naar de laatste versie via de instellingen of installeer vanuit {link}";
+"lng_message_unsupported" = "Dit bericht wordt niet ondersteund door jouw versie van Bettergram Desktop. Werk bij naar de laatste versie via de instellingen of installeer vanuit {link}";
 
 "lng_duration_seconds#one" = "{count} seconde";
 "lng_duration_seconds#other" = "{count} seconden";
@@ -829,8 +829,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_cancel_edit_post_yes" = "Ja";
 "lng_cancel_edit_post_no" = "Nee";
 
-"lng_bot_share_location_unavailable" = "Sorry, locatie delen is nog niet beschikbaar via Telegram Desktop.";
-"lng_bot_inline_geo_unavailable" = "Deze bot heeft je locatie nodig, dit is\nnog niet beschikbaar via Telegram Desktop.";
+"lng_bot_share_location_unavailable" = "Sorry, locatie delen is nog niet beschikbaar via Bettergram Desktop.";
+"lng_bot_inline_geo_unavailable" = "Deze bot heeft je locatie nodig, dit is\nnog niet beschikbaar via Bettergram Desktop.";
 "lng_bot_share_phone" = "Telefoonnummer delen?";
 "lng_bot_share_phone_confirm" = "Delen";
 
@@ -1218,7 +1218,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 "lng_new_authorization" = "{name},\nEr is op je account ingelogd vanaf een nieuw apparaat op {day}, {date} om {time}\n\nApparaat: {device}\nLocatie: {location}\n\nAls jij dit niet was, kun je alle sessies beëindigen via Instellingen – Alle sessies weergeven en de sessie beëindigen.\n\nAls je dat denkt dat iemand anders zonder jouw toestemming is ingelogd kun je twee-staps-verificatie activeren via instellingen.\n\nBedankt,\nHet Telegram-Team";
 
-"lng_new_version_wrap" = "Telegram is bijgewerkt naar versie {version}\n\n{changes} \n\nVolledige versiegeschiedenis is hier te vinden:\n{link}";
+"lng_new_version_wrap" = "Bettergram is bijgewerkt naar versie {version}\n\n{changes} \n\nVolledige versiegeschiedenis is hier te vinden:\n{link}";
 "lng_new_version_minor" = "— Probleemoplossing en andere kleine verbeteringen";
 "lng_new_version_text" = "— Verbeteringen in videoberichten: Voortgangsindicator in frame, Picture-In-Picture-modus, weergave van afspeelduur.\n— Spraak- en videoberichten spelen nu automatisch achter elkaar af.";
 
@@ -1249,7 +1249,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_theme_editor_title" = "Kleurenpalet bewerken";
 "lng_theme_editor_export_button" = "Thema exporteren";
 
-"lng_payments_not_supported" = "Telegram Desktop heeft nog geen ondersteuning voor betalingen. Gebruik één van onze mobiele apps hiervoor.";
+"lng_payments_not_supported" = "Bettergram Desktop heeft nog geen ondersteuning voor betalingen. Gebruik één van onze mobiele apps hiervoor.";
 "lng_payments_receipt_label" = "Betalingsbewijs";
 "lng_payments_receipt_label_test" = "Test betalingsbewijs";
 "lng_payments_invoice_label" = "Factuur";
@@ -1456,12 +1456,12 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_mac_not_known_app" = "Het is niet bekend of dit programma \"{file}\" kan openen.";
 
 "lng_mac_menu_services" = "Voorzieningen";
-"lng_mac_menu_hide_telegram" = "Verberg {telegram}";
+"lng_mac_menu_hide_telegram" = "Verberg Bettergram";
 "lng_mac_menu_hide_others" = "Verberg andere";
 "lng_mac_menu_show_all" = "Toon alles";
 "lng_mac_menu_preferences" = "Voorkeuren";
-"lng_mac_menu_quit_telegram" = "Stop {telegram}";
-"lng_mac_menu_about_telegram" = "Over {telegram}";
+"lng_mac_menu_quit_telegram" = "Stop Bettergram";
+"lng_mac_menu_about_telegram" = "Over Bettergram";
 "lng_mac_menu_file" = "Bestand";
 "lng_mac_menu_logout" = "Uitloggen";
 "lng_mac_menu_edit" = "Wijzig";
@@ -1477,6 +1477,6 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_mac_menu_add_contact" = "Contact toevoegen";
 "lng_mac_menu_new_group" = "Nieuwe groep";
 "lng_mac_menu_new_channel" = "Nieuw kanaal";
-"lng_mac_menu_show" = "Telegram weergeven";
+"lng_mac_menu_show" = "Bettergram weergeven";
 
 // Keys finished

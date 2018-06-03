@@ -303,7 +303,33 @@ void Instance::fillFromSerialized(const QByteArray &data) {
 	_customFileContent = customFileContent;
 	LOG(("Lang Info: Loaded cached, keys: %1").arg(nonDefaultValuesCount));
 	for (auto i = 0, count = nonDefaultValuesCount * 2; i != count; i += 2) {
-		applyValue(nonDefaultStrings[i], nonDefaultStrings[i + 1]);
+		QByteArray key = nonDefaultStrings[i];
+
+		if (key == "lng_mac_menu_about_telegram"
+				|| key == "lng_mac_menu_hide_telegram"
+				|| key == "lng_mac_menu_quit_telegram"
+				|| key == "lng_mac_menu_show"
+				|| key == "lng_open_from_tray"
+				|| key == "lng_quit_from_tray"
+				|| key == "lng_update_telegram"
+				|| key == "lng_settings_auto_start"
+				|| key == "lng_settings_add_sendto"
+				|| key == "lng_sure_save_language"
+				|| key == "lng_tray_icon_text"
+				|| key == "lng_error_start_minimized_passcoded"
+				|| key == "lng_intro_about"
+				|| key == "lng_bad_photo"
+				|| key == "lng_passcode_about"
+				|| key == "lng_message_unsupported"
+				|| key == "lng_bot_share_location_unavailable"
+				|| key == "lng_new_version_wrap"
+				|| key == "lng_payments_not_supported"
+				|| key == "lng_bot_inline_geo_unavailable"
+				|| key == "lng_download_path_default_radio") {
+			continue;
+		}
+
+		applyValue(key, nonDefaultStrings[i + 1]);
 	}
 	updatePluralRules();
 }

@@ -14,12 +14,12 @@ namespace Lang {
 QString Translator::translate(const char *context, const char *sourceText, const char *disambiguation, int n) const {
 	if (qstr("QMenuBar") == context) {
 		if (qstr("Services") == sourceText) return lang(lng_mac_menu_services);
-		if (qstr("Hide %1") == sourceText) return lng_mac_menu_hide_telegram(lt_telegram, qsl("%1"));
+		if (qstr("Hide %1") == sourceText) return lang(lng_mac_menu_hide_telegram);
 		if (qstr("Hide Others") == sourceText) return lang(lng_mac_menu_hide_others);
 		if (qstr("Show All") == sourceText) return lang(lng_mac_menu_show_all);
 		if (qstr("Preferences...") == sourceText) return lang(lng_mac_menu_preferences);
-		if (qstr("Quit %1") == sourceText) return lng_mac_menu_quit_telegram(lt_telegram, qsl("%1"));
-		if (qstr("About %1") == sourceText) return lng_mac_menu_about_telegram(lt_telegram, qsl("%1"));
+		if (qstr("Quit %1") == sourceText) return lang(lng_mac_menu_quit_telegram);
+		if (qstr("About %1") == sourceText) return lang(lng_mac_menu_about_telegram);
 		return QString();
 	}
 	if (qstr("QWidgetTextControl") == context || qstr("QLineEdit") == context) {

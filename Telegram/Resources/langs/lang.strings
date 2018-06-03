@@ -243,7 +243,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_contacts_loading" = "Loading...";
 "lng_contacts_not_found" = "No contacts found";
 "lng_dlg_search_for_messages" = "Search for messages";
-"lng_update_telegram" = "Update Telegram";
+"lng_update_telegram" = "Update Bettergram";
 "lng_dlg_search_in" = "Search messages in";
 "lng_dlg_search_from" = "From: {user}";
 
@@ -345,7 +345,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_download_path_default" = "default folder";
 "lng_download_path_clear" = "Clear all";
 "lng_download_path_header" = "Choose download path";
-"lng_download_path_default_radio" = "Telegram folder in system «Downloads»";
+"lng_download_path_default_radio" = "Bettergram folder in system «Downloads»";
 "lng_download_path_temp_radio" = "Temp folder, cleared on logout or uninstall";
 "lng_download_path_dir_radio" = "Custom folder, cleared only manually";
 "lng_download_path_choose" = "Choose download path";
@@ -1770,12 +1770,12 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_mac_not_known_app" = "It's not known if this application can open \"{file}\".";
 
 "lng_mac_menu_services" = "Services";
-"lng_mac_menu_hide_telegram" = "Hide {telegram}";
+"lng_mac_menu_hide_telegram" = "Hide Bettergram";
 "lng_mac_menu_hide_others" = "Hide Others";
 "lng_mac_menu_show_all" = "Show All";
 "lng_mac_menu_preferences" = "Preferences...";
-"lng_mac_menu_quit_telegram" = "Quit {telegram}";
-"lng_mac_menu_about_telegram" = "About {telegram}";
+"lng_mac_menu_quit_telegram" = "Quit Bettergram";
+"lng_mac_menu_about_telegram" = "About Bettergram";
 "lng_mac_menu_file" = "File";
 "lng_mac_menu_logout" = "Log Out";
 "lng_mac_menu_edit" = "Edit";
@@ -1791,6 +1791,6 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_mac_menu_add_contact" = "Add Contact";
 "lng_mac_menu_new_group" = "New Group";
 "lng_mac_menu_new_channel" = "New Channel";
-"lng_mac_menu_show" = "Show Telegram";
+"lng_mac_menu_show" = "Show Bettergram";
 
 // Keys finished
