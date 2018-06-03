@@ -40,6 +40,7 @@ public:
 
 	const QUrl &url() const;
 	const QUrl &iconUrl() const;
+	const QPixmap &icon() const;
 	const QString &name() const;
 	const QString &shortName() const;
 
@@ -76,6 +77,8 @@ private:
 	/// Url of the cryptocurrency icon. For example: https://www.livecoinwatch.com/images/icons32/btc.png
 	QUrl _iconUrl;
 
+	QPixmap _icon;
+
 	/// Name of the cryptocurrency. For example: Bitcoin
 	QString _name;
 
@@ -96,6 +99,8 @@ private:
 
 	void setUrl(const QUrl &url);
 	void setIconUrl(const QUrl &iconUrl);
+	void setIcon(const QByteArray &byteArray);
+	void setIcon(const QPixmap &icon);
 	void setName(const QString &name);
 	void setShortName(const QString &shortName);
 	void setIsChangeFor24HoursGrown(bool isChangeFor24HoursGrown);

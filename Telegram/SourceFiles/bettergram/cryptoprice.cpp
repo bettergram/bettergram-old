@@ -8,6 +8,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 #include "cryptoprice.h"
 
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkRequest>
+#include <QtNetwork/QNetworkReply>
+
 namespace Bettergram {
 
 CryptoPrice::CryptoPrice(const QUrl &url,
@@ -84,9 +88,66 @@ const QUrl &CryptoPrice::iconUrl() const
 	return _iconUrl;
 }
 
+const QPixmap &CryptoPrice::icon() const
+{
+	return _icon;
+}
+
 void CryptoPrice::setIconUrl(const QUrl &iconUrl)
 {
-	_iconUrl = iconUrl;
+	if (_iconUrl != iconUrl) {
+		_iconUrl = iconUrl;
+
+		QNetworkAccessManager *networkManager = new QNetworkAccessManager();
+
+		QNetworkRequest request;
+		request.setUrl(_iconUrl);
+
+		QNetworkReply *reply = networkManager->get(request);
+
+		connect(reply, &QNetworkReply::finished, this, [this, networkManager, reply]() {
+			if(reply->error() == QNetworkReply::NoError) {
+				setIcon(reply->readAll());
+			} else {
+				qWarning() << QString("Can not get icon for crypto currency. %1 (%2)")
+							  .arg(reply->errorString())
+							  .arg(reply->error());
+			}
+		});
+
+		connect(reply, &QNetworkReply::finished, [networkManager, reply]() {
+			reply->deleteLater();
+			networkManager->deleteLater();
+		});
+
+		connect(reply, &QNetworkReply::sslErrors, this, [](QList<QSslError> errors) {
+			for(const QSslError &error : errors) {
+				qWarning() << error.errorString();
+			}
+		});
+	}
+}
+
+void CryptoPrice::setIcon(const QByteArray &byteArray)
+{
+	if (byteArray.isEmpty()) {
+		qWarning() << "Can not get icon for crypto currency. Response is empty.";
+		return;
+	}
+
+	QPixmap icon;
+
+	if (!icon.loadFromData(byteArray)) {
+		qWarning() << "Can not get icon for crypto currency. Can not convert response to image.";
+		return;
+	}
+
+	setIcon(icon);
+}
+
+void CryptoPrice::setIcon(const QPixmap &icon)
+{
+	_icon = icon;
 }
 
 const QString &CryptoPrice::name() const
