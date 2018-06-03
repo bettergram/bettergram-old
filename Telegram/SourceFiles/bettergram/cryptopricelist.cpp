@@ -23,7 +23,7 @@ double CryptoPriceList::marketCap() const
 
 QString CryptoPriceList::marketCapString() const
 {
-	return QString::number(_marketCap);
+	return QString("%1").arg(_marketCap, 0, 'f', 0);
 }
 
 void CryptoPriceList::setMarketCap(double marketCap)
