@@ -822,7 +822,7 @@ void Widget::Step::paintCover(Painter &p, int top) {
 	st::introCoverLeft.paint(p, left, coverHeight - st::introCoverLeft.height(), width());
 	st::introCoverRight.paint(p, width() - right - st::introCoverRight.width(), coverHeight - st::introCoverRight.height(), width());
 
-	auto planeLeft = (width() - st::introCoverIcon.width()) / 2 - st::introCoverIconLeft;
+	auto planeLeft = (width() - st::introCoverIcon.width()) / 2;
 	auto planeTop = top + st::introCoverIconTop;
 	if (top < 0 && !_hasCover) {
 		auto deltaLeft = -qRound(float64(st::introPlaneWidth / st::introPlaneHeight) * top);
