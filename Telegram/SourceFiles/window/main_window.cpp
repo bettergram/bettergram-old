@@ -51,9 +51,6 @@ QIcon CreateOfficialIcon() {
 
 QIcon CreateIcon() {
 	auto result = CreateOfficialIcon();
-	if (cPlatform() == dbipLinux32 || cPlatform() == dbipLinux64) {
-		return QIcon::fromTheme("telegram", result);
-	}
 	return result;
 }
 
