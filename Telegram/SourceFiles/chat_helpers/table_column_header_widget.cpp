@@ -2,6 +2,7 @@
 
 #include "ui/widgets/buttons.h"
 #include "styles/style_chat_helpers.h"
+#include <lang/lang_keys.h>
 
 #include <QMouseEvent>
 #include <QDebug>
