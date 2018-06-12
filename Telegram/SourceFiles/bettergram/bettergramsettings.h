@@ -14,6 +14,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 namespace Bettergram {
 
 class CryptoPriceList;
+class AdItem;
 
 /**
  * @brief The BettergramSettings class contains Bettergram specific settings
@@ -34,7 +35,9 @@ public:
 
 	bool isPaid() const;
 	BillingPlan billingPlan() const;
+
 	CryptoPriceList *cryptoPriceList() const;
+	AdItem *currentAd() const;
 
 	base::Observable<void> &isPaidObservable();
 	base::Observable<void> &billingPlanObservable();
@@ -56,7 +59,9 @@ private:
 
 	bool _isPaid = false;
 	BillingPlan _billingPlan = BillingPlan::Unknown;
+
 	CryptoPriceList *_cryptoPriceList = nullptr;
+	AdItem *_currentAd = nullptr;
 
 	base::Observable<void> _isPaidObservable;
 	base::Observable<void> _billingPlanObservable;
@@ -67,7 +72,7 @@ private:
 	void setBillingPlan(BillingPlan billingPlan);
 
 	void getIsPaid();
-	void getAd();
+	void getNextAd();
 
 	void parseCryptoPriceList(const QByteArray &byteArray);
 

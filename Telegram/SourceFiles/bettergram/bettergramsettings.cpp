@@ -9,6 +9,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "bettergramsettings.h"
 #include "cryptopricelist.h"
 #include "cryptoprice.h"
+#include "aditem.h"
 
 #include <QTimer>
 #include <QJsonDocument>
@@ -36,7 +37,8 @@ BettergramSettings *BettergramSettings::instance()
 
 Bettergram::BettergramSettings::BettergramSettings(QObject *parent) :
 	QObject(parent),
-	_cryptoPriceList(new CryptoPriceList(this))
+	_cryptoPriceList(new CryptoPriceList(this)),
+	_currentAd(new AdItem(this))
 {
 	getIsPaid();
 }
@@ -66,6 +68,11 @@ CryptoPriceList *BettergramSettings::cryptoPriceList() const
 	return _cryptoPriceList;
 }
 
+AdItem *BettergramSettings::currentAd() const
+{
+	return _currentAd;
+}
+
 void BettergramSettings::setBillingPlan(BillingPlan billingPlan)
 {
 	if (_billingPlan != billingPlan) {
@@ -89,12 +96,7 @@ base::Observable<void> &BettergramSettings::billingPlanObservable()
 void BettergramSettings::getIsPaid()
 {
 	//TODO: bettergram: ask server and get know if the instance is paid or not and the current billing plan
-	//TODO: bettergram: if the application is not paid then call getAd();
-}
-
-void BettergramSettings::getAd()
-{
-	//TODO: bettergram: get ad from servers
+	//TODO: bettergram: if the application is not paid then call getNextAd();
 }
 
 void BettergramSettings::getCryptoPriceList()
@@ -213,6 +215,18 @@ void BettergramSettings::onGetCryptoPriceListSslFailed(QList<QSslError> errors)
 {
 	for(const QSslError &error : errors) {
 		qWarning() << error.errorString();
+	}
+}
+
+void BettergramSettings::getNextAd()
+{
+	if(_isPaid) {
+		_currentAd->clear();
+		return;
+	}
+
+	if (_currentAd->isEmpty()) {
+	} else {
 	}
 }
 
