@@ -226,12 +226,24 @@ void MainWindow::onIsPaidChanged()
 void MainWindow::updateAdLabel()
 {
 	Bettergram::AdItem *adItem = Bettergram::BettergramSettings::instance()->currentAd();
-	QUrl url = adItem->url();
 
-	_adLabel->setRichText(textcmdLink(1, adItem->text()));
+	QString text;
+	QUrl url;
+
+	if (adItem->isEmpty()) {
+		text = "Bettergram";
+		url = "http://bettergram.io";
+	} else {
+		text = adItem->text();
+		url = adItem->url();
+	}
+
+	_adLabel->setRichText(textcmdLink(1, text));
 	_adLabel->setLink(1, std::make_shared<LambdaClickHandler>([this, url] {
 		QDesktopServices::openUrl(url);
 	}));
+
+	updateControlsGeometry();
 }
 
 void MainWindow::updateWindowIcon() {
