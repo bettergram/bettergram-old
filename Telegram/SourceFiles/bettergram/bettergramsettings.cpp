@@ -245,7 +245,7 @@ void BettergramSettings::getNextAdLater(bool reset)
 		delay = AdItem::defaultDuration();
 	}
 
-	QTimer::singleShot(delay, this, [this, reset]() { getNextAd(reset); });
+	QTimer::singleShot(delay * 1000, this, [this, reset]() { getNextAd(reset); });
 }
 
 bool BettergramSettings::parseNextAd(const QByteArray &byteArray)
