@@ -65,7 +65,7 @@ Add **GYP** and **Ninja** to your PATH:
 Open **x86 Native Tools Command Prompt for VS 2017.bat**, go to ***BuildPath*** and run:
 
     git clone --recursive https://github.com/bettergram/bettergram.git
-    move bettergram\build_bettergram.bat .
+    copy bettergram\build_bettergram.bat .
     build_bettergram
 
 ## Build the project
