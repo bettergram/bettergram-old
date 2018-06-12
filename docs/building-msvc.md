@@ -10,7 +10,7 @@
 ## Install necessary software
 
 * Install Visual Studio 2017
-  * Currently Bettergram will not build with version 15.7, so you must install a previous version of Visual Studio. You can find previous versions here: [https://docs.microsoft.com/en-us/visualstudio/productinfo/installing-an-earlier-release-of-vs2017] (this problem may be resolved in later builds as well)
+  * Currently Bettergram will not build with version 15.7, so you must install a previous version of Visual Studio. You can find previous versions here: https://docs.microsoft.com/en-us/visualstudio/productinfo/installing-an-earlier-release-of-vs2017 (this problem may be resolved in later builds as well)
   * Make sure that under Workloads "Desktop development with C++" is selected
   * Make sure that under Individual Components -> Compilers, build tools and runtimes "Windows XP Support for C++" is selected as well as the V140 toolset for desktop
   * If Visual Studio is already installed, go to Tools -> Get Tools and Features... and make sure that the above options are installed. If they aren't, select them and click Modify
@@ -18,7 +18,7 @@
 * Ensure that you have Windows 10 SDK 10.0.16299 installed
   * If you installed version 15.6 of Visual Studio 2017, this is already installed
   * If you need to figure out if this is installed or not, you can create a new Windows Desktop C++ application, and then go into project properties and look at the target SDK dropdown. If 10.0.16299 appears in the list, then it is installed on your machine
-  * If it isn't installed, download and install it: [https://developer.microsoft.com/en-us/windows/downloads/sdk-archive]
+  * If it isn't installed, download and install it: https://developer.microsoft.com/en-us/windows/downloads/sdk-archive
 
 ## Prepare folder
 
@@ -29,19 +29,19 @@ All commands will be launched from **x86 Native Tools Command Prompt for VS 2017
 ## Install third party software
 
 * **†** is used to demarcate software that can only be installed once on your system that you might not want to install under ***BuildPath*\\ThirdParty** as directed. You may have good reason to install this software to a more common location. This is just fine as long as the software is added to the PATH, and a junction to the proper path of the software is created in the ***BuildPath*\\ThirdParty** folder.
-  * Help with creating Junctions can be found here: [https://www.howtogeek.com/howto/16226/complete-guide-to-symbolic-links-symlinks-on-windows-or-linux/]
-* **†** Download **ActivePerl** installer from [https://www.activestate.com/activeperl/downloads] and install to ***BuildPath*\\ThirdParty\\Perl**  
-* Download **NASM** installer from [http://www.nasm.us] and install to ***BuildPath*\\ThirdParty\\NASM**
-* Download **Yasm** executable from [http://yasm.tortall.net/Download.html], rename to *yasm.exe* and move it to ***BuildPath*\\ThirdParty\\yasm**
-  * Try running yasm.exe. If it gives you the error that you are missing MSVCR100.dll, then you have to download and install the Visual C++ 2010 Redistributable Package from [http://www.microsoft.com/en-us/download/details.aspx?id=13523]
+  * Help with creating Junctions can be found here: https://www.howtogeek.com/howto/16226/complete-guide-to-symbolic-links-symlinks-on-windows-or-linux/
+* **†** Download **ActivePerl** installer from https://www.activestate.com/activeperl/downloads and install to ***BuildPath*\\ThirdParty\\Perl**  
+* Download **NASM** installer from http://www.nasm.us and install to ***BuildPath*\\ThirdParty\\NASM**
+* Download **Yasm** executable from http://yasm.tortall.net/Download.html, rename to *yasm.exe* and move it to ***BuildPath*\\ThirdParty\\yasm**
+  * Try running yasm.exe. If it gives you the error that you are missing MSVCR100.dll, then you have to download and install the Visual C++ 2010 Redistributable Package from http://www.microsoft.com/en-us/download/details.aspx?id=13523
   * If it simply opens and closes a CMD window when you try running it, then it's fine
-* Download **MSYS2** installer from [http://www.msys2.org/] and install to ***BuildPath*\\ThirdParty\\msys64**
-* Download **jom** archive from [http://download.qt.io/official_releases/jom/jom.zip] and unzip into ***BuildPath*\\ThirdParty\\jom**
-* **†** Download **Python 2.7** installer from [https://www.python.org/downloads/] and install to ***BuildPath*\\ThirdParty\\Python27**
-* **†** Download **CMake** installer from [https://cmake.org/download/] and install to ***BuildPath*\\ThirdParty\\cmake**
+* Download **MSYS2** installer from http://www.msys2.org/ and install to ***BuildPath*\\ThirdParty\\msys64**
+* Download **jom** archive from http://download.qt.io/official_releases/jom/jom.zip and unzip into ***BuildPath*\\ThirdParty\\jom**
+* **†** Download **Python 2.7** installer from https://www.python.org/downloads/ and install to ***BuildPath*\\ThirdParty\\Python27**
+* **†** Download **CMake** installer from https://cmake.org/download/ and install to ***BuildPath*\\ThirdParty\\cmake**
   * Presently the latest version (3.11.3) of CMake is failing to build the openal-soft project
   * It is working with CMake version 3.10.3, so install that version to avoid problems
-* Download **Ninja** executable from [https://github.com/ninja-build/ninja/releases/download/v1.7.2/ninja-win.zip] and unzip into ***BuildPath*\\ThirdParty\\Ninja**
+* Download **Ninja** executable from https://github.com/ninja-build/ninja/releases/download/v1.7.2/ninja-win.zip and unzip into ***BuildPath*\\ThirdParty\\Ninja**
 
 Open **x86 Native Tools Command Prompt for VS 2017.bat**, go to ***BuildPath*** and run
 
