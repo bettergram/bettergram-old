@@ -150,12 +150,12 @@ protected:
 	void setPositionInited();
 
 	void onIsPaidChanged();
+	void updateAdLabel();
 private:
 	void checkAuthSession();
 	void updatePalette();
 	void updateUnreadCounter();
 	void initSize();
-	void adBannerClicked();
 
 	bool computeIsActive() const;
 	void checkLockByTerms();

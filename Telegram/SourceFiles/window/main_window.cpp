@@ -22,6 +22,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "messenger.h"
 #include "mainwindow.h"
 #include "ui/widgets/labels.h"
+#include "bettergram/aditem.h"
 #include "ui/text/text.h"
 #include "core/click_handler_types.h"
 #include "bettergram/bettergramsettings.h"
@@ -71,9 +72,6 @@ MainWindow::MainWindow()
 	checkAuthSession();
 
 	_adLabel->setAutoFillBackground(true);
-	_adLabel->setRichText(textcmdLink(1, qsl("Testing the Ad Banner")));
-	//_adLabel->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://desktop.telegram.org")));
-	_adLabel->setLink(1, std::make_shared<LambdaClickHandler>([this] { adBannerClicked(); }));
 	_adLabel->setMouseTracking(true);
 
 	Messenger::Instance().termsLockValue(
@@ -85,10 +83,15 @@ MainWindow::MainWindow()
 	_inactivePressTimer.setCallback([this] { setInactivePress(false); });
 
 	Bettergram::BettergramSettings *settings = Bettergram::BettergramSettings::instance();
+
 	settings->connect(settings, &Bettergram::BettergramSettings::isPaidChanged,
 					  this, &MainWindow::onIsPaidChanged);
 
+	Bettergram::AdItem *adItem = settings->currentAd();
+	settings->connect(adItem, &Bettergram::AdItem::updated, this, &MainWindow::updateAdLabel);
+
 	onIsPaidChanged();
+	updateAdLabel();
 }
 
 void MainWindow::checkLockByTerms() {
@@ -218,6 +221,17 @@ void MainWindow::onIsPaidChanged()
 	}
 
 	updateControlsGeometry();
+}
+
+void MainWindow::updateAdLabel()
+{
+	Bettergram::AdItem *adItem = Bettergram::BettergramSettings::instance()->currentAd();
+	QUrl url = adItem->url();
+
+	_adLabel->setRichText(textcmdLink(1, adItem->text()));
+	_adLabel->setLink(1, std::make_shared<LambdaClickHandler>([this, url] {
+		QDesktopServices::openUrl(url);
+	}));
 }
 
 void MainWindow::updateWindowIcon() {
@@ -550,11 +564,6 @@ void MainWindow::setInactivePress(bool inactive) {
 	} else {
 		_inactivePressTimer.cancel();
 	}
-}
-
-void MainWindow::adBannerClicked()
-{
-	QDesktopServices::openUrl(QUrl("https://github.com/bettergram/bettergram/blob/master/docs/building-msvc.md"));
 }
 
 MainWindow::~MainWindow() = default;
