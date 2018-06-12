@@ -12,6 +12,8 @@ class AdItem : public QObject {
 	Q_OBJECT
 
 public:
+	static int defaultDuration();
+
 	explicit AdItem(QObject *parent = nullptr);
 
 	explicit AdItem(const QString &id,
@@ -29,12 +31,14 @@ public:
 	bool isEqual(const AdItem &adItem) const;
 
 	void clear();
-	void updateData(const AdItem &adItem);
+	void update(const AdItem &adItem);
 
 signals:
 	void updated();
 
 private:
+	static const int _defaultDuration;
+
 	QString _id;
 	QString _text;
 	QUrl _url;

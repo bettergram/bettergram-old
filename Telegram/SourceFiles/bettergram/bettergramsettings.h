@@ -65,13 +65,18 @@ private:
 	void setBillingPlan(BillingPlan billingPlan);
 
 	void getIsPaid();
-	void getNextAd();
+	void getNextAd(bool reset);
+	void getNextAdLater(bool reset = false);
 
 	void parseCryptoPriceList(const QByteArray &byteArray);
+	bool parseNextAd(const QByteArray &byteArray);
 
 private slots:
 	void onGetCryptoPriceListFinished();
 	void onGetCryptoPriceListSslFailed(QList<QSslError> errors);
+
+	void onGetNextAdFinished();
+	void onGetNextAdSslFailed(QList<QSslError> errors);
 };
 
 } // namespace Bettergram

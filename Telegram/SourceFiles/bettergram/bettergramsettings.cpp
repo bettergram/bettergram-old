@@ -33,6 +33,7 @@ Bettergram::BettergramSettings::BettergramSettings(QObject *parent) :
 	_currentAd(new AdItem(this))
 {
 	getIsPaid();
+	getNextAd(true);
 }
 
 bool BettergramSettings::isPaid() const
@@ -210,15 +211,136 @@ void BettergramSettings::onGetCryptoPriceListSslFailed(QList<QSslError> errors)
 	}
 }
 
-void BettergramSettings::getNextAd()
+void BettergramSettings::getNextAd(bool reset)
 {
 	if(_isPaid) {
 		_currentAd->clear();
 		return;
 	}
 
-	if (_currentAd->isEmpty()) {
+	QString url = "https://bettergram-api.livecoinwatch.com/v1/ads/next";
+
+	if (!reset && !_currentAd->isEmpty()) {
+		url += "?last=";
+		url += _currentAd->id();
+	}
+
+	QNetworkRequest request;
+	request.setUrl(url);
+
+	QNetworkReply *reply = _networkManager.get(request);
+
+	connect(reply, &QNetworkReply::finished,
+			this, &BettergramSettings::onGetNextAdFinished);
+
+	connect(reply, &QNetworkReply::sslErrors,
+			this, &BettergramSettings::onGetNextAdSslFailed);
+}
+
+void BettergramSettings::getNextAdLater(bool reset)
+{
+	int delay = _currentAd->duration();
+
+	if (delay <= 0) {
+		delay = AdItem::defaultDuration();
+	}
+
+	QTimer::singleShot(delay, this, [this, reset]() { getNextAd(reset); });
+}
+
+bool BettergramSettings::parseNextAd(const QByteArray &byteArray)
+{
+	if (byteArray.isEmpty()) {
+		qWarning() << "Can not get next ad. Response is emtpy";
+		return false;
+	}
+
+	QJsonParseError parseError;
+	QJsonDocument doc = QJsonDocument::fromJson(byteArray, &parseError);
+
+	if (!doc.isObject()) {
+		qWarning() << QString("Can not get next ad. Response is wrong. %1 (%2). Response: %3")
+					  .arg(parseError.errorString())
+					  .arg(parseError.error)
+					  .arg(QString::fromUtf8(byteArray));
+		return false;
+	}
+
+	QJsonObject json = doc.object();
+
+	if (json.isEmpty()) {
+		qWarning() << "Can not get next ad. Response is emtpy or wrong";
+		return false;
+	}
+
+	bool isSuccess = json.value("success").toBool();
+
+	if (!isSuccess) {
+		QString errorMessage = json.value("message").toString("Unknown error");
+		qWarning() << "Can not get next ad." << errorMessage;
+		return false;
+	}
+
+	QJsonObject adJson = json.value("ad").toObject();
+
+	if (adJson.isEmpty()) {
+		qWarning() << "Can not get next ad. Ad json is empty";
+		return false;
+	}
+
+	QString id = adJson.value("_id").toString();
+	if (id.isEmpty()) {
+		qWarning() << "Can not get next ad. Id is empty";
+		return false;
+	}
+
+	QString text = adJson.value("text").toString();
+	if (text.isEmpty()) {
+		qWarning() << "Can not get next ad. Text is empty";
+		return false;
+	}
+
+	QString url = adJson.value("url").toString();
+	if (url.isEmpty()) {
+		qWarning() << "Can not get next ad. Url is empty";
+		return false;
+	}
+
+	int duration = adJson.value("duration").toInt(AdItem::defaultDuration());
+
+	AdItem adItem(id, text, url, duration);
+
+	_currentAd->update(adItem);
+
+	 return true;
+}
+
+void BettergramSettings::onGetNextAdFinished()
+{
+	QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
+
+	if(reply->error() == QNetworkReply::NoError) {
+		if (parseNextAd(reply->readAll())) {
+			getNextAdLater();
+		} else {
+			// Try to get new ad without previous ad id
+			getNextAdLater(true);
+		}
 	} else {
+		qWarning() << QString("Can not get next ad item. %1 (%2)")
+					  .arg(reply->errorString())
+					  .arg(reply->error());
+
+		getNextAdLater();
+	}
+
+	reply->deleteLater();
+}
+
+void BettergramSettings::onGetNextAdSslFailed(QList<QSslError> errors)
+{
+	for(const QSslError &error : errors) {
+		qWarning() << error.errorString();
 	}
 }
 

@@ -2,8 +2,16 @@
 
 namespace Bettergram {
 
+const int AdItem::_defaultDuration = 60;
+
+int AdItem::defaultDuration()
+{
+	return _defaultDuration;
+}
+
 AdItem::AdItem(QObject *parent) :
-	QObject(parent)
+	QObject(parent),
+	_duration(_defaultDuration)
 {
 }
 
@@ -58,10 +66,10 @@ void AdItem::clear()
 	_id.clear();
 	_text.clear();
 	_url.clear();
-	_duration = 60;
+	_duration = _defaultDuration;
 }
 
-void AdItem::updateData(const AdItem &adItem)
+void AdItem::update(const AdItem &adItem)
 {
 	if(isEqual(adItem)) {
 		return;
