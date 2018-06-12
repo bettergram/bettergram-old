@@ -1,27 +1,47 @@
 # Build instructions for Visual Studio 2017
 
+- [Install necessary software](#install-necessary-software)
 - [Prepare folder](#prepare-folder)
 - [Install third party software](#install-third-party-software)
 - [Clone source code and prepare libraries](#clone-source-code-and-prepare-libraries)
 - [Build the project](#build-the-project)
 - [Qt Visual Studio Tools](#qt-visual-studio-tools)
 
+## Install necessary software
+
+* Install Visual Studio 2017
+  * Currently Bettergram will not build with version 15.7, so you must install a previous version of Visual Studio. You can find previous versions here: [https://docs.microsoft.com/en-us/visualstudio/productinfo/installing-an-earlier-release-of-vs2017] (this problem may be resolved in later builds as well)
+  * Make sure that under Workloads "Desktop development with C++" is selected
+  * Make sure that under Individual Components -> Compilers, build tools and runtimes "Windows XP Support for C++" is selected as well as the V140 toolset for desktop
+  * If Visual Studio is already installed, go to Tools -> Get Tools and Features... and make sure that the above options are installed. If they aren't, select them and click Modify
+* Install Git and make sure it is added to the PATH
+* Ensure that you have Windows 10 SDK 10.0.16299 installed
+  * If you installed version 15.6 of Visual Studio 2017, this is already installed
+  * If you need to figure out if this is installed or not, you can create a new Windows Desktop C++ application, and then go into project properties and look at the target SDK dropdown. If 10.0.16299 appears in the list, then it is installed on your machine
+  * If it isn't installed, download and install it: [https://developer.microsoft.com/en-us/windows/downloads/sdk-archive]
+
 ## Prepare folder
 
-Choose an empty folder for the future build, for example **D:\\TBuild**. It will be named ***BuildPath*** in the rest of this document. Create two folders there, ***BuildPath*\\ThirdParty** and ***BuildPath*\\Libraries**. (If BuildPath has spaces in it anywhere, it won't likely work)
+Choose an empty folder for the future build, for example **C:\\Bettergram**. It will be referred to as ***BuildPath*** in the rest of this document. Inside of ***BuildPath*** create a ***BuildPath*\\ThirdParty** folder. The ***BuildPath*** folder cannot have any spaces in the entire path or the build process will fail.
 
-All commands (if not stated otherwise) will be launched from **x86 Native Tools Command Prompt for VS 2017.bat** (should be in **Start Menu > Visual Studio 2017** menu folder). Pay attention not to use any other Command Prompt.
+All commands will be launched from **x86 Native Tools Command Prompt for VS 2017.bat** (should be in **Start Menu > Visual Studio 2017** menu folder). Pay attention not to use any other Command Prompt.
 
 ## Install third party software
 
-* Download **ActivePerl** installer from [https://www.activestate.com/activeperl/downloads](https://www.activestate.com/activeperl/downloads) and install to ***BuildPath*\\ThirdParty\\Perl** (location is unnecessary as long as it's in the path)
-* Download **NASM** installer from [http://www.nasm.us](http://www.nasm.us) and install to ***BuildPath*\\ThirdParty\\NASM**
-* Download **Yasm** executable from [http://yasm.tortall.net/Download.html](http://yasm.tortall.net/Download.html), rename to *yasm.exe* and put to ***BuildPath*\\ThirdParty\\yasm**
-* Download **MSYS2** installer from [http://www.msys2.org/](http://www.msys2.org/) and install to ***BuildPath*\\ThirdParty\\msys64**
-* Download **jom** archive from [http://download.qt.io/official_releases/jom/jom.zip](http://download.qt.io/official_releases/jom/jom.zip) and unpack to ***BuildPath*\\ThirdParty\\jom**
-* Download **Python 2.7** installer from [https://www.python.org/downloads/](https://www.python.org/downloads/) and install to ***BuildPath*\\ThirdParty\\Python27** (location is unnecessary as long as it's in the path)
-* Download **CMake** installer from [https://cmake.org/download/](https://cmake.org/download/) and install to ***BuildPath*\\ThirdParty\\cmake** (location is unnecessary as long as it's in the path)
-* Download **Ninja** executable from [https://github.com/ninja-build/ninja/releases/download/v1.7.2/ninja-win.zip](https://github.com/ninja-build/ninja/releases/download/v1.7.2/ninja-win.zip) and unpack to ***BuildPath*\\ThirdParty\\Ninja**
+* **†** is used to demarcate software that can only be installed once on your system that you might not want to install under ***BuildPath*\\ThirdParty** as directed. You may have good reason to install this software to a more common location. This is just fine as long as the software is added to the PATH, and a junction to the proper path of the software is created in the ***BuildPath*\\ThirdParty** folder.
+  * Help with creating Junctions can be found here: [https://www.howtogeek.com/howto/16226/complete-guide-to-symbolic-links-symlinks-on-windows-or-linux/]
+* **†** Download **ActivePerl** installer from [https://www.activestate.com/activeperl/downloads] and install to ***BuildPath*\\ThirdParty\\Perl**  
+* Download **NASM** installer from [http://www.nasm.us] and install to ***BuildPath*\\ThirdParty\\NASM**
+* Download **Yasm** executable from [http://yasm.tortall.net/Download.html], rename to *yasm.exe* and move it to ***BuildPath*\\ThirdParty\\yasm**
+  * Try running yasm.exe. If it gives you the error that you are missing MSVCR100.dll, then you have to download and install the Visual C++ 2010 Redistributable Package from [http://www.microsoft.com/en-us/download/details.aspx?id=13523]
+  * If it simply opens and closes a CMD window when you try running it, then it's fine
+* Download **MSYS2** installer from [http://www.msys2.org/] and install to ***BuildPath*\\ThirdParty\\msys64**
+* Download **jom** archive from [http://download.qt.io/official_releases/jom/jom.zip] and unzip into ***BuildPath*\\ThirdParty\\jom**
+* **†** Download **Python 2.7** installer from [https://www.python.org/downloads/] and install to ***BuildPath*\\ThirdParty\\Python27**
+* **†** Download **CMake** installer from [https://cmake.org/download/] and install to ***BuildPath*\\ThirdParty\\cmake**
+  * Presently the latest version (3.11.3) of CMake is failing to build the openal-soft project
+  * It is working with CMake version 3.10.3, so install that version to avoid problems
+* Download **Ninja** executable from [https://github.com/ninja-build/ninja/releases/download/v1.7.2/ninja-win.zip] and unzip into ***BuildPath*\\ThirdParty\\Ninja**
 
 Open **x86 Native Tools Command Prompt for VS 2017.bat**, go to ***BuildPath*** and run
 
@@ -29,7 +49,7 @@ Open **x86 Native Tools Command Prompt for VS 2017.bat**, go to ***BuildPath*** 
     git clone https://chromium.googlesource.com/external/gyp
     cd gyp
     git checkout a478c1ab51
-    cd ..\..
+then close the window
 
 Add **GYP** and **Ninja** to your PATH:
 
@@ -42,114 +62,11 @@ Add **GYP** and **Ninja** to your PATH:
 
 ## Clone source code and prepare libraries
 
-Open **x86 Native Tools Command Prompt for VS 2017.bat**, go to ***BuildPath*** and run
-
-(change this initial setting of PATH according to what you already have in your path)
-
-    SET PATH=%cd%\ThirdParty\Perl\bin;%cd%\ThirdParty\Python27;%cd%\ThirdParty\NASM;%cd%\ThirdParty\jom;%cd%\ThirdParty\cmake\bin;%cd%\ThirdParty\yasm;%PATH%
+Open **x86 Native Tools Command Prompt for VS 2017.bat**, go to ***BuildPath*** and run:
 
     git clone --recursive https://github.com/bettergram/bettergram.git
-
-    mkdir Libraries
-    cd Libraries
-
-    git clone https://github.com/Microsoft/Range-V3-VS2015 range-v3
-
-    git clone https://github.com/telegramdesktop/lzma.git
-    cd lzma\C\Util\LzmaLib
-    msbuild LzmaLib.sln /property:Configuration=Debug
-    msbuild LzmaLib.sln /property:Configuration=Release
-    cd ..\..\..\..
-
-    git clone https://github.com/openssl/openssl.git
-    cd openssl
-    git checkout OpenSSL_1_0_1-stable
-    perl Configure no-shared --prefix=%cd%\Release --openssldir=%cd%\Release VC-WIN32
-    ms\do_ms
-    nmake -f ms\nt.mak
-    nmake -f ms\nt.mak install
-    xcopy tmp32\lib.pdb Release\lib\
-    nmake -f ms\nt.mak clean
-    perl Configure no-shared --prefix=%cd%\Debug --openssldir=%cd%\Debug debug-VC-WIN32
-    ms\do_ms
-    nmake -f ms\nt.mak
-    nmake -f ms\nt.mak install
-    xcopy tmp32.dbg\lib.pdb Debug\lib\
-    cd ..
-
-    git clone https://github.com/telegramdesktop/zlib.git
-    cd zlib
-    git checkout tdesktop
-    cd contrib\vstudio\vc14
-    msbuild zlibstat.vcxproj /property:Configuration=Debug
-    msbuild zlibstat.vcxproj /property:Configuration=ReleaseWithoutAsm
-    cd ..\..\..\..
-
-    git clone git://repo.or.cz/openal-soft.git
-    cd openal-soft
-    git checkout 18bb46163af
-    cd build
-    cmake -G "Visual Studio 15 2017" -D LIBTYPE:STRING=STATIC -D FORCE_STATIC_VCRT:STRING=ON ..
-    msbuild OpenAL32.vcxproj /property:Configuration=Debug
-    msbuild OpenAL32.vcxproj /property:Configuration=Release
-    cd ..\..
-
-    git clone https://github.com/google/breakpad
-    cd breakpad
-    git checkout a1dbcdcb43
-    git apply ../../bettergram/Telegram/Patches/breakpad.diff
-    cd src
-    git clone https://github.com/google/googletest testing
-    cd client\windows
-    set GYP_MSVS_VERSION=2017
-    gyp --no-circular-check breakpad_client.gyp --format=ninja
-    cd ..\..
-    ninja -C out/Debug common crash_generation_client exception_handler
-    ninja -C out/Release common crash_generation_client exception_handler
-    cd ..\..
-
-    git clone https://github.com/telegramdesktop/opus.git
-    cd opus
-    git checkout tdesktop
-    cd win32\VS2015
-    msbuild opus.sln /property:Configuration=Debug /property:Platform="Win32"
-    msbuild opus.sln /property:Configuration=Release /property:Platform="Win32"
-
-    cd ..\..\..\..
-    SET PATH_BACKUP_=%PATH%
-    SET PATH=%cd%\ThirdParty\msys64\usr\bin;%PATH%
-    cd Libraries
-
-    git clone https://github.com/FFmpeg/FFmpeg.git ffmpeg
-    cd ffmpeg
-    git checkout release/3.4
-
-    set CHERE_INVOKING=enabled_from_arguments
-    set MSYS2_PATH_TYPE=inherit
-    bash --login ../../bettergram/Telegram/Patches/build_ffmpeg_win.sh
-
-    SET PATH=%PATH_BACKUP_%
-    cd ..
-
-    git clone git://code.qt.io/qt/qt5.git qt5_6_2
-    cd qt5_6_2
-    perl init-repository --module-subset=qtbase,qtimageformats
-    git checkout v5.6.2
-    cd qtimageformats
-    git checkout v5.6.2
-    cd ..\qtbase
-    git checkout v5.6.2
-    git apply ../../../bettergram/Telegram/Patches/qtbase_5_6_2.diff
-    cd ..
-
-    configure -debug-and-release -force-debug-info -opensource -confirm-license -static -I "%cd%\..\openssl\Release\include" -no-opengl -openssl-linked OPENSSL_LIBS_DEBUG="%cd%\..\openssl\Debug\lib\ssleay32.lib %cd%\..\openssl\Debug\lib\libeay32.lib" OPENSSL_LIBS_RELEASE="%cd%\..\openssl\Release\lib\ssleay32.lib %cd%\..\openssl\Release\lib\libeay32.lib" -mp -nomake examples -nomake tests -platform win32-msvc2015
-
-    jom -j4
-    jom -j4 install
-    cd ..
-
-    cd ../bettergram/Telegram
-    gyp\refresh.bat
+    move bettergram\build_bettergram.bat .
+    build_bettergram
 
 ## Build the project
 
@@ -157,9 +74,9 @@ If you want to pass a build define (like `TDESKTOP_DISABLE_AUTOUPDATE` or `TDESK
 
 After, call **gyp\refresh.bat** once again.
 
-* Open ***BuildPath*\\tdesktop\\Telegram\\Telegram.sln** in Visual Studio 2017
+* Open ***BuildPath*\\bettergram\\Telegram\\Telegram.sln** in Visual Studio 2017
 * Select Telegram project and press Build > Build Telegram (Debug and Release configurations)
-* The result Telegram.exe will be located in **D:\TBuild\tdesktop\out\Debug** (and **Release**)
+* The result Telegram.exe will be located in ***BuildPath*\bettergram\out\Debug** (and **Release**)
 
 ### Qt Visual Studio Tools
 
