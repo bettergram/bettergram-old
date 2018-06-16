@@ -49,7 +49,7 @@ Go to ***BuildPath*** and run
 
     git clone https://github.com/openssl/openssl
     cd openssl
-    git checkout OpenSSL_1_0_1-stable
+    git checkout OpenSSL_1_0_2-stable
     ./Configure darwin64-x86_64-cc -static -mmacosx-version-min=10.8
     make build_libs -j4
     cd ..
@@ -124,7 +124,10 @@ Go to ***BuildPath*** and run
     perl init-repository --module-subset=qtbase,qtimageformats
     git checkout v5.6.2
     cd qtimageformats && git checkout v5.6.2 && cd ..
-    cd qtbase && git checkout v5.6.2 && git apply ../../../tdesktop/Telegram/Patches/qtbase_5_6_2.diff && cd ..
+    cd qtbase && git checkout v5.6.2
+    git apply ../../../tdesktop/Telegram/Patches/qtbase_5_6_2.diff
+    git apply ../../../tdesktop/Telegram/Patches/qtbase_5_6_2_macos.diff
+    cd ..
 
     ./configure -prefix "/usr/local/tdesktop/Qt-5.6.2" -debug-and-release -force-debug-info -opensource -confirm-license -static -opengl desktop -no-openssl -securetransport -nomake examples -nomake tests -platform macx-clang
     make -j4
