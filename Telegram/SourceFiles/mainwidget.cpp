@@ -1275,6 +1275,11 @@ Dialogs::IndexedList *MainWidget::contactsNoDialogsList() {
 	return _dialogs->contactsNoDialogsList();
 }
 
+void MainWidget::unreadCountChanged()
+{
+	_dialogs->unreadCountChanged();
+}
+
 TimeMs MainWidget::highlightStartTime(not_null<const HistoryItem*> item) const {
 	return _history->highlightStartTime(item);
 }

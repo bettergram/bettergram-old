@@ -82,6 +82,8 @@ public:
 
 	void performFilter();
 
+	void countUnreadMessages(int *countInFavorite, int *countInGroup, int *countInOneOnOne, int *countInAnnouncement) const;
+
 private:
 	void adjustByName(
 		Key key,

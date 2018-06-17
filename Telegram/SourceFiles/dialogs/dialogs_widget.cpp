@@ -11,6 +11,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "dialogs/dialogs_search_from_controllers.h"
 #include "dialogs/dialogs_key.h"
 #include "dialogs/dialogs_entry.h"
+#include "dialogs/dialogs_indexed_list.h"
 #include "dialogs/dialogs_chat_tabs.h"
 #include "history/history.h"
 #include "history/feed/history_feed_section.h"
@@ -351,6 +352,17 @@ void DialogsWidget::notify_historyMuteUpdated(History *history) {
 void DialogsWidget::performFilter()
 {
 	_inner->performFilter();
+}
+
+void DialogsWidget::unreadCountChanged()
+{
+	int countInFavorite = 0;
+	int countInGroup = 0;
+	int countInOneOnOne = 0;
+	int countInAnnouncement = 0;
+
+	_inner->dialogsList()->countUnreadMessages(&countInFavorite, &countInGroup, &countInOneOnOne, &countInAnnouncement);
+	_chatTabs->unreadCountChanged(countInFavorite, countInGroup, countInOneOnOne, countInAnnouncement);
 }
 
 void DialogsWidget::dialogsReceived(

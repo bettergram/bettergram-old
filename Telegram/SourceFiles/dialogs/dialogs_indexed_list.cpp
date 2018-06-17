@@ -255,6 +255,40 @@ void IndexedList::performFilter()
 	}
 }
 
+void IndexedList::countUnreadMessages(int *countInFavorite, int *countInGroup, int *countInOneOnOne, int *countInAnnouncement) const
+{
+	int inFavorite = 0;
+	int inGroup = 0;
+	int inOneOnOne = 0;
+	int inAnnouncement = 0;
+
+	for(auto it = _list.cbegin(); it != _list.cend(); ++it) {
+		const Entry *entry = (*it)->entry();
+		const EntryTypes type = entry->getEntryType();
+
+		if(entry->isFavoriteDialog()) {
+			inFavorite += entry->chatListUnreadCount();
+		}
+
+		if(type & EntryType::Group) {
+			inGroup += entry->chatListUnreadCount();
+		}
+
+		if(type & EntryType::OneOnOne) {
+			inOneOnOne += entry->chatListUnreadCount();
+		}
+
+		if(type & (EntryType::Channel | EntryType::Feed)) {
+			inAnnouncement += entry->chatListUnreadCount();
+		}
+	}
+
+	*countInFavorite = inFavorite;
+	*countInGroup = inGroup;
+	*countInOneOnOne = inOneOnOne;
+	*countInAnnouncement = inAnnouncement;
+}
+
 List& IndexedList::current()
 {
 	if(_filterTypes != EntryType::All && _pFiltered)

@@ -1708,6 +1708,11 @@ void History::setUnreadCount(int newUnreadCount) {
 				delta + unreadMarkDelta,
 				mute());
 		}
+
+		if (const auto main = App::main()) {
+			main->unreadCountChanged();
+		}
+
 		Notify::peerUpdatedDelayed(
 			peer,
 			Notify::PeerUpdate::Flag::UnreadViewChanged);

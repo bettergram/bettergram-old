@@ -99,6 +99,7 @@ public:
 	void notify_historyMuteUpdated(History *history);
 
 	void performFilter();
+	void unreadCountChanged();
 
 signals:
 	void cancelled();

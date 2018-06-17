@@ -83,6 +83,14 @@ const EntryTypes &ChatTabs::selectedTab() const
 	return _type;
 }
 
+void ChatTabs::unreadCountChanged(int countInFavorite, int countInGroup, int countInOneOnOne, int countInAnnouncement)
+{
+	_favoriteButton->setUnreadCount(countInFavorite);
+	_groupButton->setUnreadCount(countInGroup);
+	_oneOnOneButton->setUnreadCount(countInOneOnOne);
+	_announcementButton->setUnreadCount(countInAnnouncement);
+}
+
 void ChatTabs::onTabClicked(const EntryTypes &type)
 {
 	// If user clicks to selected Tab twice

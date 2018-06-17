@@ -429,6 +429,10 @@ void Feed::unreadCountChanged(
 			false);
 		App::histories().unreadMuteChanged(mutedCountDelta, true);
 	}
+
+	if (const auto main = App::main()) {
+		main->unreadCountChanged();
+	}
 }
 
 MessagePosition Feed::unreadPosition() const {

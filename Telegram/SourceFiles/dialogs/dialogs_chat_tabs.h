@@ -23,6 +23,7 @@ public:
 	void selectTab(const EntryTypes &type);
 
 	const EntryTypes& selectedTab() const;
+	void unreadCountChanged(int countInFavorite, int countInGroup, int countInOneOnOne, int countInAnnouncement);
 
 signals:
 	void tabSelected(const Dialogs::EntryTypes &type);
