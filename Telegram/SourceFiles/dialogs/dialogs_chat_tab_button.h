@@ -28,14 +28,20 @@ public:
 	void select();
 	void unselect();
 
+	int unreadCount() const;
+	void setUnreadCount(int unreadCount);
+
 signals:
 
 protected:
 	void enterEventHook(QEvent *e) override;
 	void leaveEventHook(QEvent *e) override;
 
+	void paintEvent(QPaintEvent *event) override;
+
 private:
 	bool _selected = false;
+	int _unreadCount = 0;
 };
 
 } // namespace Dialogs
