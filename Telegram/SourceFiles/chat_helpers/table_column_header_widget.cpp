@@ -131,6 +131,7 @@ void TableColumnHeaderWidget::paintEvent(QPaintEvent *event)
 
 	QMargins margins = contentsMargins();
 
+	painter.setPen(st::tableHeaderFg);
 	painter.drawText(margins.left(),
 					 margins.top(),
 					 width() - margins.left() - 2 * margins.right() - _ascendingButton->width(),

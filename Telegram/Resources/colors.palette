@@ -551,11 +551,11 @@ importantTooltipFgLink: mediaviewTextLinkFg;
 
 pricesPanBg: windowBg; // prices panel background
 pricesPanHeaderFg: windowFg; // prices panel header text
-pricesPanTableHeaderFg: windowSubTextFg; // prices panel table header text
 pricesPanTableCryptoNameFg: menuIconFgOver; // prices panel table cryptocurrency name text
 pricesPanTableCryptoShortNameFg: windowSubTextFg; // prices panel table cryptocurrency short name text
 pricesPanTableUpFg: historyPeer2NameFg; // prices panel table price text in case of up (green)
 pricesPanTableDownFg: attentionButtonFg; // prices panel table price text in case of down (red)
 
 tableHeaderBg: emojiPanCategories; // table header background
+tableHeaderFg: windowSubTextFg; // table header foreground
 tableColumnSortInactiveFg: #00000010 | dialogsMenuIconFg;
