@@ -3236,9 +3236,13 @@ void MainWidget::updateWindowAdaptiveLayout() {
 
 	Auth().settings().setDialogsWidthRatio(dialogsWidthRatio);
 
-	auto useSmallColumnWidth = !Adaptive::OneColumn()
-		&& !dialogsWidthRatio
-		&& !_controller->forceWideDialogs();
+	//	auto useSmallColumnWidth = !Adaptive::OneColumn()
+	//		&& !dialogsWidthRatio
+	//		&& !_controller->forceWideDialogs();
+
+	// In bettergram we do not use small column width because we have chat tabs
+	bool useSmallColumnWidth = false;
+
 	_dialogsWidth = useSmallColumnWidth
 		? _controller->dialogsSmallColumnWidth()
 		: layout.dialogsWidth;
