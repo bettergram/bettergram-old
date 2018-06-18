@@ -75,7 +75,7 @@
     'configurations': {
       'Debug': {
         'xcode_settings': {
-          'PRODUCT_BUNDLE_IDENTIFIER': 'com.tdesktop.TelegramDebugOld',
+          'PRODUCT_BUNDLE_IDENTIFIER': 'com.tdesktop.BettergramDebugOld',
         },
         'library_dirs': [
           '<(libs_loc)/macold/crashpad/out/Debug',
@@ -83,7 +83,7 @@
       },
       'Release': {
         'xcode_settings': {
-          'PRODUCT_BUNDLE_IDENTIFIER': 'com.tdesktop.Telegram',
+          'PRODUCT_BUNDLE_IDENTIFIER': 'com.tdesktop.Bettergram',
         },
         'library_dirs': [
           '<(libs_loc)/macold/crashpad/out/Release',
@@ -93,26 +93,26 @@
     'postbuilds': [{
       'postbuild_name': 'Force Frameworks path',
       'action': [
-        'mkdir', '-p', '${BUILT_PRODUCTS_DIR}/Telegram.app/Contents/Frameworks/'
+        'mkdir', '-p', '${BUILT_PRODUCTS_DIR}/Bettergram.app/Contents/Frameworks/'
       ],
     }, {
       'postbuild_name': 'Copy Updater to Frameworks',
       'action': [
         'cp',
         '${BUILT_PRODUCTS_DIR}/Updater',
-        '${BUILT_PRODUCTS_DIR}/Telegram.app/Contents/Frameworks/',
+        '${BUILT_PRODUCTS_DIR}/Bettergram.app/Contents/Frameworks/',
       ],
     }, {
       'postbuild_name': 'Force Helpers path',
       'action': [
-        'mkdir', '-p', '${BUILT_PRODUCTS_DIR}/Telegram.app/Contents/Helpers/'
+        'mkdir', '-p', '${BUILT_PRODUCTS_DIR}/Bettergram.app/Contents/Helpers/'
       ],
     }, {
       'postbuild_name': 'Copy crashpad_handler to Helpers',
       'action': [
         'cp',
         '<(libs_loc)/macold/crashpad/out/${CONFIGURATION}/crashpad_handler',
-        '${BUILT_PRODUCTS_DIR}/Telegram.app/Contents/Helpers/',
+        '${BUILT_PRODUCTS_DIR}/Bettergram.app/Contents/Helpers/',
       ],
     }],
   }, {
@@ -159,43 +159,43 @@
     'configurations': {
       'Debug': {
         'xcode_settings': {
-          'PRODUCT_BUNDLE_IDENTIFIER': 'com.tdesktop.TelegramDebug',
+          'PRODUCT_BUNDLE_IDENTIFIER': 'com.tdesktop.BettergramDebug',
         },
       },
       'Release': {
         'xcode_settings': {
-          'PRODUCT_BUNDLE_IDENTIFIER': 'com.tdesktop.Telegram',
+          'PRODUCT_BUNDLE_IDENTIFIER': 'com.tdesktop.Bettergram',
         },
       },
     },
     'postbuilds': [{
       'postbuild_name': 'Force Frameworks path',
       'action': [
-        'mkdir', '-p', '${BUILT_PRODUCTS_DIR}/Telegram.app/Contents/Frameworks/'
+        'mkdir', '-p', '${BUILT_PRODUCTS_DIR}/Bettergram.app/Contents/Frameworks/'
       ],
     }, {
       'postbuild_name': 'Copy Updater to Frameworks',
       'action': [
         'cp',
         '${BUILT_PRODUCTS_DIR}/Updater',
-        '${BUILT_PRODUCTS_DIR}/Telegram.app/Contents/Frameworks/',
+        '${BUILT_PRODUCTS_DIR}/Bettergram.app/Contents/Frameworks/',
       ],
     }, {
       'postbuild_name': 'Force Helpers path',
       'action': [
-        'mkdir', '-p', '${BUILT_PRODUCTS_DIR}/Telegram.app/Contents/Helpers/'
+        'mkdir', '-p', '${BUILT_PRODUCTS_DIR}/Bettergram.app/Contents/Helpers/'
       ],
     }, {
       'postbuild_name': 'Copy crashpad_client to Helpers',
       'action': [
         'cp',
         '<(libs_loc)/crashpad/out/${CONFIGURATION}/crashpad_handler',
-        '${BUILT_PRODUCTS_DIR}/Telegram.app/Contents/Helpers/',
+        '${BUILT_PRODUCTS_DIR}/Bettergram.app/Contents/Helpers/',
       ],
     }],
   }], [ 'build_macstore', {
     'xcode_settings': {
-      'PRODUCT_BUNDLE_IDENTIFIER': 'org.telegram.desktop',
+      'PRODUCT_BUNDLE_IDENTIFIER': 'org.Bettergram.desktop',
       'OTHER_LDFLAGS': [
         '-framework', 'Breakpad',
       ],
@@ -205,7 +205,7 @@
     },
     'mac_sandbox': 1,
     'mac_sandbox_development_team': '6N38VWS5BX',
-    'product_name': 'Telegram Desktop',
+    'product_name': 'Bettergram Desktop',
     'sources': [
       '../Telegram/Telegram Desktop.entitlements',
     ],
@@ -216,19 +216,19 @@
     'postbuilds': [{
       'postbuild_name': 'Clear Frameworks path',
       'action': [
-        'rm', '-rf', '${BUILT_PRODUCTS_DIR}/Telegram Desktop.app/Contents/Frameworks'
+        'rm', '-rf', '${BUILT_PRODUCTS_DIR}/Bettergram Desktop.app/Contents/Frameworks'
       ],
     }, {
       'postbuild_name': 'Force Frameworks path',
       'action': [
-        'mkdir', '-p', '${BUILT_PRODUCTS_DIR}/Telegram Desktop.app/Contents/Frameworks/'
+        'mkdir', '-p', '${BUILT_PRODUCTS_DIR}/Bettergram Desktop.app/Contents/Frameworks/'
       ],
     }, {
       'postbuild_name': 'Copy Breakpad.framework to Frameworks',
       'action': [
         'cp', '-a',
         '<(libs_loc)/breakpad/src/client/mac/build/Release/Breakpad.framework',
-        '${BUILT_PRODUCTS_DIR}/Telegram Desktop.app/Contents/Frameworks/Breakpad.framework',
+        '${BUILT_PRODUCTS_DIR}/Bettergram Desktop.app/Contents/Frameworks/Breakpad.framework',
       ],
     }]
   }]],

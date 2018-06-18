@@ -6,7 +6,7 @@ popd > /dev/null
 
 if [ ! -d "$FullScriptPath/../../../TelegramPrivate" ]; then
   echo ""
-  echo "This script is for building the production version of Telegram Desktop."
+  echo "This script is for building the production version of Bettergram Desktop."
   echo ""
   echo "For building custom versions please visit the build instructions page at:"
   echo "https://github.com/telegramdesktop/tdesktop/#build-instructions"
@@ -53,25 +53,25 @@ if [ "$BuildTarget" == "linux" ]; then
   UpdateFile="tlinuxupd$AppVersion"
   SetupFile="tsetup.$AppVersionStrFull.tar.xz"
   ReleasePath="$HomePath/../out/Release"
-  BinaryName="Telegram"
+  BinaryName="Bettergram"
 elif [ "$BuildTarget" == "linux32" ]; then
   echo "Building version $AppVersionStrFull for Linux 32bit.."
   UpdateFile="tlinux32upd$AppVersion"
   SetupFile="tsetup32.$AppVersionStrFull.tar.xz"
   ReleasePath="$HomePath/../out/Release"
-  BinaryName="Telegram"
+  BinaryName="Bettergram"
 elif [ "$BuildTarget" == "mac" ]; then
   echo "Building version $AppVersionStrFull for OS X 10.8+.."
   UpdateFile="tmacupd$AppVersion"
   SetupFile="tsetup.$AppVersionStrFull.dmg"
   ReleasePath="$HomePath/../out/Release"
-  BinaryName="Telegram"
+  BinaryName="Bettergram"
 elif [ "$BuildTarget" == "mac32" ]; then
   echo "Building version $AppVersionStrFull for OS X 10.6 and 10.7.."
   UpdateFile="tmac32upd$AppVersion"
   SetupFile="tsetup32.$AppVersionStrFull.dmg"
   ReleasePath="$HomePath/../out/Release"
-  BinaryName="Telegram"
+  BinaryName="Bettergram"
 elif [ "$BuildTarget" == "macstore" ]; then
   if [ "$BetaVersion" != "0" ]; then
     Error "Can't build macstore beta version!"
@@ -79,7 +79,7 @@ elif [ "$BuildTarget" == "macstore" ]; then
 
   echo "Building version $AppVersionStrFull for Mac App Store.."
   ReleasePath="$HomePath/../out/Release"
-  BinaryName="Telegram Desktop"
+  BinaryName="Bettergram Desktop"
 else
   Error "Invalid target!"
 fi
@@ -253,7 +253,7 @@ if [ "$BuildTarget" == "mac" ] || [ "$BuildTarget" == "mac32" ] || [ "$BuildTarg
   fi
 
   gyp/refresh.sh
-  xcodebuild -project Telegram.xcodeproj -alltargets -configuration Release build
+  xcodebuild -project Bettergram.xcodeproj -alltargets -configuration Release build
 
   if [ ! -d "$ReleasePath/$BinaryName.app" ]; then
     Error "$BinaryName.app not found!"

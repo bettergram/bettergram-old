@@ -9,7 +9,7 @@
     'common.gypi',
   ],
   'targets': [{
-    'target_name': 'Telegram',
+    'target_name': 'Bettergram',
     'variables': {
       'variables': {
         'libs_loc': '../../../Libraries',
