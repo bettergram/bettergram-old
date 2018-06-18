@@ -108,7 +108,7 @@ void CryptoPrice::downloadIcon()
 
 	QNetworkReply *reply = networkManager->get(request);
 
-	connect(reply, &QNetworkReply::finished, this, [this, networkManager, reply]() {
+	connect(reply, &QNetworkReply::finished, this, [this, reply]() {
 		if(reply->error() == QNetworkReply::NoError) {
 			setIcon(reply->readAll());
 		} else {
