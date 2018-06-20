@@ -94,7 +94,7 @@ void BettergramSettings::getIsPaid()
 
 void BettergramSettings::getCryptoPriceList()
 {
-	QUrl url("https://www.livecoinwatch.com/api/v1/get_crypto_price_list_top_10");
+	QUrl url("https://api.bettergram.io/v1/get_crypto_price_list_top_10");
 
 	QNetworkRequest request;
 	request.setUrl(url);
