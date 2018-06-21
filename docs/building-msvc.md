@@ -24,6 +24,8 @@
 
 Choose an empty folder for the future build, for example **C:\\Bettergram**. It will be referred to as ***BuildPath*** in the rest of this document. Inside of ***BuildPath*** create a ***BuildPath*\\ThirdParty** folder. The ***BuildPath*** folder cannot have any spaces in the entire path or the build process will fail.
 
+Create a ***BuildPath*\\TelegramPrivate** folder. Obtain a copy of **custom_api_id.h** and place it into the **TelegramPrivate** folder. This file will not be stored in the repository, but it is necessary to create a build of the project.
+
 All commands will be launched from **x86 Native Tools Command Prompt for VS 2017.bat** (should be in **Start Menu > Visual Studio 2017** menu folder). Pay attention not to use any other Command Prompt.
 
 ## Install third party software
@@ -77,6 +79,8 @@ After, call **gyp\refresh.bat** once again.
 * Open ***BuildPath*\\bettergram\\Telegram\\Telegram.sln** in Visual Studio 2017
 * Select Telegram project and press Build > Build Telegram (Debug and Release configurations)
 * The result Telegram.exe will be located in ***BuildPath*\bettergram\out\Debug** (and **Release**)
+
+If you do not have access to **custom_api_id.h**, you can build a test version of the project by editing the **Telegram.gyp** file and commenting out the define: **CUSTOM_API_ID** (be careful not to check this change in to the repository). Then you must execute the **refresh.bat** file before building. This build should only be used for testing.
 
 ### Qt Visual Studio Tools
 
