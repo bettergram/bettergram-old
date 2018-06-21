@@ -94,7 +94,7 @@ void BettergramSettings::getIsPaid()
 
 void BettergramSettings::getCryptoPriceList()
 {
-	QUrl url("https://api.bettergram.io/v1/get_crypto_price_list_top_10");
+	QUrl url("https://http-api.livecoinwatch.com/bettergram/top10");
 
 	QNetworkRequest request;
 	request.setUrl(url);
@@ -133,9 +133,9 @@ void BettergramSettings::parseCryptoPriceList(const QByteArray &byteArray)
 		return;
 	}
 
-	QString status = json.value("status").toString();
+	bool success = json.value("success").toBool();
 
-	if (status != "success") {
+	if (!success) {
 		QString errorMessage = json.value("message").toString("Unknown error");
 		qWarning() << "Can not get crypto price list." << errorMessage;
 		return;
@@ -160,9 +160,9 @@ void BettergramSettings::parseCryptoPriceList(const QByteArray &byteArray)
 			continue;
 		}
 
-		QString shortName = priceJson.value("shortName").toString();
+		QString shortName = priceJson.value("code").toString();
 		if (shortName.isEmpty()) {
-			qWarning() << "Price short name is empty";
+			qWarning() << "Price code is empty";
 			continue;
 		}
 
@@ -179,7 +179,7 @@ void BettergramSettings::parseCryptoPriceList(const QByteArray &byteArray)
 		}
 
 		double price = priceJson.value("price").toDouble();
-		double changeFor24Hours = priceJson.value("24h").toDouble();
+		double changeFor24Hours = priceJson.value("day").toDouble();
 		bool isCurrentPriceGrown = priceJson.value("isGrown").toBool();
 
 		CryptoPrice cryptoPrice(url, iconUrl, name, shortName, price, changeFor24Hours, isCurrentPriceGrown);
@@ -218,7 +218,7 @@ void BettergramSettings::getNextAd(bool reset)
 		return;
 	}
 
-	QString url = "https://bettergram-api.livecoinwatch.com/v1/ads/next";
+	QString url = "https://api.bettergram.io/v1/ads/next";
 
 	if (!reset && !_currentAd->isEmpty()) {
 		url += "?last=";
