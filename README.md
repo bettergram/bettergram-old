@@ -46,6 +46,25 @@ The source code is published under GPLv3 with OpenSSL exception, the license is 
 * [Xcode 9][xcode]
 * [GYP/CMake on GNU/Linux][cmake]
 
+## Customize application
+
+Before publish a custom version of Telegram Desktop application you need to get new `api_id` and `api_hash` values.
+To do that you need to follow instructions at the page: [Obtaining api_id](https://core.telegram.org/api/obtaining_api_id).
+See also the thread: [GitHub: "internal server error" on login](https://github.com/telegramdesktop/tdesktop/issues/4717).
+
+So, after obtaining new values of `api_id` and `api_hash` you need to create a new directory next to your `tdesktop` folder with the name: `TelegramPrivate`.
+And place a new file `custom_api_id.h` there with the content:
+
+```
+static const int32 ApiId = [api_id];
+static const char *ApiHash = "[api_hash]";
+```
+
+And please check that we set `CUSTOM_API_ID` define at the `Telegram.gyp` file.
+
+Also please note that we do not need to place the `custom_api_id.h` to Git.
+It is because we should keep `api_id` and `api_hash` values private.
+
 [//]: # (LINKS)
 [telegram]: https://telegram.org
 [telegram_desktop]: https://desktop.telegram.org
