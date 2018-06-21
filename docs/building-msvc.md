@@ -24,7 +24,7 @@
 
 Choose an empty folder for the future build, for example **C:\\Bettergram**. It will be referred to as ***BuildPath*** in the rest of this document. Inside of ***BuildPath*** create a ***BuildPath*\\ThirdParty** folder. The ***BuildPath*** folder cannot have any spaces in the entire path or the build process will fail.
 
-Create a ***BuildPath*\\TelegramPrivate** folder. Obtain a copy of **custom_api_id.h** and place it into the **TelegramPrivate** folder. This file will not be stored in the repository, but it is necessary to create a build of the project.
+Create a ***BuildPath*\\TelegramPrivate** folder. Obtain a copy of **custom_api_id.h** and place it into the **TelegramPrivate** folder. This file will not be stored in the repository, but it is necessary to create a build of the project (see instructions below for how to build a non-commercial build of the project without having access to this file).
 
 All commands will be launched from **x86 Native Tools Command Prompt for VS 2017.bat** (should be in **Start Menu > Visual Studio 2017** menu folder). Pay attention not to use any other Command Prompt.
 
