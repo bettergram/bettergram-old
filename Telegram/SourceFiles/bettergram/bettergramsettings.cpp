@@ -327,9 +327,9 @@ void BettergramSettings::onGetNextAdFinished()
 			getNextAdLater(true);
 		}
 	} else {
-		qWarning() << QString("Can not get next ad item. %1 (%2)")
-					  .arg(reply->errorString())
-					  .arg(reply->error());
+        //	qWarning() << QString("Can not get next ad item. %1 (%2)")
+        //				  .arg(reply->errorString())
+        //				  .arg(reply->error());
 
 		getNextAdLater();
 	}
