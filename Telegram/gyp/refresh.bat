@@ -43,7 +43,7 @@ rem call gyp --depth=. --generator-output=../.. -Goutput_dir=out -Gninja_use_cus
 rem if %errorlevel% neq 0 goto error
 rem cd ../..
 
-rem call msbuild /target:SetBuildDefaultEnvironmentVariables Telegram.vcxproj /fileLogger %Silence%
+rem call msbuild /target:SetBuildDefaultEnvironmentVariables Bettergram.vcxproj /fileLogger %Silence%
 rem if %errorlevel% neq 0 goto error
 
 rem call python "%FullScriptPath%create_env.py"

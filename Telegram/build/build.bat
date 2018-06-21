@@ -56,7 +56,7 @@ set "ReleasePath=%HomePath%\..\out\Release"
 set "DeployPath=%ReleasePath%\deploy\%AppVersionStrMajor%\%AppVersionStrFull%"
 set "SignPath=%HomePath%\..\..\TelegramPrivate\Sign.bat"
 set "SignAppxPath=%HomePath%\..\..\TelegramPrivate\AppxSign.bat"
-set "BinaryName=Telegram"
+set "BinaryName=Bettergram"
 set "DropboxSymbolsPath=Y:\Telegram\symbols"
 set "FinalReleasePath=Z:\Telegram\backup"
 
@@ -110,7 +110,7 @@ call gyp\refresh.bat
 if %errorlevel% neq 0 goto error
 
 cd "%SolutionPath%"
-call ninja -C out/Release Telegram
+call ninja -C out/Release Bettergram
 if %errorlevel% neq 0 goto error
 
 echo.
