@@ -191,7 +191,7 @@ void Changelogs::addLocalLogs() {
 			lt_changes,
 			lang(lng_new_version_minor),
 			lt_link,
-			qsl("https://desktop.telegram.org/changelog"));
+			qsl("https://bettergram.io/changelog"));
 		addLocalLog(text.trimmed());
 	}
 }

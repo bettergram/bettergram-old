@@ -72,9 +72,9 @@ void AboutBox::showVersionHistory() {
 
 		Application::clipboard()->setText(url);
 
-		Ui::show(Box<InformBox>("The link to the current private beta version of Telegram Desktop was copied to the clipboard."));
+		Ui::show(Box<InformBox>("The link to the current private beta version of Bettergram was copied to the clipboard."));
 	} else {
-		QDesktopServices::openUrl(qsl("https://desktop.telegram.org/changelog"));
+		QDesktopServices::openUrl(qsl("https://bettergram.io/changelog"));
 	}
 }
 
@@ -87,13 +87,13 @@ void AboutBox::keyPressEvent(QKeyEvent *e) {
 }
 
 QString telegramFaqLink() {
-	auto result = qsl("https://telegram.org/faq");
-	auto language = Lang::Current().id();
-	for (auto faqLanguage : { "de", "es", "it", "ko", "br" }) {
-		if (language.startsWith(QLatin1String(faqLanguage))) {
-			result.append('/').append(faqLanguage);
-		}
-	}
+	auto result = qsl("https://bettergram.io#faq");
+	//auto language = Lang::Current().id();
+	//for (auto faqLanguage : { "de", "es", "it", "ko", "br" }) {
+	//	if (language.startsWith(QLatin1String(faqLanguage))) {
+	//		result.append('/').append(faqLanguage);
+	//	}
+	//}
 	return result;
 }
 
