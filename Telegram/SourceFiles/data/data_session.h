@@ -214,6 +214,10 @@ public:
 	int pinnedDialogsCount() const;
 	const std::deque<Dialogs::Key> &pinnedDialogsOrder() const;
 	void setPinnedDialog(const Dialogs::Key &key, bool pinned);
+	
+	//It is Bettergram specific method
+	void insertPinnedDialog(const Dialogs::Key &key, int pinnedIndex);
+
 	void applyPinnedDialogs(const QVector<MTPDialog> &list);
 	void applyPinnedDialogs(const QVector<MTPDialogPeer> &list);
 	void reorderTwoPinnedDialogs(
@@ -592,6 +596,11 @@ private:
 	base::flat_set<not_null<GameData*>> _gamesUpdated;
 
 	std::deque<Dialogs::Key> _pinnedDialogs;
+
+	//It is Bettergram specific variable, it contains indexes and keys of pinned dialogs
+	//We use it only at startup
+	std::deque<std::pair<int, Dialogs::Key>> _pinnedDialogsAndIndexes;
+
 	base::flat_map<FeedId, std::unique_ptr<Feed>> _feeds;
 	rpl::variable<FeedId> _defaultFeedId = FeedId();
 	Groups _groups;

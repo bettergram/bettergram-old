@@ -528,6 +528,31 @@ void Session::setPinnedDialog(const Dialogs::Key &key, bool pinned) {
 	setIsPinned(key, pinned);
 }
 
+//It is Bettergram specific method
+void Session::insertPinnedDialog(const Dialogs::Key &key, int pinnedIndex) {
+	if (pinnedIndex <= 0) {
+		return;
+	}
+
+	for (const std::pair<int, Dialogs::Key> dialogAndIndex : _pinnedDialogsAndIndexes) {
+		if (dialogAndIndex.second == key) {
+			return;
+		}
+	}
+
+	_pinnedDialogsAndIndexes.push_back(std::pair<int, Dialogs::Key>(pinnedIndex, key));
+	std::sort(_pinnedDialogsAndIndexes.begin(), _pinnedDialogsAndIndexes.end(),
+		[](const std::pair<int, Dialogs::Key> &a, const std::pair<int, Dialogs::Key> &b) {
+		return a.first < b.first;
+	});
+
+	_pinnedDialogs.clear();
+
+	for (const std::pair<int, Dialogs::Key> dialogAndIndex : _pinnedDialogsAndIndexes) {
+		_pinnedDialogs.push_back(dialogAndIndex.second);
+	}
+}
+
 void Session::applyPinnedDialogs(const QVector<MTPDialog> &list) {
 	//In Bettergram we should not send or receive pin information
 	Q_UNUSED(list)

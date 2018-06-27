@@ -14,6 +14,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "history/history_item.h"
 #include "history/history.h"
 #include "base/flags.h"
+#include "auth_session.h"
+#include "data/data_session.h"
 
 #include <QSettings>
 
@@ -243,6 +245,10 @@ void Entry::loadPinnedIndex(uint64 id)
 	settings.beginGroup("pinned");
 	_pinnedIndex = settings.value(QString::number(id)).toInt();
 	settings.endGroup();
+
+	if (_pinnedIndex > 0) {
+		Auth().data().insertPinnedDialog(_key, _pinnedIndex);
+	}
 }
 
 void Entry::setIsFavoriteDialog(bool isFavorite) {
