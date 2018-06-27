@@ -5,7 +5,6 @@
 #include <lang/lang_keys.h>
 
 #include <QMouseEvent>
-#include <QDebug>
 
 namespace ChatHelpers {
 

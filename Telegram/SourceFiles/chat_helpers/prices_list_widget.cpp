@@ -14,7 +14,6 @@
 #include "styles/style_widgets.h"
 
 #include <QMouseEvent>
-#include <QDebug>
 
 namespace ChatHelpers {
 

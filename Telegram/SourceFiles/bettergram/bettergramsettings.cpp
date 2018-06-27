@@ -111,7 +111,7 @@ void BettergramSettings::getCryptoPriceList()
 void BettergramSettings::parseCryptoPriceList(const QByteArray &byteArray)
 {
 	if (byteArray.isEmpty()) {
-		qWarning() << "Can not get crypto price list. Response is emtpy";
+		LOG(("Can not get crypto price list. Response is emtpy"));
 		return;
 	}
 
@@ -119,17 +119,17 @@ void BettergramSettings::parseCryptoPriceList(const QByteArray &byteArray)
 	QJsonDocument doc = QJsonDocument::fromJson(byteArray, &parseError);
 
 	if (!doc.isObject()) {
-		qWarning() << QString("Can not get crypto price list. Response is wrong. %1 (%2). Response: %3")
+		LOG(("Can not get crypto price list. Response is wrong. %1 (%2). Response: %3")
 					  .arg(parseError.errorString())
 					  .arg(parseError.error)
-					  .arg(QString::fromUtf8(byteArray));
+					  .arg(QString::fromUtf8(byteArray)));
 		return;
 	}
 
 	QJsonObject json = doc.object();
 
 	if (json.isEmpty()) {
-		qWarning() << "Can not get crypto price list. Response is emtpy or wrong";
+		LOG(("Can not get crypto price list. Response is emtpy or wrong"));
 		return;
 	}
 
@@ -137,7 +137,7 @@ void BettergramSettings::parseCryptoPriceList(const QByteArray &byteArray)
 
 	if (!success) {
 		QString errorMessage = json.value("message").toString("Unknown error");
-		qWarning() << "Can not get crypto price list." << errorMessage;
+		LOG(("Can not get crypto price list. %1").arg(errorMessage));
 		return;
 	}
 
@@ -150,31 +150,31 @@ void BettergramSettings::parseCryptoPriceList(const QByteArray &byteArray)
 		QJsonObject priceJson = jsonValue.toObject();
 
 		if (priceJson.isEmpty()) {
-			qWarning() << "Price json is empty";
+			LOG(("Price json is empty"));
 			continue;
 		}
 
 		QString name = priceJson.value("name").toString();
 		if (name.isEmpty()) {
-			qWarning() << "Price name is empty";
+			LOG(("Price name is empty"));
 			continue;
 		}
 
 		QString shortName = priceJson.value("code").toString();
 		if (shortName.isEmpty()) {
-			qWarning() << "Price code is empty";
+			LOG(("Price code is empty"));
 			continue;
 		}
 
 		QString url = priceJson.value("url").toString();
 		if (url.isEmpty()) {
-			qWarning() << "Price url is empty";
+			LOG(("Price url is empty"));
 			continue;
 		}
 
 		QString iconUrl = priceJson.value("iconUrl").toString();
 		if (iconUrl.isEmpty()) {
-			qWarning() << "Price icon url is empty";
+			LOG(("Price icon url is empty"));
 			continue;
 		}
 
@@ -196,9 +196,9 @@ void BettergramSettings::onGetCryptoPriceListFinished()
 	if(reply->error() == QNetworkReply::NoError) {
 		parseCryptoPriceList(reply->readAll());
 	} else {
-		qWarning() << QString("Can not get crypto price list. %1 (%2)")
+		LOG(("Can not get crypto price list. %1 (%2)")
 					  .arg(reply->errorString())
-					  .arg(reply->error());
+					  .arg(reply->error()));
 	}
 
 	reply->deleteLater();
@@ -207,7 +207,7 @@ void BettergramSettings::onGetCryptoPriceListFinished()
 void BettergramSettings::onGetCryptoPriceListSslFailed(QList<QSslError> errors)
 {
 	for(const QSslError &error : errors) {
-		qWarning() << error.errorString();
+		LOG(("%1").arg(error.errorString()));
 	}
 }
 
@@ -251,7 +251,7 @@ void BettergramSettings::getNextAdLater(bool reset)
 bool BettergramSettings::parseNextAd(const QByteArray &byteArray)
 {
 	if (byteArray.isEmpty()) {
-		qWarning() << "Can not get next ad. Response is emtpy";
+		LOG(("Can not get next ad. Response is emtpy"));
 		return false;
 	}
 
@@ -259,17 +259,17 @@ bool BettergramSettings::parseNextAd(const QByteArray &byteArray)
 	QJsonDocument doc = QJsonDocument::fromJson(byteArray, &parseError);
 
 	if (!doc.isObject()) {
-		qWarning() << QString("Can not get next ad. Response is wrong. %1 (%2). Response: %3")
+		LOG(("Can not get next ad. Response is wrong. %1 (%2). Response: %3")
 					  .arg(parseError.errorString())
 					  .arg(parseError.error)
-					  .arg(QString::fromUtf8(byteArray));
+					  .arg(QString::fromUtf8(byteArray)));
 		return false;
 	}
 
 	QJsonObject json = doc.object();
 
 	if (json.isEmpty()) {
-		qWarning() << "Can not get next ad. Response is emtpy or wrong";
+		LOG(("Can not get next ad. Response is emtpy or wrong"));
 		return false;
 	}
 
@@ -277,32 +277,32 @@ bool BettergramSettings::parseNextAd(const QByteArray &byteArray)
 
 	if (!isSuccess) {
 		QString errorMessage = json.value("message").toString("Unknown error");
-		qWarning() << "Can not get next ad." << errorMessage;
+		LOG(("Can not get next ad. %1").arg(errorMessage));
 		return false;
 	}
 
 	QJsonObject adJson = json.value("ad").toObject();
 
 	if (adJson.isEmpty()) {
-		qWarning() << "Can not get next ad. Ad json is empty";
+		LOG(("Can not get next ad. Ad json is empty"));
 		return false;
 	}
 
 	QString id = adJson.value("_id").toString();
 	if (id.isEmpty()) {
-		qWarning() << "Can not get next ad. Id is empty";
+		LOG(("Can not get next ad. Id is empty"));
 		return false;
 	}
 
 	QString text = adJson.value("text").toString();
 	if (text.isEmpty()) {
-		qWarning() << "Can not get next ad. Text is empty";
+		LOG(("Can not get next ad. Text is empty"));
 		return false;
 	}
 
 	QString url = adJson.value("url").toString();
 	if (url.isEmpty()) {
-		qWarning() << "Can not get next ad. Url is empty";
+		LOG(("Can not get next ad. Url is empty"));
 		return false;
 	}
 
@@ -327,9 +327,9 @@ void BettergramSettings::onGetNextAdFinished()
 			getNextAdLater(true);
 		}
 	} else {
-        //	qWarning() << QString("Can not get next ad item. %1 (%2)")
+        //	LOG(("Can not get next ad item. %1 (%2)")
         //				  .arg(reply->errorString())
-        //				  .arg(reply->error());
+        //				  .arg(reply->error()));
 
 		getNextAdLater();
 	}
@@ -340,7 +340,7 @@ void BettergramSettings::onGetNextAdFinished()
 void BettergramSettings::onGetNextAdSslFailed(QList<QSslError> errors)
 {
 	for(const QSslError &error : errors) {
-		qWarning() << error.errorString();
+		LOG(("%1").arg(error.errorString()));
 	}
 }
 

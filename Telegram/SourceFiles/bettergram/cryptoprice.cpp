@@ -112,9 +112,9 @@ void CryptoPrice::downloadIcon()
 		if(reply->error() == QNetworkReply::NoError) {
 			setIcon(reply->readAll());
 		} else {
-			qWarning() << QString("Can not get icon for crypto currency. %1 (%2)")
+			LOG(("Can not get icon for crypto currency. %1 (%2)")
 						  .arg(reply->errorString())
-						  .arg(reply->error());
+						  .arg(reply->error()));
 
 			downloadIconLater();
 		}
@@ -127,7 +127,7 @@ void CryptoPrice::downloadIcon()
 
 	connect(reply, &QNetworkReply::sslErrors, this, [](QList<QSslError> errors) {
 		for(const QSslError &error : errors) {
-			qWarning() << error.errorString();
+			LOG(("%1").arg(error.errorString()));
 		}
 	});
 }
@@ -140,14 +140,14 @@ void CryptoPrice::downloadIconLater()
 void CryptoPrice::setIcon(const QByteArray &byteArray)
 {
 	if (byteArray.isEmpty()) {
-		qWarning() << "Can not get icon for crypto currency. Response is empty.";
+		LOG(("Can not get icon for crypto currency. Response is empty."));
 		return;
 	}
 
 	QPixmap icon;
 
 	if (!icon.loadFromData(byteArray)) {
-		qWarning() << "Can not get icon for crypto currency. Can not convert response to image.";
+		LOG(("Can not get icon for crypto currency. Can not convert response to image."));
 		return;
 	}
 
