@@ -240,9 +240,12 @@ void IndexedList::setFilterTypes(EntryTypes types)
 
 void IndexedList::performFilter()
 {
+	emit performFilterStarted();
+
 	if(_filterTypes == EntryType::All)
 	{
 		_pFiltered.release();
+		emit performFilterFinished();
 		return;
 	}
 
@@ -253,6 +256,8 @@ void IndexedList::performFilter()
 		if(((*it)->entry()->getEntryType() & _filterTypes) != EntryType::None)
 			_pFiltered->addToEnd((*it)->key());
 	}
+
+	emit performFilterFinished();
 }
 
 void IndexedList::countUnreadMessages(int *countInFavorite, int *countInGroup, int *countInOneOnOne, int *countInAnnouncement) const

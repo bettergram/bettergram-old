@@ -298,8 +298,11 @@ private:
 	bool _importantSwitchPressed = false;
 	Dialogs::Row *_selected = nullptr;
 	Dialogs::Row *_pressed = nullptr;
+	Dialogs::Key _selectedKey;
+	Dialogs::Key _pressedKey;
 
 	Dialogs::Row *_dragging = nullptr;
+	Dialogs::Key _draggingKey;
 	int _draggingIndex = -1;
 	int _aboveIndex = -1;
 	QPoint _dragStart;
@@ -367,4 +370,8 @@ private:
 	base::unique_qptr<Ui::PopupMenu> _menu;
 
 	Dialogs::EntryTypes _currentFilterTypes = Dialogs::EntryType::All;
+
+private slots:
+	void onPerformFilterStarted();
+	void onPerformFilterFinished();
 };

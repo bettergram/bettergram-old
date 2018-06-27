@@ -158,6 +158,19 @@ DialogsInner::DialogsInner(QWidget *parent, not_null<Window::Controller*> contro
 		updateDialogRow(previous, rect);
 		updateDialogRow(next, rect);
 	}, lifetime());
+
+	connect(_dialogsImportant.get(), &Dialogs::IndexedList::performFilterStarted,
+		this, &DialogsInner::onPerformFilterStarted);
+
+	connect(_dialogsImportant.get(), &Dialogs::IndexedList::performFilterFinished,
+		this, &DialogsInner::onPerformFilterFinished);
+	
+	connect(_dialogs.get(), &Dialogs::IndexedList::performFilterStarted,
+		this, &DialogsInner::onPerformFilterStarted);
+
+	connect(_dialogs.get(), &Dialogs::IndexedList::performFilterFinished,
+		this, &DialogsInner::onPerformFilterFinished);
+
 	refresh();
 }
 
@@ -2707,3 +2720,15 @@ MsgId DialogsInner::lastSearchMigratedId() const {
 	return _lastSearchMigratedId;
 }
 
+void DialogsInner::onPerformFilterStarted() {
+	_selectedKey = _selected ? _selected->key() : Dialogs::Key();
+	_pressedKey = _pressed ? _pressed->key() : Dialogs::Key();
+	_draggingKey = _dragging ? _dragging->key() : Dialogs::Key();
+}
+
+void DialogsInner::onPerformFilterFinished() {
+	// The current list is filtered and we must to set new values for _selected, _pressed and _dragging values
+	_selected = _selectedKey.isNull() ? nullptr : shownDialogs()->getRow(_selectedKey);
+	_pressed = _pressedKey.isNull() ? nullptr : shownDialogs()->getRow(_pressedKey);
+	_dragging = _draggingKey.isNull() ? nullptr : shownDialogs()->getRow(_draggingKey);
+}

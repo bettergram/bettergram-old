@@ -59,6 +59,17 @@ public:
 	inline bool operator!=(const Key &other) const {
 		return !(*this == other);
 	}
+	bool isNull() {
+		if (const not_null<History*> *p = base::get_if<not_null<History*>>(&_value)) {
+			return p->get() == nullptr;
+		}
+		else if (const not_null<Data::Feed*> *p = base::get_if<not_null<Data::Feed*>>(&_value)) {
+			return p->get() == nullptr;
+		}
+		else {
+			return true;
+		}
+	}
 
 	base::optional_variant<
 		not_null<History*>,
