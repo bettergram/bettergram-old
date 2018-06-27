@@ -316,21 +316,22 @@ void ApiWrap::applyUpdates(
 }
 
 void ApiWrap::savePinnedOrder() {
-	const auto &order = _session->data().pinnedDialogsOrder();
-	auto peers = QVector<MTPInputDialogPeer>();
-	peers.reserve(order.size());
-	for (const auto pinned : base::reversed(order)) {
-		if (const auto history = pinned.history()) {
-			peers.push_back(MTP_inputDialogPeer(history->peer->input));
-		} else if (const auto feed = pinned.feed()) {
-//			peers.push_back(MTP_inputDialogPeerFeed(MTP_int(feed->id()))); // #feed
-		}
-	}
-	auto flags = MTPmessages_ReorderPinnedDialogs::Flag::f_force;
-	request(MTPmessages_ReorderPinnedDialogs(
-		MTP_flags(flags),
-		MTP_vector(peers)
-	)).send();
+	//In Bettergram we should not send or receive pin information
+//	const auto &order = _session->data().pinnedDialogsOrder();
+//	auto peers = QVector<MTPInputDialogPeer>();
+//	peers.reserve(order.size());
+//	for (const auto pinned : base::reversed(order)) {
+//		if (const auto history = pinned.history()) {
+//			peers.push_back(MTP_inputDialogPeer(history->peer->input));
+//		} else if (const auto feed = pinned.feed()) {
+////			peers.push_back(MTP_inputDialogPeerFeed(MTP_int(feed->id()))); // #feed
+//		}
+//	}
+//	auto flags = MTPmessages_ReorderPinnedDialogs::Flag::f_force;
+//	request(MTPmessages_ReorderPinnedDialogs(
+//		MTP_flags(flags),
+//		MTP_vector(peers)
+//	)).send();
 }
 // #feed
 //void ApiWrap::toggleChannelGrouping(

@@ -138,20 +138,23 @@ void TogglePinnedDialog(Dialogs::Key key) {
 	}
 
 	Auth().data().setPinnedDialog(key, isPinned);
-	auto flags = MTPmessages_ToggleDialogPin::Flags(0);
-	if (isPinned) {
-		flags |= MTPmessages_ToggleDialogPin::Flag::f_pinned;
-	}
-	//MTP::send(MTPmessages_ToggleDialogPin( // #feed
-	//	MTP_flags(flags),
-	//	key.history()
-	//		? MTP_inputDialogPeer(key.history()->peer->input)
-	//		: MTP_inputDialogPeerFeed(MTP_int(key.feed()->id()))));
-	if (key.history()) {
-		MTP::send(MTPmessages_ToggleDialogPin(
-			MTP_flags(flags),
-			MTP_inputDialogPeer(key.history()->peer->input)));
-	}
+
+	//In Bettergram we should not send or receive pin information
+	//auto flags = MTPmessages_ToggleDialogPin::Flags(0);
+	//if (isPinned) {
+	//	flags |= MTPmessages_ToggleDialogPin::Flag::f_pinned;
+	//}
+	////MTP::send(MTPmessages_ToggleDialogPin( // #feed
+	////	MTP_flags(flags),
+	////	key.history()
+	////		? MTP_inputDialogPeer(key.history()->peer->input)
+	////		: MTP_inputDialogPeerFeed(MTP_int(key.feed()->id()))));
+	//if (key.history()) {
+	//	MTP::send(MTPmessages_ToggleDialogPin(
+	//		MTP_flags(flags),
+	//		MTP_inputDialogPeer(key.history()->peer->input)));
+	//}
+
 	if (isPinned) {
 		if (const auto main = App::main()) {
 			main->dialogsToUp();
