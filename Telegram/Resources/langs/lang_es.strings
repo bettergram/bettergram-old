@@ -156,7 +156,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_pinned_unpin" = "Desanclar";
 "lng_pinned_notify" = "Notificar a todos los miembros";
 
-"lng_intro_about" = "Te damos la bienvenida a la app oficial para PC.\nEs rápida y segura.";
+"lng_intro_about" = "Welcome to Bettergram - our free open source improved version\nof the Telegram desktop app.";
 "lng_start_msgs" = "EMPEZAR A CONVERSAR";
 
 "lng_intro_next" = "SIGUIENTE";

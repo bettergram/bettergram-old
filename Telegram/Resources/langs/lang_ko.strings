@@ -156,7 +156,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_pinned_unpin" = "고정해제";
 "lng_pinned_notify" = "모두알림";
 
-"lng_intro_about" = "PC 공식버전에 오신 것을 환영합니다. \n안전하고 신속합니다.";
+"lng_intro_about" = "Welcome to Bettergram - our free open source improved version\nof the Telegram desktop app.";
 "lng_start_msgs" = "시작하기";
 
 "lng_intro_next" = "다음";
