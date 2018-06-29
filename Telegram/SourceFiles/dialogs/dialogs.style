@@ -230,11 +230,11 @@ dialogsSearchFromPalette: TextPalette(defaultTextPalette) {
 
 dialogsChatTabsFavoriteButton: IconButton {
         width: 40px;
-        height: 40px;
+        height: 55px;
 
         icon: icon {{ "favorites_icon", dialogsMenuIconFg }};
         iconOver: icon {{ "favorites_icon", dialogsMenuIconFgOver }};
-        iconPosition: point(10px, 10px);
+        iconPosition: point(10px, 5px);
 
         rippleAreaPosition: point(0px, 0px);
         rippleAreaSize: 40px;
@@ -245,11 +245,11 @@ dialogsChatTabsFavoriteButton: IconButton {
 
 dialogsChatTabsGroupButton: IconButton {
         width: 40px;
-        height: 40px;
+        height: 55px;
 
         icon: icon {{ "group_icon", dialogsMenuIconFg }};
         iconOver: icon {{ "group_icon", dialogsMenuIconFgOver }};
-        iconPosition: point(10px, 10px);
+        iconPosition: point(10px, 5px);
 
         rippleAreaPosition: point(0px, 0px);
         rippleAreaSize: 40px;
@@ -260,11 +260,11 @@ dialogsChatTabsGroupButton: IconButton {
 
 dialogsChatTabsOneOnOneButton: IconButton {
         width: 40px;
-        height: 40px;
+        height: 55px;
 
         icon: icon {{ "private_icon", dialogsMenuIconFg }};
         iconOver: icon {{ "private_icon", dialogsMenuIconFgOver }};
-        iconPosition: point(10px, 10px);
+        iconPosition: point(10px, 5px);
 
         rippleAreaPosition: point(0px, 0px);
         rippleAreaSize: 40px;
@@ -275,11 +275,11 @@ dialogsChatTabsOneOnOneButton: IconButton {
 
 dialogsChatTabsAnnouncementButton: IconButton {
         width: 40px;
-        height: 40px;
+        height: 55px;
 
         icon: icon {{ "announcements_icon", dialogsMenuIconFg }};
         iconOver: icon {{ "announcements_icon", dialogsMenuIconFgOver }};
-        iconPosition: point(10px, 10px);
+        iconPosition: point(10px, 5px);
 
         rippleAreaPosition: point(0px, 0px);
         rippleAreaSize: 40px;

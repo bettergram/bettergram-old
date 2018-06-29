@@ -87,13 +87,18 @@ void ChatTabButton::paintEvent(QPaintEvent *event)
 	if (counter.size() > 4) {
 		counter = qsl("..") + counter.mid(counter.size() - 3);
 	}
-	int unreadRight = width();
-	int unreadTop = height() / 2;
-	int unreadWidth = 0;
 
 	::Dialogs::Layout::UnreadBadgeStyle st;
 	st.active = false;
 	st.muted = false;
+
+	// place the badge at horizontal center
+	int unreadRight = (width() + std::max(st.size, st.font->width(counter) + 2 * st.padding)) / 2;
+
+	// keep the bottom padding for the badge as the top padding for the button icon
+	int unreadTop = height() - st.size - style().iconPosition.x();
+	int unreadWidth = 0;
+
 	::Dialogs::Layout::paintUnreadCount(painter, counter, unreadRight, unreadTop, st, &unreadWidth);
 }
 
