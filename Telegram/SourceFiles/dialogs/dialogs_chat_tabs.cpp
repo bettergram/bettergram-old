@@ -32,7 +32,8 @@ ChatTabs::ChatTabs(QWidget *parent) : TWidget(parent)
 	_oneOnOneButton->setClickedCallback([this] { onTabClicked(EntryType::OneOnOne); });
 	_announcementButton->setClickedCallback([this] { onTabClicked(EntryType::Channel | EntryType::Feed); });
 
-	_type = EntryTypes(static_cast<EntryType>(QSettings().value(qsl("last_tab"), static_cast<unsigned>(EntryType::None)).toUInt()));
+	QSettings settings;
+	_type = EntryTypes(static_cast<EntryType>(settings.value(qsl("last_tab"), static_cast<unsigned>(EntryType::None)).toUInt()));
 
    if(_type != EntryType::None)
    {
@@ -51,7 +52,8 @@ void ChatTabs::selectTab(const EntryTypes &type)
 	_oneOnOneButton->unselect();
 	_announcementButton->unselect();
 
-	QSettings().setValue(qsl("last_tab"), static_cast<unsigned>(type));
+	QSettings settings;
+	settings.setValue(qsl("last_tab"), static_cast<unsigned>(type));
 
 	// Set highlighted icon to the current tab button
 

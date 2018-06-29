@@ -59,8 +59,10 @@ void Entry::cachePinnedIndex(int index) {
 		}
 
 		QSettings settings;
+		settings.beginGroup(App::self()->phone());
 		settings.beginGroup("pinned");
 		settings.setValue(QString::number(_key.id()), _pinnedIndex);
+		settings.endGroup();
 		settings.endGroup();
 	}
 }
@@ -228,6 +230,7 @@ void Entry::loadIsFavorite(uint64 id) {
 	QString keyString = QString::number(id);
 
 	QSettings settings;
+	settings.beginGroup(App::self()->phone());
 	settings.beginGroup("favorites");
 
 	if (settings.contains(keyString)) {
@@ -237,13 +240,16 @@ void Entry::loadIsFavorite(uint64 id) {
 	}
 
 	settings.endGroup();
+	settings.endGroup();
 }
 
 void Entry::loadPinnedIndex(uint64 id)
 {
 	QSettings settings;
+	settings.beginGroup(App::self()->phone());
 	settings.beginGroup("pinned");
 	_pinnedIndex = settings.value(QString::number(id)).toInt();
+	settings.endGroup();
 	settings.endGroup();
 
 	if (_pinnedIndex > 0) {
@@ -257,6 +263,7 @@ void Entry::setIsFavoriteDialog(bool isFavorite) {
 		QString keyString = QString::number(_key.id());
 
 		QSettings settings;
+		settings.beginGroup(App::self()->phone());
 		settings.beginGroup("favorites");
 
 		if (_isFavorite) {
@@ -265,6 +272,7 @@ void Entry::setIsFavoriteDialog(bool isFavorite) {
 			settings.remove(keyString);
 		}
 
+		settings.endGroup();
 		settings.endGroup();
 	}
 }
