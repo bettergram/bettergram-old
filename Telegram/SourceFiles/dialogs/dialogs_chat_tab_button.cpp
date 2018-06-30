@@ -8,11 +8,21 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 #include "dialogs_chat_tab_button.h"
 #include "dialogs_layout.h"
+#include "ui/widgets/popup_menu.h"
+#include "app.h"
+#include "mainwidget.h"
+#include "lang/lang_keys.h"
 
 namespace Dialogs {
 
-ChatTabButton::ChatTabButton(QWidget *parent, const style::IconButton &st) :
-	Ui::IconButton(parent, st) {
+ChatTabButton::ChatTabButton(EntryTypes type, QWidget *parent, const style::IconButton &st) :
+	Ui::IconButton(parent, st),
+	_type(type) {
+}
+
+EntryTypes ChatTabButton::type()
+{
+	return _type;
 }
 
 bool ChatTabButton::selected() const
@@ -100,6 +110,26 @@ void ChatTabButton::paintEvent(QPaintEvent *event)
 	int unreadWidth = 0;
 
 	::Dialogs::Layout::paintUnreadCount(painter, counter, unreadRight, unreadTop, st, &unreadWidth);
+}
+
+void ChatTabButton::contextMenuEvent(QContextMenuEvent *e)
+{
+	_menu = base::make_unique_q<Ui::PopupMenu>(nullptr);
+
+	_menu->addAction(lang(lng_menu_mark_all_messages_as_read_in_the_tab), [=] {
+		App::main()->markAsRead(_type);
+	});
+
+	_menu->addAction(lang(lng_menu_mark_all_messages_as_read), [=] {
+		App::main()->markAsRead(EntryType::All);
+	});
+
+	connect(_menu.get(), &QObject::destroyed, [this] {
+		leaveEventHook(nullptr);
+	});
+
+	_menu->popup(e->globalPos());
+	e->accept();
 }
 
 } // namespace Dialogs

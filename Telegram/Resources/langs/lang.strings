@@ -19,6 +19,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 "lng_menu_upgrade_to_bettergram_pro" = "Upgrade to Bettergram Pro";
 "lng_menu_bettergram_pro" = "Bettergram Pro";
 "lng_menu_no_ads_plus_custom_prices" = "(No Ads + Custom Prices)";
+"lng_menu_mark_all_messages_as_read_in_the_tab" = "Mark All Messages as Read in the Tab";
+"lng_menu_mark_all_messages_as_read" = "Mark All Messages as Read";
 
 "lng_disable_notifications_from_tray" = "Disable notifications";
 "lng_enable_notifications_from_tray" = "Enable notifications";

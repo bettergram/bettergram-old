@@ -15,10 +15,10 @@ namespace Dialogs {
 
 ChatTabs::ChatTabs(QWidget *parent) : TWidget(parent)
   , _type(EntryType::None)
-  ,_favoriteButton(this, st::dialogsChatTabsFavoriteButton)
-  ,_groupButton(this, st::dialogsChatTabsGroupButton)
-  ,_oneOnOneButton(this, st::dialogsChatTabsOneOnOneButton)
-  ,_announcementButton(this, st::dialogsChatTabsAnnouncementButton) {
+  ,_favoriteButton(EntryType::Favorite, this, st::dialogsChatTabsFavoriteButton)
+  ,_groupButton(EntryType::Group, this, st::dialogsChatTabsGroupButton)
+  ,_oneOnOneButton(EntryType::OneOnOne, this, st::dialogsChatTabsOneOnOneButton)
+  ,_announcementButton(EntryType::Channel | EntryType::Feed, this, st::dialogsChatTabsAnnouncementButton) {
 
 	_listButtons.push_back(_favoriteButton);
 	_listButtons.push_back(_groupButton);
@@ -27,10 +27,10 @@ ChatTabs::ChatTabs(QWidget *parent) : TWidget(parent)
 
 	setGeometryToLeft(0, 0, width(), _listButtons.first()->height());
 
-	_favoriteButton->setClickedCallback([this] { onTabClicked(EntryType::Favorite); });
-	_groupButton->setClickedCallback([this] { onTabClicked(EntryType::Group); });
-	_oneOnOneButton->setClickedCallback([this] { onTabClicked(EntryType::OneOnOne); });
-	_announcementButton->setClickedCallback([this] { onTabClicked(EntryType::Channel | EntryType::Feed); });
+	_favoriteButton->setClickedCallback([this] { onTabClicked(_favoriteButton->type()); });
+	_groupButton->setClickedCallback([this] { onTabClicked(_groupButton->type()); });
+	_oneOnOneButton->setClickedCallback([this] { onTabClicked(_oneOnOneButton->type()); });
+	_announcementButton->setClickedCallback([this] { onTabClicked(_announcementButton->type()); });
 
 	QSettings settings;
 	_type = EntryTypes(static_cast<EntryType>(settings.value(qsl("last_tab"), static_cast<unsigned>(EntryType::None)).toUInt()));

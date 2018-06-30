@@ -9,6 +9,11 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #pragma once
 
 #include "ui/widgets/buttons.h"
+#include "dialogs_entry.h"
+
+namespace Ui {
+class PopupMenu;
+} // namespace Ui
 
 namespace Dialogs {
 
@@ -20,7 +25,9 @@ class ChatTabButton : public Ui::IconButton {
 	Q_OBJECT
 
 public:
-	ChatTabButton(QWidget *parent, const style::IconButton &st);
+	ChatTabButton(EntryTypes type, QWidget *parent, const style::IconButton &st);
+
+	EntryTypes type();
 
 	bool selected() const;
 	void setSelected(bool selected);
@@ -38,10 +45,13 @@ protected:
 	void leaveEventHook(QEvent *e) override;
 
 	void paintEvent(QPaintEvent *event) override;
+	void contextMenuEvent(QContextMenuEvent *e) override;
 
 private:
+	EntryTypes _type;
 	bool _selected = false;
 	int _unreadCount = 0;
+	base::unique_qptr<Ui::PopupMenu> _menu;
 };
 
 } // namespace Dialogs

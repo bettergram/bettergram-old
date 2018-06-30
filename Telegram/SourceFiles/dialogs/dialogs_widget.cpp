@@ -365,6 +365,12 @@ void DialogsWidget::unreadCountChanged()
 	_chatTabs->unreadCountChanged(countInFavorite, countInGroup, countInOneOnOne, countInAnnouncement);
 }
 
+void DialogsWidget::markAsRead(Dialogs::EntryTypes type)
+{
+	dialogsList()->markAsRead(type);
+	_inner->update();
+}
+
 void DialogsWidget::dialogsReceived(
 		const MTPmessages_Dialogs &dialogs,
 		mtpRequestId requestId) {

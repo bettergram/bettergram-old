@@ -848,6 +848,11 @@ bool MainWidget::cmd_previous_chat() {
 	return _history->cmd_previous_chat();
 }
 
+void MainWidget::markAsRead(Dialogs::EntryTypes type)
+{
+	_dialogs->markAsRead(type);
+}
+
 void MainWidget::noHider(HistoryHider *destroyed) {
 	if (_hider == destroyed) {
 		_hider = nullptr;

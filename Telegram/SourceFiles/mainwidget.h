@@ -10,6 +10,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "core/single_timer.h"
 #include "base/weak_ptr.h"
 #include "ui/rp_widget.h"
+#include "dialogs/dialogs_entry.h"
 
 struct HistoryMessageMarkupButton;
 class MainWindow;
@@ -316,6 +317,8 @@ public:
 	bool cmd_search();
 	bool cmd_next_chat();
 	bool cmd_previous_chat();
+
+	void markAsRead(Dialogs::EntryTypes type);
 
 	~MainWidget();
 

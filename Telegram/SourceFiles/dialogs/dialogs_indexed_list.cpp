@@ -8,6 +8,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "dialogs/dialogs_indexed_list.h"
 
 #include "auth_session.h"
+#include "apiwrap.h"
 #include "data/data_session.h"
 #include "history/history.h"
 
@@ -292,6 +293,37 @@ void IndexedList::countUnreadMessages(int *countInFavorite, int *countInGroup, i
 	*countInGroup = inGroup;
 	*countInOneOnOne = inOneOnOne;
 	*countInAnnouncement = inAnnouncement;
+}
+
+void IndexedList::markAsRead(EntryTypes filterType)
+{
+	for(auto it = _list.cbegin(); it != _list.cend(); ++it) {
+		const Entry *entry = (*it)->entry();
+		const EntryTypes type = entry->getEntryType();
+
+		if (filterType == EntryType::All) {
+			markAsRead(*it);
+			continue;
+		}
+
+		if ((filterType & EntryType::Favorite) && entry->isFavoriteDialog()) {
+			markAsRead(*it);
+			continue;
+		}
+
+		if (filterType & type) {
+			markAsRead(*it);
+		}
+	}
+}
+
+void IndexedList::markAsRead(Row *row)
+{
+	History *history = row->history();
+
+	if (history) {
+		Auth().api().readServerHistory(history);
+	}
 }
 
 List& IndexedList::current()

@@ -100,6 +100,7 @@ public:
 
 	void performFilter();
 	void unreadCountChanged();
+	void markAsRead(Dialogs::EntryTypes type);
 
 signals:
 	void cancelled();

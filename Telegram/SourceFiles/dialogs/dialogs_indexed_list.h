@@ -88,6 +88,7 @@ public:
 	void performFilter();
 
 	void countUnreadMessages(int *countInFavorite, int *countInGroup, int *countInOneOnOne, int *countInAnnouncement) const;
+	void markAsRead(Dialogs::EntryTypes type);
 
 signals:
 	void performFilterStarted();
@@ -104,6 +105,8 @@ private:
 
 	List& current();
 	const List& current() const;
+
+	void markAsRead(Row *row);
 
 	SortMode _sortMode;
 	List _list, _empty;
