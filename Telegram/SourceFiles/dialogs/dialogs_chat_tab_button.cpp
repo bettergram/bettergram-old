@@ -96,7 +96,7 @@ void ChatTabButton::paintEvent(QPaintEvent *event)
 	int unreadRight = (width() + std::max(st.size, st.font->width(counter) + 2 * st.padding)) / 2;
 
 	// keep the bottom padding for the badge as the top padding for the button icon
-	int unreadTop = height() - st.size - style().iconPosition.x();
+	int unreadTop = height() - st.size - style().iconPosition.y();
 	int unreadWidth = 0;
 
 	::Dialogs::Layout::paintUnreadCount(painter, counter, unreadRight, unreadTop, st, &unreadWidth);
