@@ -45,6 +45,9 @@ public:
 	const List &all() const {
 		return current();
 	}
+	const List &unfilteredAll() const {
+		return _list;
+	}
 	//const List& getFilteredList(Dialogs::EntryTypes types);// { return _list; }  // TODO: this should perform the filtering and then return the filtered list
 
 	const List *filtered(QChar ch) const {

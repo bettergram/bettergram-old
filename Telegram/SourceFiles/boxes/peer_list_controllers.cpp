@@ -252,7 +252,7 @@ void ChatsListBoxController::rebuildRows() {
 	auto wasEmpty = !delegate()->peerListFullRowsCount();
 	auto appendList = [this](auto chats) {
 		auto count = 0;
-		for (const auto row : chats->all()) {
+		for (const auto row : chats->unfilteredAll()) {
 			if (const auto history = row->history()) {
 				if (appendRow(history)) {
 					++count;
