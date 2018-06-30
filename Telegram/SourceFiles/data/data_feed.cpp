@@ -459,6 +459,11 @@ int Feed::chatListUnreadCount() const {
 	return unreadCount();
 }
 
+int Feed::chatListUnreadNoMutedCount() const
+{
+	return _unreadCount ? std::max(0, *_unreadCount - _unreadMutedCount) : 0;
+}
+
 bool Feed::chatListUnreadMark() const {
 	return false; // #feed unread mark
 }

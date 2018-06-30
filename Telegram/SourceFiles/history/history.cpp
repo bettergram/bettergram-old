@@ -2012,6 +2012,11 @@ int History::chatListUnreadCount() const {
 	return result;
 }
 
+int History::chatListUnreadNoMutedCount() const
+{
+	return _mute ? 0 : chatListUnreadCount();
+}
+
 bool History::chatListUnreadMark() const {
 	if (unreadMark()) {
 		return true;

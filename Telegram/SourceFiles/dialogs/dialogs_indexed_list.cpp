@@ -272,19 +272,19 @@ void IndexedList::countUnreadMessages(int *countInFavorite, int *countInGroup, i
 		const EntryTypes type = entry->getEntryType();
 
 		if(entry->isFavoriteDialog()) {
-			inFavorite += entry->chatListUnreadCount();
+			inFavorite += entry->chatListUnreadNoMutedCount();
 		}
 
 		if(type & EntryType::Group) {
-			inGroup += entry->chatListUnreadCount();
+			inGroup += entry->chatListUnreadNoMutedCount();
 		}
 
 		if(type & EntryType::OneOnOne) {
-			inOneOnOne += entry->chatListUnreadCount();
+			inOneOnOne += entry->chatListUnreadNoMutedCount();
 		}
 
 		if(type & (EntryType::Channel | EntryType::Feed)) {
-			inAnnouncement += entry->chatListUnreadCount();
+			inAnnouncement += entry->chatListUnreadNoMutedCount();
 		}
 	}
 

@@ -26,6 +26,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "data/data_document.h"
 #include "data/data_web_page.h"
 #include "data/data_game.h"
+#include "mainwidget.h"
 
 namespace Data {
 namespace {
@@ -1828,6 +1829,10 @@ void Session::applyNotifySetting(
 		}
 	} break;
 	}
+
+	if (const auto main = App::main()) {
+		main->unreadCountChanged();
+	}
 }
 
 void Session::updateNotifySettings(
@@ -1837,6 +1842,10 @@ void Session::updateNotifySettings(
 	if (peer->notifyChange(muteForSeconds, silentPosts)) {
 		updateNotifySettingsLocal(peer);
 		_session->api().updateNotifySettingsDelayed(peer);
+	}
+
+	if (const auto main = App::main()) {
+		main->unreadCountChanged();
 	}
 }
 

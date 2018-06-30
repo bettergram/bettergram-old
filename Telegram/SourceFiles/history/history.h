@@ -335,6 +335,7 @@ public:
 		return !mute();
 	}
 	int chatListUnreadCount() const override;
+	int chatListUnreadNoMutedCount() const override;
 	bool chatListUnreadMark() const override;
 	bool chatListMutedBadge() const override;
 	HistoryItem *chatsListItem() const override;
