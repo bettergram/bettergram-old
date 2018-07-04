@@ -75,7 +75,7 @@
     'configurations': {
       'Debug': {
         'xcode_settings': {
-          'PRODUCT_BUNDLE_IDENTIFIER': 'com.tdesktop.BettergramDebugOld',
+          'PRODUCT_BUNDLE_IDENTIFIER': 'io.bettergram.BettergramDebugOld',
         },
         'library_dirs': [
           '<(libs_loc)/macold/crashpad/out/Debug',
@@ -83,7 +83,7 @@
       },
       'Release': {
         'xcode_settings': {
-          'PRODUCT_BUNDLE_IDENTIFIER': 'com.tdesktop.Bettergram',
+          'PRODUCT_BUNDLE_IDENTIFIER': 'io.bettergram.Bettergram',
         },
         'library_dirs': [
           '<(libs_loc)/macold/crashpad/out/Release',
@@ -159,12 +159,12 @@
     'configurations': {
       'Debug': {
         'xcode_settings': {
-          'PRODUCT_BUNDLE_IDENTIFIER': 'com.tdesktop.BettergramDebug',
+          'PRODUCT_BUNDLE_IDENTIFIER': 'io.bettergram.BettergramDebug',
         },
       },
       'Release': {
         'xcode_settings': {
-          'PRODUCT_BUNDLE_IDENTIFIER': 'com.tdesktop.Bettergram',
+          'PRODUCT_BUNDLE_IDENTIFIER': 'io.bettergram.Bettergram',
         },
       },
     },
