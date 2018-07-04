@@ -541,13 +541,13 @@ void MainWindow::psFirstShow() {
 
 #if !defined(TDESKTOP_DISABLE_GTK_INTEGRATION) && !defined(TDESKTOP_DISABLE_UNITY_INTEGRATION)
 	if (useUnityCount) {
-		_psUnityLauncherEntry = Libs::unity_launcher_entry_get_for_desktop_id("telegramdesktop.desktop");
+		_psUnityLauncherEntry = Libs::unity_launcher_entry_get_for_desktop_id("bettergram.desktop");
 		if (_psUnityLauncherEntry) {
-			LOG(("Found Unity Launcher entry telegramdesktop.desktop!"));
+			LOG(("Found Unity Launcher entry bettergram.desktop!"));
 		} else {
-			_psUnityLauncherEntry = Libs::unity_launcher_entry_get_for_desktop_id("Telegram.desktop");
+			_psUnityLauncherEntry = Libs::unity_launcher_entry_get_for_desktop_id("Bettergram.desktop");
 			if (_psUnityLauncherEntry) {
-				LOG(("Found Unity Launcher entry Telegram.desktop!"));
+				LOG(("Found Unity Launcher entry Bettergram.desktop!"));
 			} else {
 				LOG(("Could not get Unity Launcher entry!"));
 			}
