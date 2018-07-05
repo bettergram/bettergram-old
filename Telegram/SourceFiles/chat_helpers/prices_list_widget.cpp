@@ -120,8 +120,12 @@ object_ptr<TabbedSelector::InnerFooter> PricesListWidget::createFooter()
 
 void PricesListWidget::afterShown()
 {
-	if (_timerId == -1) {
+	if (!_timerId) {
 		_timerId = startTimer(_timerIntervalMs);
+
+		if (!_timerId) {
+			LOG(("Can not start timer for %1 ms").arg(_timerIntervalMs));
+		}
 	}
 
 	BettergramSettings::instance()->getCryptoPriceList();
@@ -129,9 +133,9 @@ void PricesListWidget::afterShown()
 
 void PricesListWidget::beforeHiding()
 {
-	if (_timerId != -1) {
+	if (!_timerId) {
 		killTimer(_timerId);
-		_timerId = -1;
+		_timerId = 0;
 	}
 }
 
