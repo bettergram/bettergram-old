@@ -396,12 +396,7 @@ void PricesListWidget::updateControlsGeometry()
 {
 	_siteName->moveToLeft((width() - _siteName->width()) / 2, st::pricesPanHeader);
 
-	_marketCap->setRichText(textcmdLink(1, lang(lng_prices_market_cap)
-										.arg(BettergramSettings::instance()->cryptoPriceList()->marketCapString())));
-	_marketCap->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://www.livecoinwatch.com")));
-
-	_marketCap->moveToLeft((width() - _marketCap->width()) / 2,
-						   _siteName->y() + _siteName->height() + st::pricesPanPadding);
+	updateMarketCap();
 
 	int columnCoinWidth = width() - st::pricesPanColumnPriceWidth - st::pricesPanColumn24hWidth;
 
@@ -419,6 +414,16 @@ void PricesListWidget::updateControlsGeometry()
 	_coinHeader->moveToLeft(0, headerTop);
 	_priceHeader->moveToLeft(_coinHeader->x() + _coinHeader->width(), headerTop);
 	_24hHeader->moveToLeft(_priceHeader->x() + _priceHeader->width(), headerTop);
+}
+
+void PricesListWidget::updateMarketCap()
+{
+	_marketCap->setRichText(textcmdLink(1, lang(lng_prices_market_cap)
+										.arg(BettergramSettings::instance()->cryptoPriceList()->marketCapString())));
+	_marketCap->setLink(1, std::make_shared<UrlClickHandler>(qsl("https://www.livecoinwatch.com")));
+
+	_marketCap->moveToLeft((width() - _marketCap->width()) / 2,
+						   _siteName->y() + _siteName->height() + st::pricesPanPadding);
 }
 
 void PricesListWidget::onCoinColumnSortOrderChanged()
@@ -477,6 +482,7 @@ void PricesListWidget::on24hColumnSortOrderChanged()
 
 void PricesListWidget::onPriceListUpdated()
 {
+	updateMarketCap();
 	update();
 }
 

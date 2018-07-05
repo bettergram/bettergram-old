@@ -82,6 +82,7 @@ private:
 	void countSelectedRow(const QPoint &point);
 
 	void updateControlsGeometry();
+	void updateMarketCap();
 
 private slots:
 	void onCoinColumnSortOrderChanged();
