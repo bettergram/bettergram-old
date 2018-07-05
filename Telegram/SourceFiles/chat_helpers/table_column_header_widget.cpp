@@ -102,7 +102,7 @@ void TableColumnHeaderWidget::mouseReleaseEvent(QMouseEvent *e)
 			setSortOrder(SortOrder::Descending);
 			break;
 		case SortOrder::Descending:
-			setSortOrder(SortOrder::Ascending);
+			setSortOrder(SortOrder::None);
 			break;
 		default:
 			break;
