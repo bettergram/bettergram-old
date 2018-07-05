@@ -54,7 +54,6 @@ protected:
 private:
 	class Footer;
 
-	int _timerIntervalMs = 5000;
 	int _timerId = 0;
 	int _selectedRow = -1;
 	int _pressedRow = -1;
@@ -83,6 +82,9 @@ private:
 
 	void updateControlsGeometry();
 	void updateMarketCap();
+
+	void startPriceListTimer();
+	void stopPriceListTimer();
 
 private slots:
 	void onCoinColumnSortOrderChanged();

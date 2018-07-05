@@ -142,6 +142,12 @@ void BettergramSettings::parseCryptoPriceList(const QByteArray &byteArray)
 	}
 
 	double marketCap = json.value("marketCap").toDouble();
+
+	// It is optionally parameter.
+	// This parameter may contain number of seconds for the next update
+	// (5, 60, 90 seconds and etc.).
+	int freq = qAbs(json.value("freq").toInt());
+
 	QList<CryptoPrice> priceList;
 
 	QJsonArray priceListJson = json.value("prices").toArray();
@@ -186,7 +192,7 @@ void BettergramSettings::parseCryptoPriceList(const QByteArray &byteArray)
 		priceList.push_back(cryptoPrice);
 	}
 
-	_cryptoPriceList->updateData(marketCap, priceList);
+	_cryptoPriceList->updateData(marketCap, freq, priceList);
 }
 
 void BettergramSettings::onGetCryptoPriceListFinished()

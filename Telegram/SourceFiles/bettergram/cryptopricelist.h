@@ -34,6 +34,8 @@ public:
 	QString marketCapString() const;
 	void setMarketCap(double marketCap);
 
+	int freq() const;
+
 	const_iterator begin() const;
 	const_iterator end() const;
 
@@ -43,7 +45,7 @@ public:
 	SortOrder sortOrder() const;
 	void setSortOrder(const SortOrder &sortOrder);
 
-	void updateData(double marketCap, const QList<CryptoPrice> &priceList);
+	void updateData(double marketCap, int freq, const QList<CryptoPrice> &priceList);
 
 	void createTestData();
 
@@ -51,14 +53,22 @@ public slots:
 
 signals:
 	void marketCapChanged();
+	void freqChanged();
 	void sortOrderChanged();
 	void updated();
 
 protected:
 
 private:
+	/// Default frequency of updates in seconds
+	static const int _defaultFreq;
+
 	QList<CryptoPrice*> _list;
 	double _marketCap = 0.0;
+
+	/// Frequency of updates in seconds
+	int _freq;
+
 	SortOrder _sortOrder = SortOrder::None;
 
 	static bool containsName(const QList<CryptoPrice> &priceList, const QString &name);
@@ -66,6 +76,8 @@ private:
 	static bool sortByName(const CryptoPrice *price1, const CryptoPrice *price2);
 	static bool sortByPrice(const CryptoPrice *price1, const CryptoPrice *price2);
 	static bool sortBy24h(const CryptoPrice *price1, const CryptoPrice *price2);
+
+	void setFreq(int freq);
 
 	CryptoPrice *findByName(const QString &name);
 	void sort();

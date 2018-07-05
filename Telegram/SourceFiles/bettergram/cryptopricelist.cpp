@@ -4,7 +4,11 @@
 
 namespace Bettergram {
 
-CryptoPriceList::CryptoPriceList(QObject *parent) : QObject(parent)
+const int CryptoPriceList::_defaultFreq = 5;
+
+CryptoPriceList::CryptoPriceList(QObject *parent) :
+	QObject(parent),
+	_freq(_defaultFreq)
 {
 }
 
@@ -49,6 +53,23 @@ void CryptoPriceList::setMarketCap(double marketCap)
 	}
 }
 
+int CryptoPriceList::freq() const
+{
+	return _freq;
+}
+
+void CryptoPriceList::setFreq(int freq)
+{
+	if (freq == 0) {
+		freq = _defaultFreq;
+	}
+
+	if (_freq != freq) {
+		_freq = freq;
+		emit freqChanged();
+	}
+}
+
 CryptoPriceList::const_iterator CryptoPriceList::begin() const
 {
 	return _list.begin();
@@ -89,9 +110,10 @@ void CryptoPriceList::setSortOrder(const SortOrder &sortOrder)
 	}
 }
 
-void CryptoPriceList::updateData(double marketCap, const QList<CryptoPrice> &priceList)
+void CryptoPriceList::updateData(double marketCap, int freq, const QList<CryptoPrice> &priceList)
 {
 	setMarketCap(marketCap);
+	setFreq(freq);
 
 	// Remove old crypto prices
 	for (QList<CryptoPrice*>::iterator it = _list.begin(); it != _list.end();) {
