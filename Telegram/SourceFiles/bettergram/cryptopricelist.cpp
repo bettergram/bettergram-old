@@ -4,7 +4,7 @@
 
 namespace Bettergram {
 
-const int CryptoPriceList::_defaultFreq = 5;
+const int CryptoPriceList::_defaultFreq = 60;
 
 CryptoPriceList::CryptoPriceList(QObject *parent) :
 	QObject(parent),
