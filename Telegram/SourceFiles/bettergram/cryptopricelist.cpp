@@ -15,7 +15,30 @@ double CryptoPriceList::marketCap() const
 
 QString CryptoPriceList::marketCapString() const
 {
-	return QString("%1").arg(_marketCap, 0, 'f', 0);
+	QString result;
+	qint64 value = qAbs(qRound64(_marketCap));
+
+	if (!value) {
+		result = "0";
+		return result;
+	}
+
+	while (true) {
+		qint64 temp = value % 1000;
+		value /= 1000;
+
+		if (!result.isEmpty()) {
+			result.prepend(",");
+		}
+
+		result.prepend(QString("%1").arg(temp, 3, 10, QLatin1Char('0')));
+
+		if (!value) {
+			break;
+		}
+	}
+
+	return result;
 }
 
 void CryptoPriceList::setMarketCap(double marketCap)
