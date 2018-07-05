@@ -14,7 +14,7 @@ class CryptoPriceList : public QObject {
 
 public:
 	enum class SortOrder {
-		None,
+		Origin,
 
 		NameAscending,
 		NameDescending,
@@ -69,10 +69,11 @@ private:
 	/// Frequency of updates in seconds
 	int _freq;
 
-	SortOrder _sortOrder = SortOrder::None;
+	SortOrder _sortOrder = SortOrder::Origin;
 
 	static bool containsName(const QList<CryptoPrice> &priceList, const QString &name);
 
+	static bool sortByOriginSortIndex(const CryptoPrice *price1, const CryptoPrice *price2);
 	static bool sortByName(const CryptoPrice *price1, const CryptoPrice *price2);
 	static bool sortByPrice(const CryptoPrice *price1, const CryptoPrice *price2);
 	static bool sortBy24h(const CryptoPrice *price1, const CryptoPrice *price2);

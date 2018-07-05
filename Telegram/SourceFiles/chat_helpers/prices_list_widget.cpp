@@ -443,56 +443,83 @@ void PricesListWidget::updateMarketCap()
 
 void PricesListWidget::onCoinColumnSortOrderChanged()
 {
-	if (_coinHeader->sortOrder() != TableColumnHeaderWidget::SortOrder::None) {
-		_priceHeader->resetSortOrder();
-		_24hHeader->resetSortOrder();
+	_priceHeader->resetSortOrder(false);
+	_24hHeader->resetSortOrder(false);
 
-		CryptoPriceList::SortOrder sortOrder = CryptoPriceList::SortOrder::None;
+	CryptoPriceList::SortOrder sortOrder = CryptoPriceList::SortOrder::Origin;
 
-		if (_coinHeader->sortOrder() == TableColumnHeaderWidget::SortOrder::Ascending) {
-			sortOrder = CryptoPriceList::SortOrder::NameAscending;
-		} else {
-			sortOrder = CryptoPriceList::SortOrder::NameDescending;
-		}
-
-		BettergramSettings::instance()->cryptoPriceList()->setSortOrder(sortOrder);
+	switch (_coinHeader->sortOrder())
+	{
+	case (TableColumnHeaderWidget::SortOrder::None):
+		sortOrder = CryptoPriceList::SortOrder::Origin;
+		break;
+	case (TableColumnHeaderWidget::SortOrder::Ascending):
+		sortOrder = CryptoPriceList::SortOrder::NameAscending;
+		break;
+	case (TableColumnHeaderWidget::SortOrder::Descending):
+		sortOrder = CryptoPriceList::SortOrder::NameDescending;
+		break;
+	default:
+		sortOrder = CryptoPriceList::SortOrder::Origin;
+		LOG(("Can not recognize sort order %1").arg(static_cast<int>(_coinHeader->sortOrder())));
+		break;
 	}
+
+	BettergramSettings::instance()->cryptoPriceList()->setSortOrder(sortOrder);
 }
 
 void PricesListWidget::onPriceColumnSortOrderChanged()
 {
-	if (_priceHeader->sortOrder() != TableColumnHeaderWidget::SortOrder::None) {
-		_coinHeader->resetSortOrder();
-		_24hHeader->resetSortOrder();
+	_coinHeader->resetSortOrder(false);
+	_24hHeader->resetSortOrder(false);
 
-		CryptoPriceList::SortOrder sortOrder = CryptoPriceList::SortOrder::None;
+	CryptoPriceList::SortOrder sortOrder = CryptoPriceList::SortOrder::Origin;
 
-		if (_priceHeader->sortOrder() == TableColumnHeaderWidget::SortOrder::Ascending) {
-			sortOrder = CryptoPriceList::SortOrder::PriceAscending;
-		} else {
-			sortOrder = CryptoPriceList::SortOrder::PriceDescending;
-		}
-
-		BettergramSettings::instance()->cryptoPriceList()->setSortOrder(sortOrder);
+	switch (_priceHeader->sortOrder())
+	{
+	case (TableColumnHeaderWidget::SortOrder::None):
+		sortOrder = CryptoPriceList::SortOrder::Origin;
+		break;
+	case (TableColumnHeaderWidget::SortOrder::Ascending):
+		sortOrder = CryptoPriceList::SortOrder::PriceAscending;
+		break;
+	case (TableColumnHeaderWidget::SortOrder::Descending):
+		sortOrder = CryptoPriceList::SortOrder::PriceDescending;
+		break;
+	default:
+		sortOrder = CryptoPriceList::SortOrder::Origin;
+		LOG(("Can not recognize sort order %1").arg(static_cast<int>(_priceHeader->sortOrder())));
+		break;
 	}
+
+	BettergramSettings::instance()->cryptoPriceList()->setSortOrder(sortOrder);
 }
 
 void PricesListWidget::on24hColumnSortOrderChanged()
 {
-	if (_24hHeader->sortOrder() != TableColumnHeaderWidget::SortOrder::None) {
-		_coinHeader->resetSortOrder();
-		_priceHeader->resetSortOrder();
+	_coinHeader->resetSortOrder(false);
+	_priceHeader->resetSortOrder(false);
 
-		CryptoPriceList::SortOrder sortOrder = CryptoPriceList::SortOrder::None;
+	CryptoPriceList::SortOrder sortOrder = CryptoPriceList::SortOrder::Origin;
 
-		if (_24hHeader->sortOrder() == TableColumnHeaderWidget::SortOrder::Ascending) {
-			sortOrder = CryptoPriceList::SortOrder::ChangeFor24hAscending;
-		} else {
-			sortOrder = CryptoPriceList::SortOrder::ChangeFor24hDescending;
-		}
-
-		BettergramSettings::instance()->cryptoPriceList()->setSortOrder(sortOrder);
+	switch (_24hHeader->sortOrder())
+	{
+	case (TableColumnHeaderWidget::SortOrder::None):
+		sortOrder = CryptoPriceList::SortOrder::Origin;
+		break;
+	case (TableColumnHeaderWidget::SortOrder::Ascending):
+		sortOrder = CryptoPriceList::SortOrder::ChangeFor24hAscending;
+		break;
+	case (TableColumnHeaderWidget::SortOrder::Descending):
+		sortOrder = CryptoPriceList::SortOrder::ChangeFor24hDescending;
+		break;
+	default:
+		sortOrder = CryptoPriceList::SortOrder::Origin;
+		LOG(("Can not recognize sort order %1").arg(static_cast<int>(_24hHeader->sortOrder())));
+		break;
 	}
+
+	BettergramSettings::instance()->cryptoPriceList()->setSortOrder(sortOrder);
 }
 
 void PricesListWidget::onPriceListUpdated()

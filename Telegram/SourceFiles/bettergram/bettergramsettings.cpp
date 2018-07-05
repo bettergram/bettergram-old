@@ -151,6 +151,7 @@ void BettergramSettings::parseCryptoPriceList(const QByteArray &byteArray)
 	QList<CryptoPrice> priceList;
 
 	QJsonArray priceListJson = json.value("prices").toArray();
+	int i = 0;
 
 	for (const QJsonValue &jsonValue : priceListJson) {
 		QJsonObject priceJson = jsonValue.toObject();
@@ -188,8 +189,10 @@ void BettergramSettings::parseCryptoPriceList(const QByteArray &byteArray)
 		double changeFor24Hours = priceJson.value("day").toDouble();
 		bool isCurrentPriceGrown = priceJson.value("isGrown").toBool();
 
-		CryptoPrice cryptoPrice(url, iconUrl, name, shortName, price, changeFor24Hours, isCurrentPriceGrown);
+		CryptoPrice cryptoPrice(url, iconUrl, name, shortName, price, changeFor24Hours, isCurrentPriceGrown, i);
 		priceList.push_back(cryptoPrice);
+
+		i++;
 	}
 
 	_cryptoPriceList->updateData(marketCap, freq, priceList);

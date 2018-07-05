@@ -28,8 +28,8 @@ public:
 	void setTextFlags(int textFlags);
 
 	SortOrder sortOrder() const;
-	void setSortOrder(const SortOrder &sortOrder);
-	void resetSortOrder();
+	void setSortOrder(const SortOrder &sortOrder, bool isEmitSignal = true);
+	void resetSortOrder(bool isEmitSignal = true);
 
 public slots:
 

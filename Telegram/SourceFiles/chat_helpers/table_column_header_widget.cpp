@@ -53,7 +53,7 @@ TableColumnHeaderWidget::SortOrder TableColumnHeaderWidget::sortOrder() const
 	return _sortOrder;
 }
 
-void TableColumnHeaderWidget::setSortOrder(const SortOrder &sortOrder)
+void TableColumnHeaderWidget::setSortOrder(const SortOrder &sortOrder, bool isEmitSignal)
 {
 	if (_sortOrder != sortOrder) {
 		_sortOrder = sortOrder;
@@ -75,13 +75,15 @@ void TableColumnHeaderWidget::setSortOrder(const SortOrder &sortOrder)
 			break;
 		}
 
-		emit sortOrderChanged();
+		if (isEmitSignal) {
+			emit sortOrderChanged();
+		}
 	}
 }
 
-void TableColumnHeaderWidget::resetSortOrder()
+void TableColumnHeaderWidget::resetSortOrder(bool isEmitSignal)
 {
-	setSortOrder(SortOrder::None);
+	setSortOrder(SortOrder::None, isEmitSignal);
 }
 
 void TableColumnHeaderWidget::mousePressEvent(QMouseEvent *e)

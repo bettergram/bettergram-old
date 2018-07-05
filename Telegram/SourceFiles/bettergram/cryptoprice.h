@@ -25,6 +25,7 @@ public:
 						 double currentPrice,
 						 double changeFor24Hours,
 						 bool isCurrentPriceGrown,
+						 int originSortIndex,
 						 QObject *parent = nullptr);
 
 	explicit CryptoPrice(const CryptoPrice &price, QObject *parent = nullptr);
@@ -50,6 +51,8 @@ public:
 
 	bool isChangeFor24HoursGrown() const;
 
+	int originSortIndex() const;
+
 	void updateData(const CryptoPrice &price);
 	void downloadIcon();
 
@@ -63,6 +66,8 @@ signals:
 
 	void isCurrentPriceGrownChanged();
 	void isChangeFor24HoursGrownChanged();
+
+	void isOriginSortIndexChanged();
 
 protected:
 
@@ -93,6 +98,9 @@ private:
 	/// True if the price change of the cryptocurrency for the latest 24 hours is grown
 	bool _isChangeFor24HoursGrown;
 
+	/// Sort index in the price list fetched from the server.
+	int _originSortIndex = 0;
+
 	void downloadIconLater();
 
 	void setUrl(const QUrl &url);
@@ -102,6 +110,7 @@ private:
 	void setName(const QString &name);
 	void setShortName(const QString &shortName);
 	void setIsChangeFor24HoursGrown(bool isChangeFor24HoursGrown);
+	void setOriginSortIndex(int originSortIndex);
 };
 
 } // namespace Bettergram

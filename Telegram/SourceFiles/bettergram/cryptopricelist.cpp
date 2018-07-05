@@ -171,6 +171,11 @@ bool CryptoPriceList::containsName(const QList<CryptoPrice> &priceList, const QS
 	return false;
 }
 
+bool CryptoPriceList::sortByOriginSortIndex(const CryptoPrice *price1, const CryptoPrice *price2)
+{
+	return price1->originSortIndex() < price2->originSortIndex();
+}
+
 bool CryptoPriceList::sortByName(const CryptoPrice *price1, const CryptoPrice *price2)
 {
 	return QString::compare(price1->name(), price2->name(), Qt::CaseInsensitive) < 0;
@@ -189,7 +194,11 @@ bool CryptoPriceList::sortBy24h(const CryptoPrice *price1, const CryptoPrice *pr
 void CryptoPriceList::sort()
 {
 	switch (_sortOrder) {
-	case SortOrder::None:
+	case SortOrder::Origin:
+		std::sort(_list.begin(), _list.end(),
+				  [](const CryptoPrice *price1, const CryptoPrice *price2) {
+			return sortByOriginSortIndex(price1, price2);
+		});
 		break;
 	case SortOrder::NameAscending:
 		std::sort(_list.begin(), _list.end(),

@@ -29,6 +29,7 @@ CryptoPrice::CryptoPrice(const QUrl &url,
 						 double currentPrice,
 						 double changeFor24Hours,
 						 bool isCurrentPriceGrown,
+						 int originSortIndex,
 						 QObject *parent) :
 	QObject(parent),
 	_url(url),
@@ -38,7 +39,8 @@ CryptoPrice::CryptoPrice(const QUrl &url,
 	_currentPrice(currentPrice),
 	_changeFor24Hours(changeFor24Hours),
 	_isCurrentPriceGrown(isCurrentPriceGrown),
-	_isChangeFor24HoursGrown(_changeFor24Hours >= 0.0)
+	_isChangeFor24HoursGrown(_changeFor24Hours >= 0.0),
+	_originSortIndex(originSortIndex)
 {
 }
 
@@ -52,7 +54,8 @@ CryptoPrice::CryptoPrice(const CryptoPrice &price, QObject *parent) :
 	_currentPrice(price._currentPrice),
 	_changeFor24Hours(price._changeFor24Hours),
 	_isCurrentPriceGrown(price._isCurrentPriceGrown),
-	_isChangeFor24HoursGrown(price._isChangeFor24HoursGrown)
+	_isChangeFor24HoursGrown(price._isChangeFor24HoursGrown),
+	_originSortIndex(price._originSortIndex)
 {
 }
 
@@ -66,6 +69,7 @@ CryptoPrice &CryptoPrice::operator=(const CryptoPrice &price)
 	setCurrentPrice(price._currentPrice);
 	setChangeFor24Hours(price._changeFor24Hours);
 	setIsCurrentPriceGrown(price._isCurrentPriceGrown);
+	setOriginSortIndex(price._originSortIndex);
 
 	return *this;
 }
@@ -253,6 +257,19 @@ void CryptoPrice::setIsChangeFor24HoursGrown(bool isChangeFor24HoursGrown)
 	if (_isChangeFor24HoursGrown != isChangeFor24HoursGrown) {
 		_isChangeFor24HoursGrown = isChangeFor24HoursGrown;
 		emit isChangeFor24HoursGrownChanged();
+	}
+}
+
+int CryptoPrice::originSortIndex() const
+{
+	return _originSortIndex;
+}
+
+void CryptoPrice::setOriginSortIndex(int originSortIndex)
+{
+	if (_originSortIndex != originSortIndex) {
+		_originSortIndex = originSortIndex;
+		emit isOriginSortIndexChanged();
 	}
 }
 
