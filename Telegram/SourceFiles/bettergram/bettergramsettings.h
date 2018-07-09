@@ -3,6 +3,7 @@
 #include "base/observer.h"
 #include <QObject>
 #include <QtNetwork/QNetworkAccessManager>
+#include <functional>
 
 namespace Bettergram {
 
@@ -32,6 +33,9 @@ public:
 	CryptoPriceList *cryptoPriceList() const;
 	AdItem *currentAd() const;
 
+	bool isWindowActive() const;
+	void setIsWindowActive(bool isWindowActive);
+
 	base::Observable<void> &isPaidObservable();
 	base::Observable<void> &billingPlanObservable();
 
@@ -55,6 +59,8 @@ private:
 
 	CryptoPriceList *_cryptoPriceList = nullptr;
 	AdItem *_currentAd = nullptr;
+	bool _isWindowActive = true;
+	std::function<void()> _isWindowActiveHandler = nullptr;
 
 	base::Observable<void> _isPaidObservable;
 	base::Observable<void> _billingPlanObservable;

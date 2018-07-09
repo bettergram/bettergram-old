@@ -56,6 +56,16 @@ BettergramSettings::BillingPlan BettergramSettings::billingPlan() const
 	return _billingPlan;
 }
 
+void BettergramSettings::setBillingPlan(BillingPlan billingPlan)
+{
+	if (_billingPlan != billingPlan) {
+		_billingPlan = billingPlan;
+
+		emit billingPlanChanged();
+		_billingPlanObservable.notify();
+	}
+}
+
 CryptoPriceList *BettergramSettings::cryptoPriceList() const
 {
 	return _cryptoPriceList;
@@ -66,13 +76,19 @@ AdItem *BettergramSettings::currentAd() const
 	return _currentAd;
 }
 
-void BettergramSettings::setBillingPlan(BillingPlan billingPlan)
+bool BettergramSettings::isWindowActive() const
 {
-	if (_billingPlan != billingPlan) {
-		_billingPlan = billingPlan;
+	return _isWindowActive;
+}
 
-		emit billingPlanChanged();
-		_billingPlanObservable.notify();
+void BettergramSettings::setIsWindowActive(bool isWindowActive)
+{
+	if (_isWindowActive != isWindowActive) {
+		_isWindowActive = isWindowActive;
+
+		if (_isWindowActiveHandler) {
+			_isWindowActiveHandler();
+		}
 	}
 }
 
@@ -254,7 +270,19 @@ void BettergramSettings::getNextAdLater(bool reset)
 		delay = AdItem::defaultDuration();
 	}
 
-	QTimer::singleShot(delay * 1000, this, [this, reset]() { getNextAd(reset); });
+	QTimer::singleShot(delay * 1000, this, [this, reset]() {
+		if (_isWindowActive) {
+			_isWindowActiveHandler = nullptr;
+			getNextAd(reset);
+		} else {
+			_isWindowActiveHandler = [this, reset]() {
+				if (_isWindowActive) {
+					_isWindowActiveHandler = nullptr;
+					getNextAd(reset);
+				}
+			};
+		}
+	});
 }
 
 bool BettergramSettings::parseNextAd(const QByteArray &byteArray)
