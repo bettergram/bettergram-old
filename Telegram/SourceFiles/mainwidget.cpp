@@ -89,6 +89,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #include "styles/style_dialogs.h"
 #include "styles/style_history.h"
 #include "styles/style_boxes.h"
+#include "bettergram/bettergramsettings.h"
 
 namespace {
 
@@ -4129,6 +4130,7 @@ void MainWidget::updateOnline(bool gotOtherOffline) {
 		auto idle = psIdleTime();
 		if (idle >= Global::OfflineIdleTimeout()) {
 			isOnline = false;
+			Bettergram::BettergramSettings::instance()->setIsWindowActive(false);
 			if (!_isIdle) {
 				_isIdle = true;
 				_idleFinishTimer.start(900);
