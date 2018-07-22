@@ -61,6 +61,7 @@ Add **GYP** and **Ninja** to your PATH:
 * Press **Edit**
 * Add ***BuildPath*\\ThirdParty\\gyp** value
 * Add ***BuildPath*\\ThirdParty\\Ninja** value
+* And please ensure that **perl** is in the **PATH** variable
 
 ## Clone source code and prepare libraries
 
