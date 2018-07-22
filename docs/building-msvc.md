@@ -53,7 +53,7 @@ Open **x86 Native Tools Command Prompt for VS 2017.bat**, go to ***BuildPath*** 
     git checkout a478c1ab51
 then close the window
 
-Add **GYP** and **Ninja** to your PATH:
+Add **GYP**, **Ninja** and **Perl** to your PATH:
 
 * Open **Control Panel** -> **System** -> **Advanced system settings**
 * Press **Environment Variables...**
