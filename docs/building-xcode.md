@@ -21,7 +21,7 @@ Go to ***BuildPath*** and run
 
     sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 
-    git clone --recursive https://github.com/telegramdesktop/tdesktop.git
+    git clone --recursive git@github.com:bettergram/bettergram.git
 
     cd Libraries
 
