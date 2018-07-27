@@ -125,8 +125,8 @@ Go to ***BuildPath*** and run
     git checkout v5.6.2
     cd qtimageformats && git checkout v5.6.2 && cd ..
     cd qtbase && git checkout v5.6.2
-    git apply ../../../tdesktop/Telegram/Patches/qtbase_5_6_2.diff
-    git apply ../../../tdesktop/Telegram/Patches/qtbase_5_6_2_macos.diff
+    git apply ../../../bettergram/Telegram/Patches/qtbase_5_6_2.diff
+    git apply ../../../bettergram/Telegram/Patches/qtbase_5_6_2_macos.diff
     cd ..
 
     ./configure -prefix "/usr/local/tdesktop/Qt-5.6.2" -debug-and-release -force-debug-info -opensource -confirm-license -static -opengl desktop -no-openssl -securetransport -nomake examples -nomake tests -platform macx-clang
@@ -136,8 +136,8 @@ Go to ***BuildPath*** and run
 
 ### Building the project
 
-Go to ***BuildPath*/tdesktop/Telegram** and run
+Go to ***BuildPath*/bettergram/Telegram** and run
 
     gyp/refresh.sh
 
-Then launch Xcode, open ***BuildPath*/tdesktop/Telegram/Telegram.xcodeproj** and build for Debug / Release.
+Then launch Xcode, open ***BuildPath*/bettergram/Telegram/Telegram.xcodeproj** and build for Debug / Release.
