@@ -140,3 +140,16 @@ Go to ***BuildPath*/bettergram/Telegram** and run
     gyp/refresh.sh
 
 Then launch Xcode, open ***BuildPath*/bettergram/Telegram/Telegram.xcodeproj** and build for Debug / Release.
+
+### Building the Bettergram.dmg file
+
+To build the `Bettergram.dmg` file you need the following files:
+
+1. `Bettergram.icns file`
+2. `BettergramDmg.json`
+
+You can build `Bettergram.icns` from the icon set [Telegram/Telegram/Images.xcassets/Icon.iconset](https://github.com/bettergram/bettergram/tree/master/Telegram/Telegram/Images.xcassets/Icon.iconset) by using the command:
+
+`$ iconutil -c icns <iconset filename>`
+
+You can find the example of the `.json` file here: [node-appdmg](https://github.com/LinusU/node-appdmg). Also use this project to build the `Bettergram.dmg` file.
