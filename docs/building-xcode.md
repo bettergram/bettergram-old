@@ -94,7 +94,7 @@ Go to ***BuildPath*** and run
     export PATH="$PWD/depot_tools:$PATH" 
     cd gyp
     git checkout 702ac58e47
-    git apply ../../tdesktop/Telegram/Patches/gyp.diff
+    git apply ../../bettergram/Telegram/Patches/gyp.diff
     ./setup.py build
     sudo ./setup.py install
     cd ..
