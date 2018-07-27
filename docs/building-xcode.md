@@ -17,7 +17,7 @@ Go to ***BuildPath*** and run
     MACOSX_DEPLOYMENT_TARGET=10.8
 
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew install automake fdk-aac git lame libass libtool libvorbis libvpx opus sdl shtool texi2html theora wget x264 xvid yasm automake libtool
+    brew install automake fdk-aac git lame libass libtool libvorbis libvpx opus sdl shtool texi2html theora wget x264 xvid yasm automake libtool pkg-config
 
     sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 
