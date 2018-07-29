@@ -404,7 +404,7 @@ QRect TopBarWidget::getMembersShowAreaGeometry() const {
 }
 
 void TopBarWidget::mousePressEvent(QMouseEvent *e) {
-	auto handleClick = (e->button() == Qt::LeftButton)
+	auto handleClick = (e->button() == Qt::LeftButton || e->button() == Qt::RightButton)
 		&& (e->pos().y() < st::topBarHeight)
 		&& (!_selectedCount);
 	if (handleClick) {
