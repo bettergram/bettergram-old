@@ -233,7 +233,7 @@ dialogsChatTabsFavoriteButton: IconButton {
 	height: 50px;
 
 	icon: icon {{ "favorites_icon", dialogsMenuIconFg }};
-	iconOver: icon {{ "favorites_icon", dialogsMenuIconFgOver }};
+	iconOver: icon {{ "favorites_icon", windowBgActive }};
 	iconPosition: point(15px, 5px);
 
 	rippleAreaPosition: point(0px, 0px);
@@ -248,7 +248,7 @@ dialogsChatTabsGroupButton: IconButton {
 	height: 50px;
 
 	icon: icon {{ "group_icon", dialogsMenuIconFg }};
-	iconOver: icon {{ "group_icon", dialogsMenuIconFgOver }};
+	iconOver: icon {{ "group_icon", windowBgActive }};
 	iconPosition: point(15px, 5px);
 
 	rippleAreaPosition: point(0px, 0px);
@@ -263,7 +263,7 @@ dialogsChatTabsOneOnOneButton: IconButton {
 	height: 50px;
 
 	icon: icon {{ "private_icon", dialogsMenuIconFg }};
-	iconOver: icon {{ "private_icon", dialogsMenuIconFgOver }};
+	iconOver: icon {{ "private_icon", windowBgActive }};
 	iconPosition: point(15px, 5px);
 
 	rippleAreaPosition: point(0px, 0px);
@@ -278,7 +278,7 @@ dialogsChatTabsAnnouncementButton: IconButton {
 	height: 50px;
 
 	icon: icon {{ "announcements_icon", dialogsMenuIconFg }};
-	iconOver: icon {{ "announcements_icon", dialogsMenuIconFgOver }};
+	iconOver: icon {{ "announcements_icon", windowBgActive }};
 	iconPosition: point(15px, 5px);
 
 	rippleAreaPosition: point(0px, 0px);
