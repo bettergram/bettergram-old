@@ -437,6 +437,7 @@ private:
 	void send();
 	void handlePendingHistoryUpdate();
 	void fullPeerUpdated(PeerData *peer);
+	void toggleBettergramTabsMode();
 	void toggleTabbedSelectorMode();
 	void returnTabbedSelector(object_ptr<TabbedSelector> selector);
 	void recountChatWidth();
@@ -807,6 +808,7 @@ private:
 	mtpRequestId _unblockRequest = 0;
 	mtpRequestId _reportSpamRequest = 0;
 	object_ptr<Ui::IconButton> _attachToggle;
+	object_ptr<Ui::EmojiButton> _bettergramTabsToggle;
 	object_ptr<Ui::EmojiButton> _tabbedSelectorToggle;
 	object_ptr<Ui::ImportantTooltip> _tabbedSelectorToggleTooltip = { nullptr };
 	bool _tabbedSelectorToggleTooltipShown = false;

@@ -426,6 +426,7 @@ HistoryWidget::HistoryWidget(
 , _joinChannel(this, lang(lng_profile_join_channel).toUpper(), st::historyComposeButton)
 , _muteUnmute(this, lang(lng_channel_mute).toUpper(), st::historyComposeButton)
 , _attachToggle(this, st::historyAttach)
+, _bettergramTabsToggle(this, st::historyAttachEmoji)
 , _tabbedSelectorToggle(this, st::historyAttachEmoji)
 , _botKeyboardShow(this, st::historyBotKeyboardShow)
 , _botKeyboardHide(this, st::historyBotKeyboardHide)
@@ -565,10 +566,17 @@ HistoryWidget::HistoryWidget(
 	_send->setRecordAnimationCallback([this] { updateField(); });
 
 	_attachToggle->hide();
+	_bettergramTabsToggle->hide();
 	_tabbedSelectorToggle->hide();
 	_botKeyboardShow->hide();
 	_botKeyboardHide->hide();
 	_botCommandStart->hide();
+
+	//TODO: bettergram: check it
+	_bettergramTabsToggle->installEventFilter(_tabbedPanel);
+	_bettergramTabsToggle->setClickedCallback([this] {
+		toggleBettergramTabsMode();
+	});
 
 	_tabbedSelectorToggle->installEventFilter(_tabbedPanel);
 	_tabbedSelectorToggle->setClickedCallback([this] {
@@ -1106,6 +1114,9 @@ void HistoryWidget::orderWidgets() {
 		_tabbedPanel->raise();
 	}
 	_emojiSuggestions->raise();
+	if (_bettergramTabsToggle) {
+		_bettergramTabsToggle->raise();
+	}
 	if (_tabbedSelectorToggleTooltip) {
 		_tabbedSelectorToggleTooltip->raise();
 	}
@@ -1430,6 +1441,7 @@ void HistoryWidget::notify_botCommandsChanged(UserData *user) {
 }
 
 void HistoryWidget::notify_inlineBotRequesting(bool requesting) {
+	_bettergramTabsToggle->setLoading(requesting);
 	_tabbedSelectorToggle->setLoading(requesting);
 }
 
@@ -2201,6 +2213,7 @@ void HistoryWidget::updateControlsVisibility() {
 		_kbScroll->hide();
 		_fieldBarCancel->hide();
 		_attachToggle->hide();
+		_bettergramTabsToggle->hide();
 		_tabbedSelectorToggle->hide();
 		_botKeyboardShow->hide();
 		_botKeyboardHide->hide();
@@ -2226,6 +2239,7 @@ void HistoryWidget::updateControlsVisibility() {
 		updateSendButtonType();
 		if (_recording) {
 			_field->hide();
+			_bettergramTabsToggle->hide();
 			_tabbedSelectorToggle->hide();
 			_botKeyboardShow->hide();
 			_botKeyboardHide->hide();
@@ -2243,18 +2257,21 @@ void HistoryWidget::updateControlsVisibility() {
 			_field->show();
 			if (_kbShown) {
 				_kbScroll->show();
+				_bettergramTabsToggle->hide();
 				_tabbedSelectorToggle->hide();
 				_botKeyboardHide->show();
 				_botKeyboardShow->hide();
 				_botCommandStart->hide();
 			} else if (_kbReplyTo) {
 				_kbScroll->hide();
+				_bettergramTabsToggle->show();
 				_tabbedSelectorToggle->show();
 				_botKeyboardHide->hide();
 				_botKeyboardShow->hide();
 				_botCommandStart->hide();
 			} else {
 				_kbScroll->hide();
+				_bettergramTabsToggle->show();
 				_tabbedSelectorToggle->show();
 				_botKeyboardHide->hide();
 				if (_keyboard->hasMarkup()) {
@@ -2298,6 +2315,7 @@ void HistoryWidget::updateControlsVisibility() {
 		_kbScroll->hide();
 		_fieldBarCancel->hide();
 		_attachToggle->hide();
+		_bettergramTabsToggle->hide();
 		_tabbedSelectorToggle->hide();
 		_botKeyboardShow->hide();
 		_botKeyboardHide->hide();
@@ -3864,8 +3882,10 @@ void HistoryWidget::onKbToggle(bool manual) {
 	}
 	updateControlsGeometry();
 	if (_botKeyboardHide->isHidden() && canWriteMessage() && !_a_show.animating()) {
+		_bettergramTabsToggle->show();
 		_tabbedSelectorToggle->show();
 	} else {
+		_bettergramTabsToggle->hide();
 		_tabbedSelectorToggle->hide();
 	}
 	updateField();
@@ -3936,6 +3956,10 @@ void HistoryWidget::pushTabbedSelectorToThirdSection(
 	destroyingPanel.destroy();
 }
 
+void HistoryWidget::toggleBettergramTabsMode() {
+	//TODO: bettergram: realize HistoryWidget::toggleBettergramTabsMode() method
+}
+
 void HistoryWidget::toggleTabbedSelectorMode() {
 	if (_tabbedPanel) {
 		if (controller()->canShowThirdSection()
@@ -3996,8 +4020,9 @@ void HistoryWidget::moveFieldControls() {
 	_field->moveToLeft(left, bottom - _field->height() - st::historySendPadding);
 	auto right = st::historySendRight;
 	_send->moveToRight(right, buttonsBottom); right += _send->width();
-	_tabbedSelectorToggle->moveToRight(right, buttonsBottom);
+	_tabbedSelectorToggle->moveToRight(right, buttonsBottom); right += _tabbedSelectorToggle->width();
 	updateTabbedSelectorToggleTooltipGeometry();
+	_bettergramTabsToggle->moveToRight(right, buttonsBottom);
 	_botKeyboardHide->moveToRight(right, buttonsBottom); right += _botKeyboardHide->width();
 	_botKeyboardShow->moveToRight(right, buttonsBottom);
 	_botCommandStart->moveToRight(right, buttonsBottom);
@@ -4043,6 +4068,7 @@ void HistoryWidget::updateFieldSize() {
 	auto kbShowShown = _history && !_kbShown && _keyboard->hasMarkup();
 	auto fieldWidth = width() - _attachToggle->width() - st::historySendRight;
 	fieldWidth -= _send->width();
+	fieldWidth -= _bettergramTabsToggle->width();
 	fieldWidth -= _tabbedSelectorToggle->width();
 	if (kbShowShown) fieldWidth -= _botKeyboardShow->width();
 	if (_cmdStartShown) fieldWidth -= _botCommandStart->width();
@@ -5158,10 +5184,12 @@ void HistoryWidget::updateBotKeyboard(History *h, bool force) {
 			if (!_a_show.animating()) {
 				if (hasMarkup) {
 					_kbScroll->show();
+					_bettergramTabsToggle->hide();
 					_tabbedSelectorToggle->hide();
 					_botKeyboardHide->show();
 				} else {
 					_kbScroll->hide();
+					_bettergramTabsToggle->show();
 					_tabbedSelectorToggle->show();
 					_botKeyboardHide->hide();
 				}
@@ -5179,6 +5207,7 @@ void HistoryWidget::updateBotKeyboard(History *h, bool force) {
 		} else {
 			if (!_a_show.animating()) {
 				_kbScroll->hide();
+				_bettergramTabsToggle->show();
 				_tabbedSelectorToggle->show();
 				_botKeyboardHide->hide();
 				_botKeyboardShow->show();
@@ -5195,6 +5224,7 @@ void HistoryWidget::updateBotKeyboard(History *h, bool force) {
 	} else {
 		if (!_scroll->isHidden()) {
 			_kbScroll->hide();
+			_bettergramTabsToggle->show();
 			_tabbedSelectorToggle->show();
 			_botKeyboardHide->hide();
 			_botKeyboardShow->hide();
