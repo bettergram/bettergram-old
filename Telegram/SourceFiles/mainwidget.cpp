@@ -2845,7 +2845,9 @@ void MainWidget::updateControlsGeometry() {
 				Window::SectionShow::Way::ClearStack,
 				anim::type::instant,
 				anim::activation::background);
-			if (Auth().settings().tabbedSelectorSectionEnabled()) {
+			if (Auth().settings().bettergramTabsSectionEnabled()) {
+				_history->pushBettergramTabsToThirdSection(params);
+			} else if (Auth().settings().tabbedSelectorSectionEnabled()) {
 				_history->pushTabbedSelectorToThirdSection(params);
 			} else if (Auth().settings().thirdSectionInfoEnabled()) {
 				if (const auto key = _controller->activeChatCurrent()) {
@@ -3098,11 +3100,26 @@ void MainWidget::updateThirdColumnToCurrentChat(
 			std::move(*thirdSectionForCurrentMainSection(key)),
 			params.withThirdColumn());
 	};
+	auto switchBettergramTabsFast = [&] {
+		saveOldThirdSection();
+		_history->pushBettergramTabsToThirdSection(params);
+	};
 	auto switchTabbedFast = [&] {
 		saveOldThirdSection();
 		_history->pushTabbedSelectorToThirdSection(params);
 	};
 	if (Adaptive::ThreeColumn()
+		&& Auth().settings().bettergramTabsSectionEnabled()
+		&& key) {
+		if (!canWrite) {
+			switchInfoFast();
+			Auth().settings().setBettergramTabsSectionEnabled(true);
+			Auth().settings().setTabbedReplacedWithInfo(true);
+		} else if (Auth().settings().tabbedReplacedWithInfo()) {
+			Auth().settings().setTabbedReplacedWithInfo(false);
+			switchBettergramTabsFast();
+		}
+	} else if (Adaptive::ThreeColumn()
 		&& Auth().settings().tabbedSelectorSectionEnabled()
 		&& key) {
 		if (!canWrite) {

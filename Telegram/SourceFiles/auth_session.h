@@ -70,9 +70,13 @@ public:
 	void setSelectorTab(ChatHelpers::SelectorTab tab) {
 		_variables.selectorTab = tab;
 	}
+	bool bettergramTabsSectionEnabled() const {
+		return _variables.bettergramTabsSectionEnabled;
+	}
 	bool tabbedSelectorSectionEnabled() const {
 		return _variables.tabbedSelectorSectionEnabled;
 	}
+	void setBettergramTabsSectionEnabled(bool enabled);
 	void setTabbedSelectorSectionEnabled(bool enabled);
 	bool thirdSectionInfoEnabled() const {
 		return _variables.thirdSectionInfoEnabled;
@@ -154,6 +158,7 @@ private:
 		bool lastSeenWarningSeen = false;
 		SendFilesWay sendFilesWay;
 		ChatHelpers::SelectorTab selectorTab; // per-window
+		bool bettergramTabsSectionEnabled = false; // per-window
 		bool tabbedSelectorSectionEnabled = false; // per-window
 		int tabbedSelectorSectionTooltipShown = 0;
 		QMap<QString, QString> soundOverrides;

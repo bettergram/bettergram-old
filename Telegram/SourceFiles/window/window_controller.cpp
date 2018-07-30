@@ -156,7 +156,8 @@ Controller::ColumnLayout Controller::computeColumnLayout() const {
 		if (bodyWidth < minimalThreeColumnWidth()) {
 			return true;
 		}
-		if (!Auth().settings().tabbedSelectorSectionEnabled()
+		if (!Auth().settings().bettergramTabsSectionEnabled()
+			&& !Auth().settings().tabbedSelectorSectionEnabled()
 			&& !Auth().settings().thirdSectionInfoEnabled()) {
 			return true;
 		}
@@ -246,10 +247,13 @@ void Controller::resizeForThirdSection() {
 	}
 
 	auto layout = computeColumnLayout();
+	auto bettergramTabsSectionEnabled =
+		Auth().settings().bettergramTabsSectionEnabled();
 	auto tabbedSelectorSectionEnabled =
 		Auth().settings().tabbedSelectorSectionEnabled();
 	auto thirdSectionInfoEnabled =
 		Auth().settings().thirdSectionInfoEnabled();
+	Auth().settings().setBettergramTabsSectionEnabled(false);
 	Auth().settings().setTabbedSelectorSectionEnabled(false);
 	Auth().settings().setThirdSectionInfoEnabled(false);
 
@@ -283,6 +287,8 @@ void Controller::resizeForThirdSection() {
 	auto savedValue = (extendedBy == extendBy) ? -1 : extendedBy;
 	Auth().settings().setThirdSectionExtendedBy(savedValue);
 
+	Auth().settings().setBettergramTabsSectionEnabled(
+		bettergramTabsSectionEnabled);
 	Auth().settings().setTabbedSelectorSectionEnabled(
 		tabbedSelectorSectionEnabled);
 	Auth().settings().setThirdSectionInfoEnabled(
@@ -309,6 +315,7 @@ void Controller::closeThirdSection() {
 			window()->width() + (newBodyWidth - layout.bodyWidth),
 			window()->height());
 	}
+	Auth().settings().setBettergramTabsSectionEnabled(false);
 	Auth().settings().setTabbedSelectorSectionEnabled(false);
 	Auth().settings().setThirdSectionInfoEnabled(false);
 	Auth().saveSettingsDelayed();

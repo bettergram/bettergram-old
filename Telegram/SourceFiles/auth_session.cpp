@@ -51,6 +51,7 @@ QByteArray AuthSessionSettings::serialize() const {
 		stream.setVersion(QDataStream::Qt_5_1);
 		stream << static_cast<qint32>(_variables.selectorTab);
 		stream << qint32(_variables.lastSeenWarningSeen ? 1 : 0);
+		stream << qint32(_variables.bettergramTabsSectionEnabled ? 1 : 0);
 		stream << qint32(_variables.tabbedSelectorSectionEnabled ? 1 : 0);
 		stream << qint32(_variables.soundOverrides.size());
 		for (auto i = _variables.soundOverrides.cbegin(), e = _variables.soundOverrides.cend(); i != e; ++i) {
@@ -85,6 +86,7 @@ void AuthSessionSettings::constructFromSerialized(const QByteArray &serialized) 
 	stream.setVersion(QDataStream::Qt_5_1);
 	qint32 selectorTab = static_cast<qint32>(ChatHelpers::SelectorTab::Emoji);
 	qint32 lastSeenWarningSeen = 0;
+	qint32 bettergramTabsSectionEnabled = 0;
 	qint32 tabbedSelectorSectionEnabled = 1;
 	qint32 tabbedSelectorSectionTooltipShown = 0;
 	qint32 floatPlayerColumn = static_cast<qint32>(Window::Column::Second);
@@ -99,6 +101,9 @@ void AuthSessionSettings::constructFromSerialized(const QByteArray &serialized) 
 	qint32 sendFilesWay = static_cast<qint32>(_variables.sendFilesWay);
 	stream >> selectorTab;
 	stream >> lastSeenWarningSeen;
+	if (!stream.atEnd()) {
+		stream >> bettergramTabsSectionEnabled;
+	}
 	if (!stream.atEnd()) {
 		stream >> tabbedSelectorSectionEnabled;
 	}
@@ -158,6 +163,7 @@ void AuthSessionSettings::constructFromSerialized(const QByteArray &serialized) 
 	case ChatHelpers::SelectorTab::Gifs: _variables.selectorTab = uncheckedTab; break;
 	}
 	_variables.lastSeenWarningSeen = (lastSeenWarningSeen == 1);
+	_variables.bettergramTabsSectionEnabled = (bettergramTabsSectionEnabled == 1);
 	_variables.tabbedSelectorSectionEnabled = (tabbedSelectorSectionEnabled == 1);
 	_variables.soundOverrides = std::move(soundOverrides);
 	_variables.tabbedSelectorSectionTooltipShown = tabbedSelectorSectionTooltipShown;
@@ -180,7 +186,12 @@ void AuthSessionSettings::constructFromSerialized(const QByteArray &serialized) 
 	_variables.dialogsWidthRatio = dialogsWidthRatio;
 	_variables.thirdColumnWidth = thirdColumnWidth;
 	_variables.thirdSectionExtendedBy = thirdSectionExtendedBy;
+	if (_variables.tabbedSelectorSectionEnabled) {
+		_variables.bettergramTabsSectionEnabled = false;
+		_variables.thirdSectionInfoEnabled = false;
+	}
 	if (_variables.thirdSectionInfoEnabled) {
+		_variables.bettergramTabsSectionEnabled = false;
 		_variables.tabbedSelectorSectionEnabled = false;
 	}
 	auto uncheckedSendFilesWay = static_cast<SendFilesWay>(sendFilesWay);
@@ -191,9 +202,19 @@ void AuthSessionSettings::constructFromSerialized(const QByteArray &serialized) 
 	}
 }
 
+void AuthSessionSettings::setBettergramTabsSectionEnabled(bool enabled) {
+	_variables.bettergramTabsSectionEnabled = enabled;
+	if (enabled) {
+		setTabbedSelectorSectionEnabled(false);
+		setThirdSectionInfoEnabled(false);
+	}
+	setTabbedReplacedWithInfo(false);
+}
+
 void AuthSessionSettings::setTabbedSelectorSectionEnabled(bool enabled) {
 	_variables.tabbedSelectorSectionEnabled = enabled;
 	if (enabled) {
+		setBettergramTabsSectionEnabled(false);
 		setThirdSectionInfoEnabled(false);
 	}
 	setTabbedReplacedWithInfo(false);
@@ -208,6 +229,7 @@ void AuthSessionSettings::setThirdSectionInfoEnabled(bool enabled) {
 	if (_variables.thirdSectionInfoEnabled != enabled) {
 		_variables.thirdSectionInfoEnabled = enabled;
 		if (enabled) {
+			setBettergramTabsSectionEnabled(false);
 			setTabbedSelectorSectionEnabled(false);
 		}
 		setTabbedReplacedWithInfo(false);
