@@ -24,6 +24,20 @@ if [ "$MySystem" == "Linux" ]; then
   cmake .
   cd ../../Telegram/gyp
 else
+  if [ -n "$BuildTarget" ]; then
+    echo "Build target:" $BuildTarget
+  fi
+
+  if [ "$BuildTarget" == "macstore" ]; then
+    echo ""
+    echo "You can change the build target at the Telegram/build/target file."
+    echo "If you want to deliver the application outside the Apple App Store"
+    echo "then just clear the content of the Telegram/build/target file."
+  else
+    echo "At macOS you can build the application for Apple App Store."
+    echo "To do that you have to create the Telegram/build/target file with content: macstore"
+  fi
+
   #gyp --depth=. --generator-output=../.. -Goutput_dir=out Telegram.gyp --format=ninja
   #gyp --depth=. --generator-output=../.. -Goutput_dir=out Telegram.gyp --format=xcode-ninja
   #gyp --depth=. --generator-output=../.. -Goutput_dir=out Telegram.gyp --format=xcode
