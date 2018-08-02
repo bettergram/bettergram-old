@@ -42,7 +42,8 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #endif // QT_VERSION < 5.5.0
 
 #ifdef OS_MAC_STORE
-#define MAC_USE_BREAKPAD
+// We do not use breakpad on mac store because we will get bug reports anyway there
+//#define MAC_USE_BREAKPAD
 #endif // OS_MAC_STORE
 
 #include <QtWidgets/QtWidgets>

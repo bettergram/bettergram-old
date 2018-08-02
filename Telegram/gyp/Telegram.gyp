@@ -122,7 +122,6 @@
           'CUSTOM_API_ID',
         ],
         'dependencies': [
-          'utils.gyp:Packer',
         ],
       }],
     ],

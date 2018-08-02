@@ -34,7 +34,10 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 #ifdef MAC_USE_BREAKPAD
 #include "client/mac/handler/exception_handler.h"
 #else // MAC_USE_BREAKPAD
+// It seems we used crashpad only for old macOS builds, so we do not need it now
+#if 0
 #include "client/crashpad_client.h"
+#endif
 #endif // else for MAC_USE_BREAKPAD
 
 #elif defined Q_OS_LINUX64 || defined Q_OS_LINUX32 // Q_OS_MAC
@@ -345,6 +348,8 @@ void StartCatching() {
 #endif // !_DEBUG
 	SetSignalHandlers = false;
 #else // MAC_USE_BREAKPAD
+// It seems we used crashpad only for old macOS builds, so we do not need it now
+#if 0
 	crashpad::CrashpadClient crashpad_client;
 	std::string handler = (cExeDir() + cExeName() + qsl("/Contents/Helpers/crashpad_handler")).toUtf8().constData();
 	std::string database = QFile::encodeName(dumpspath).constData();
@@ -356,6 +361,7 @@ void StartCatching() {
 		                                false)) {
 		crashpad_client.UseHandler();
 	}
+#endif
 #endif // else for MAC_USE_BREAKPAD
 #elif defined Q_OS_LINUX64 || defined Q_OS_LINUX32
 	BreakpadExceptionHandler = new google_breakpad::ExceptionHandler(

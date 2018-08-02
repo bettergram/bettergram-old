@@ -195,17 +195,15 @@
     }],
   }], [ 'build_macstore', {
     'xcode_settings': {
-      'PRODUCT_BUNDLE_IDENTIFIER': 'org.Bettergram.desktop',
+      'PRODUCT_BUNDLE_IDENTIFIER': 'io.bettergram.Bettergram',
       'OTHER_LDFLAGS': [
-        '-framework', 'Breakpad',
       ],
       'FRAMEWORK_SEARCH_PATHS': [
-        '<(libs_loc)/breakpad/src/client/mac/build/Release',
       ],
     },
     'mac_sandbox': 1,
     'mac_sandbox_development_team': '6N38VWS5BX',
-    'product_name': 'Bettergram Desktop',
+    'product_name': 'Bettergram - Crypto Chat App',
     'sources': [
       '../Telegram/Telegram Desktop.entitlements',
     ],
@@ -216,19 +214,12 @@
     'postbuilds': [{
       'postbuild_name': 'Clear Frameworks path',
       'action': [
-        'rm', '-rf', '${BUILT_PRODUCTS_DIR}/Bettergram Desktop.app/Contents/Frameworks'
+        'rm', '-rf', '${BUILT_PRODUCTS_DIR}/Bettergram - Crypto Chat App.app/Contents/Frameworks'
       ],
     }, {
       'postbuild_name': 'Force Frameworks path',
       'action': [
-        'mkdir', '-p', '${BUILT_PRODUCTS_DIR}/Bettergram Desktop.app/Contents/Frameworks/'
-      ],
-    }, {
-      'postbuild_name': 'Copy Breakpad.framework to Frameworks',
-      'action': [
-        'cp', '-a',
-        '<(libs_loc)/breakpad/src/client/mac/build/Release/Breakpad.framework',
-        '${BUILT_PRODUCTS_DIR}/Bettergram Desktop.app/Contents/Frameworks/Breakpad.framework',
+        'mkdir', '-p', '${BUILT_PRODUCTS_DIR}/Bettergram - Crypto Chat App.app/Contents/Frameworks/'
       ],
     }]
   }]],

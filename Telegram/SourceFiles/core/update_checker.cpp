@@ -2118,7 +2118,7 @@ void UpdateApplication() {
 #ifdef OS_WIN_STORE
 		return "https://www.microsoft.com/en-us/store/p/telegram-desktop/9nztwsqntd0s";
 #elif defined OS_MAC_STORE // OS_WIN_STORE
-		return "https://itunes.apple.com/ae/app/telegram-desktop/id946399090";
+		return "https://itunes.apple.com/us/app/bettergram-crypto-chat-app/id1419951099";
 #else // OS_WIN_STORE || OS_MAC_STORE
 		return "https://desktop.telegram.org";
 #endif // OS_WIN_STORE || OS_MAC_STORE
