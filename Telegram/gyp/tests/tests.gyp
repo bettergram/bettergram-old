@@ -5,6 +5,11 @@
 # https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
 
 {
+  'conditions': [[ 'build_macstore', {
+    'xcode_settings': {
+      'SKIP_INSTALL': 'YES',
+    }
+  }]],
   'includes': [
     '../common.gypi',
   ],

@@ -1,0 +1,14 @@
+diff --git ../Telegram/ThirdParty/libtgvoip/libtgvoip.gyp ../Telegram/ThirdParty/libtgvoip/libtgvoip.gyp
+index f236987..708397b 100644
+--- ../Telegram/ThirdParty/libtgvoip/libtgvoip.gyp
++++ ../Telegram/ThirdParty/libtgvoip/libtgvoip.gyp
+@@ -1,6 +1,9 @@
+ # GYP project file for TDesktop
+ 
+ {
++    'xcode_settings': {
++      'SKIP_INSTALL': 'YES',
++    },
+     'targets': [
+       {
+         'target_name': 'libtgvoip',
