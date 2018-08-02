@@ -156,6 +156,8 @@
         '-lcrashpad_util',
       ],
      },
+    'mac_sandbox': 1,
+    'mac_sandbox_development_team': '6N38VWS5BX',
     'configurations': {
       'Debug': {
         'xcode_settings': {
