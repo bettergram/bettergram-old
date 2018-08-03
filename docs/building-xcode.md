@@ -206,3 +206,17 @@ To build the `Bettergram.app` for Apple App Store you should do the following st
 4. Open `Telegram/Telegram.xcodeproj` in XCode
 5. `Product`->`Archive`
 6. And wait...
+
+### Utils
+
+To sign the application manually:
+
+`$ codesign -v --force --deep -s "Developer ID Application: Bettergram LLC (XACK216ZA8)" Bettergram.app`
+
+To verify signing:
+
+`$ codesign -dv --verbose=4 my.app`
+
+Check that the app binary is sandboxed:
+
+`$ codesign -dvvv --entitlements :- executable_path`
