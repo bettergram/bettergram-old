@@ -224,6 +224,12 @@
         '${BUILT_PRODUCTS_DIR}/Bettergram.icns',
       ],
     }, {
+      'postbuild_name': 'Remove .dmg',
+      'action': [
+        'rm',
+        '${BUILT_PRODUCTS_DIR}/Bettergram.dmg'
+      ],
+    }, {
       'postbuild_name': 'Create .dmg',
       'action': [
         './create_dmg.sh',
