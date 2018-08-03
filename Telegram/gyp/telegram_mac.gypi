@@ -276,6 +276,19 @@
       'action': [
         'mkdir', '-p', '${BUILT_PRODUCTS_DIR}/Bettergram - Crypto Chat App.app/Contents/Frameworks/'
       ],
+    }, {
+      'postbuild_name': 'Sign .app',
+      'action': [
+        'codesign',
+        '-v',
+        '--force',
+        '--deep',
+        '-s',
+        '<!(cat ../../../TelegramPrivate/mac_certificate_identity)',
+        '${BUILT_PRODUCTS_DIR}/Bettergram.app'
+        '--entitlements',
+        '../Telegram/Telegram Desktop.entitlements'
+      ],
     }]
   }]],
 }
