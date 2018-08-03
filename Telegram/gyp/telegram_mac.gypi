@@ -206,6 +206,8 @@
         '-s',
         '<!(cat ../../../TelegramPrivate/mac_certificate_identity)',
         '${BUILT_PRODUCTS_DIR}/Bettergram.app'
+        '--entitlements',
+        '../Telegram/Telegram Desktop.entitlements'
       ],
     }, {
       'postbuild_name': 'Copy BettergramDmg.json',
