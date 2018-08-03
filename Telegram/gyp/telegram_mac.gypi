@@ -227,6 +227,7 @@
       'postbuild_name': 'Remove .dmg',
       'action': [
         'rm',
+        '-rf',
         '${BUILT_PRODUCTS_DIR}/Bettergram.dmg'
       ],
     }, {
