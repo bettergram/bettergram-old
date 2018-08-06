@@ -64,6 +64,12 @@ public:
 	SendFilesWay sendFilesWay() const {
 		return _variables.sendFilesWay;
 	}
+	ChatHelpers::SelectorTab bettergramSelectorTab() const {
+		return _variables.bettergramSelectorTab;
+	}
+	void setBettergramSelectorTab(ChatHelpers::SelectorTab tab) {
+		_variables.bettergramSelectorTab = tab;
+	}
 	ChatHelpers::SelectorTab selectorTab() const {
 		return _variables.selectorTab;
 	}
@@ -157,6 +163,7 @@ private:
 
 		bool lastSeenWarningSeen = false;
 		SendFilesWay sendFilesWay;
+		ChatHelpers::SelectorTab bettergramSelectorTab; // per-window
 		ChatHelpers::SelectorTab selectorTab; // per-window
 		bool bettergramTabsSectionEnabled = false; // per-window
 		bool tabbedSelectorSectionEnabled = false; // per-window

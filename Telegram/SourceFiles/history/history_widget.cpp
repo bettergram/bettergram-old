@@ -440,6 +440,7 @@ HistoryWidget::HistoryWidget(
 , _a_recording(animation(this, &HistoryWidget::step_recording))
 , _kbScroll(this, st::botKbScroll)
 , _bettergramTabsPanel(this, controller)
+, _bettergramTabsSelector(_bettergramTabsPanel->getSelector())
 , _tabbedPanel(this, controller)
 , _tabbedSelector(_tabbedPanel->getSelector())
 , _attachDragState(DragState::None)

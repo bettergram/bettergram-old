@@ -848,6 +848,7 @@ private:
 
 	object_ptr<InlineBots::Layout::Widget> _inlineResults = { nullptr };
 	object_ptr<TabbedPanel> _bettergramTabsPanel;
+	QPointer<TabbedSelector> _bettergramTabsSelector;
 	object_ptr<TabbedPanel> _tabbedPanel;
 	QPointer<TabbedSelector> _tabbedSelector;
 	DragState _attachDragState;

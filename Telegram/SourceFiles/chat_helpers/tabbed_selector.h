@@ -30,10 +30,16 @@ class Controller;
 namespace ChatHelpers {
 
 enum class SelectorTab {
+	// Bettergram tabs
 	Prices,
+	// Telegram tabs
 	Emoji,
 	Stickers,
 	Gifs,
+	// Bettergram tabs. Do not change order of them because Telegram uses them as indexes
+	News,
+	Icos,
+	Resources
 };
 
 class EmojiListWidget;
