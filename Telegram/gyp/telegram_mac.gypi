@@ -156,8 +156,6 @@
         '-lcrashpad_util',
       ],
      },
-    'mac_sandbox': 1,
-    'mac_sandbox_development_team': '<!(cat ../../../TelegramPrivate/mac_development_team)',
     'configurations': {
       'Debug': {
         'xcode_settings': {
@@ -205,9 +203,7 @@
         '--deep',
         '-s',
         '<!(cat ../../../TelegramPrivate/mac_certificate_identity)',
-        '${BUILT_PRODUCTS_DIR}/Bettergram.app',
-        '--entitlements',
-        '../Telegram/Telegram Desktop.entitlements'
+        '${BUILT_PRODUCTS_DIR}/Bettergram.app'
       ],
     }, {
       'postbuild_name': 'Copy BettergramDmg.json',
