@@ -79,6 +79,11 @@
       }, {
         'build_macstore': 0,
       }],
+      [ '"<(official_build_target)" == "macdmg"', {
+        'build_macdmg': 1,
+      }, {
+        'build_macdmg': 0,
+      }],
       [ '"<(official_build_target)" == "uwp"', {
         'build_uwp': 1,
       }, {

@@ -157,7 +157,7 @@
       ],
      },
     'mac_sandbox': 1,
-    'mac_sandbox_development_team': '6N38VWS5BX',
+    'mac_sandbox_development_team': '<!(cat ../../../TelegramPrivate/mac_development_team)',
     'configurations': {
       'Debug': {
         'xcode_settings': {
@@ -194,6 +194,51 @@
         '<(libs_loc)/crashpad/out/${CONFIGURATION}/crashpad_handler',
         '${BUILT_PRODUCTS_DIR}/Bettergram.app/Contents/Helpers/',
       ],
+    }]
+  }], [ 'build_macdmg', {
+    'postbuilds': [{
+      'postbuild_name': 'Sign .app',
+      'action': [
+        'codesign',
+        '-v',
+        '--force',
+        '--deep',
+        '-s',
+        '<!(cat ../../../TelegramPrivate/mac_certificate_identity)',
+        '${BUILT_PRODUCTS_DIR}/Bettergram.app'
+      ],
+    }, {
+      'postbuild_name': 'Copy BettergramDmg.json',
+      'action': [
+        'cp',
+        '../../../TelegramPrivate/BettergramDmg.json',
+        '${BUILT_PRODUCTS_DIR}/BettergramDmg.json',
+      ],
+    }, {
+      'postbuild_name': 'Copy Bettergram.icns',
+      'action': [
+        'cp',
+        '../../../TelegramPrivate/Bettergram.icns',
+        '${BUILT_PRODUCTS_DIR}/Bettergram.icns',
+      ],
+    }, {
+      'postbuild_name': 'Create .dmg',
+      'action': [
+        './create_dmg.sh',
+        '${BUILT_PRODUCTS_DIR}/BettergramDmg.json',
+        '${BUILT_PRODUCTS_DIR}/Bettergram.dmg'
+      ],
+    }, {
+      'postbuild_name': 'Sign .dmg',
+      'action': [
+        'codesign',
+        '-v',
+        '--force',
+        '--deep',
+        '-s',
+        '<!(cat ../../../TelegramPrivate/mac_certificate_identity)',
+        '${BUILT_PRODUCTS_DIR}/Bettergram.dmg'
+      ],
     }],
   }], [ 'build_macstore', {
     'xcode_settings': {
@@ -204,7 +249,7 @@
       ],
     },
     'mac_sandbox': 1,
-    'mac_sandbox_development_team': '6N38VWS5BX',
+    'mac_sandbox_development_team': '<!(cat ../../../TelegramPrivate/mac_development_team)',
     'product_name': 'Bettergram - Crypto Chat App',
     'sources': [
       '../Telegram/Telegram Desktop.entitlements',
